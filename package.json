@@ -1,0 +1,32 @@
+{
+  "name": "stenkbot",
+  "version": "0.0.1",
+  "description": "StenkBot Discord Bot",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "npx nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xTeamStanly/StenkBot.git"
+  },
+  "keywords": [
+    "stenkbot"
+  ],
+  "author": "xTeamStanly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xTeamStanly/StenkBot/issues"
+  },
+  "homepage": "https://github.com/xTeamStanly/StenkBot#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "canvas-txt": "^3.0.0",
+    "cheerio": "^1.0.0-rc.10",
+    "color": "^4.0.1",
+    "colors": "^1.4.0",
+    "eris": "^0.15.1",
+    "express": "^4.17.1",
+    "yuuko": "^2.3.2"
+  }
+}
