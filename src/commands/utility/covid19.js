@@ -1,9 +1,16 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const colors = require('colors');
 
-const covid19 = async (req, res) => {
+const { Command } = require('yuuko');
+
+const covid19 = new Command('covid', covid19, {});
+
+
+const covid19 = async (message, args, ctx) => {
     var finalJson;
+
+    console.log(args);
+
     try {
         //malo je tezi sajt pa mu treba neko vreme da otvori
         const html = await axios.get('https://covid19.rs/');

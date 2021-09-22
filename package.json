@@ -21,6 +21,7 @@
   "homepage": "https://github.com/xTeamStanly/StenkBot#readme",
   "dependencies": {
     "axios": "^0.21.4",
+    "canvas": "^2.8.0",
     "canvas-txt": "^3.0.0",
     "cheerio": "^1.0.0-rc.10",
     "color": "^4.0.1",

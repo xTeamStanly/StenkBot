@@ -6,8 +6,9 @@ const bot = new Client({
 	prefix: '!'
 });
 
-bot.addDir(path.join(__dirname, 'commands'));
+//bot.addDir(path.join(__dirname, 'commands'));
 
+bot.addFile(path.join(__dirname, 'commands/ping.js'));
 
 // const pingCommand = new Command('ping', (message, args, context) => {
 // 	// message.channel.createMessage(
@@ -30,8 +31,9 @@ bot.addDir(path.join(__dirname, 'commands'));
 
 // });
 
+const colors = require('colors');
 bot.on('ready', () => {
-	//bot.addCommand(pingCommand);
+	console.log("READY".green);
 });
 
 bot.connect();
