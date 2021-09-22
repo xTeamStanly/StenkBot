@@ -14,4 +14,8 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Eris](https://www.npmjs.com/package/eris)
 - [Yuuko](https://www.npmjs.com/package/eris)
 
+### 📒 ToDo
+- Popravi format embeda
+- Popravi slike embeda
+
 ### 👋 Pozdrav
