@@ -6,6 +6,12 @@ const { Command } = require('yuuko');
 const covid19 = new Command('ping', async (message, args, context) => {
     var finalJson;
 
+
+    console.log(args);
+    console.log(args[0]);
+    console.log(isNaN(args[0]));
+    return;
+
     try {
         //malo je tezi sajt pa mu treba neko vreme da otvori
         const html = await axios.get('https://covid19.rs/');

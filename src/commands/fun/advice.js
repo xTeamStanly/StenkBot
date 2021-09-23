@@ -1,14 +1,19 @@
+const { Command } = require('yuuko');
 const axios = require('axios');
 
-//TODO ADVICE IMAGE
-const advice = async (req, res) => {
-    var finalJson;
+const advice = new Command(['advice', 'savet'], async (message, args, context) => {
+    var finalJson = {
+        author: { name: 'Advice' },
+        url: "https://adviceslip.com/",
+        color: 0xFE830E,
+        thumbnail: { url: "https://i.imgur.com/U41S13T.png" }
+    };
 
     try {
-        const adviceID = req.query.id || null;
+        const adviceID = parseInt(args[0]);
         var link = `https://api.adviceslip.com/advice`;
 
-        if(adviceID != null) { link += `/${adviceID}`; }
+        if(!isNaN(adviceID)) { link += `/${adviceID}`; }
 
         var html = await axios.get(link);
         var jsonAdvice = html.data;
@@ -19,37 +24,27 @@ const advice = async (req, res) => {
 
         if(jsonAdvice.slip) {
             //uspesno dobijena poruka
-            finalJson = {
-                count: 1,
-                items: [{
-                    title: jsonAdvice.slip.advice,
-                    description: `Advice ID: ${jsonAdvice.slip.id}`,
-                    color: 0xFE830E
-                }]
-            };
+            finalJson.title = jsonAdvice.slip.advice;
+            finalJson.fields = [
+                {
+                    name: 'ID',
+                    value: jsonAdvice.slip.id,
+                    inline: true
+                }
+            ];
         } else {
             //neka greska
-            finalJson = {
-                count: 1,
-                items: [{
-                    title: jsonAdvice.message.text,
-                    color: 0xFE830E
-                }]
-            };
+            finalJson.title = jsonAdvice.message.text;
         }
+
     } catch(err) {
         //HANDLE ERROR
-        finalJson = {
-            count: 1,
-            items: [{
-                title: "Desila se greška!.",
-                description: "Greška!",
-                color: 0x3498DB
-            }]
-        };
-    }
+        finalJson.title = "Zovi gazdu!";
+        finalJson.description = "Desila se greška!"
+        console.log(err);
+    };
 
-    res.json(finalJson);
-}
+    message.channel.createMessage({ embed: finalJson });
+});
 
 module.exports = advice;

@@ -1,9 +1,9 @@
-const { randomList, randomBetweenIncluding } = require('../shared');
+const { Command } = require('yuuko');
+const { randomList, randomBetweenIncluding } = require('../../lib/tools');
 const data = require('../../resources/commands/fun/vicevi');
 
 const axios = require('axios');
 const cheerio = require('cheerio');
-const colors = require('colors');
 
 const validnaKaterogija = (kategorija) => {
     for(let i = 0; i < data.kategorije.length; i++) {
@@ -17,6 +17,7 @@ const nadjiKategoriju = (kategorija) => {
         if(data.kategorije[i].ime == kategorija) { return data.kategorije[i].value; }
     }
 }
+
 
 const vicevi = async (req, res) => {
     var finalJson;

@@ -48,4 +48,6 @@ const kategorijeLista =
     "**• zemun** - Vicevi o Zemuncima\n" +
     "**• zivotinje** - Zivotinjski vicevi\n";
 
-module.exports = { kategorije, kategorijeLista }
+const image = 'https://i.imgur.com/NOQmMHQ.png';
+
+module.exports = { kategorije, kategorijeLista, image }
