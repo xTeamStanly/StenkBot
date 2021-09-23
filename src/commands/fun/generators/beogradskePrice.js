@@ -1,7 +1,8 @@
-const { randomList, countOccurrences } = require('../../shared');
+const { Command } = require('yuuko');
+const { randomList, countOccurrences, getTodaysDate } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/beogradskePrice');
 
-const beogradskePrice = (req, res) => {
+const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message, args, context) => {
     var output = data.output;
 
     //nezavisni
@@ -34,7 +35,7 @@ const beogradskePrice = (req, res) => {
 
     //zameni [nema]
     count = countOccurrences(output, "[nema]");
-    for(let i = 0; i < count; i++) { output = output.replace("[nema]", randomList(data.uradili)); }
+    for(let i = 0; i < count; i++) { output = output.replace("[nema]", randomList(data.nema)); }
 
     //zameni [lokacija2]
     count = countOccurrences(output, "[lokacija2]");
@@ -68,17 +69,19 @@ const beogradskePrice = (req, res) => {
     count = countOccurrences(output, "[koga]");
     for(let i = 0; i < count; i++) { output = output.replace("[koga]", randomList(data.koga)); }
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            title: "Beogradske priče",
+    await message.channel.createMessage({
+        embed: {
+            author: { name: "Beogradske priče" },
+            title: "Kratka priča glasi:",
             description: output,
-            color: 0xAD1457,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-};
+            color: 0x1B5AAB,
+            thumbnail: { url: data.image },
+            footer: {
+                text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
+                icon_url: message.author.avatarURL
+            }
+        }
+    });
+});
 
 module.exports = beogradskePrice;

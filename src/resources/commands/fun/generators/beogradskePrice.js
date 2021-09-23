@@ -402,7 +402,7 @@ const nekoga = [
     "Mlađe i Daška"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1G4W59uE7AiNL6xHkCnLhixSKuGLsMFKo";
+const image = "https://i.imgur.com/1e4Naxf.png";
 
 module.exports = {
     output,

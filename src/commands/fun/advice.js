@@ -49,7 +49,7 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
         console.log(err);
     };
 
-    message.channel.createMessage({ embed: finalJson });
+    await message.channel.createMessage({ embed: finalJson });
 });
 
 module.exports = advice;

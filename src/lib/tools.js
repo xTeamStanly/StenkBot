@@ -2,7 +2,7 @@ const randomList = (input) => {
     return input[Math.floor(Math.random() * input.length)];
 };
 
-const countOccurences = (input, value) => {
+const countOccurrences = (input, value) => {
     return input.split(value).length - 1;
 };
 
@@ -17,7 +17,7 @@ const getTodaysDate = () => {
 
 module.exports = {
     randomList,
-    countOccurences,
+    countOccurrences,
     randomBetweenIncluding,
     getTodaysDate
 };

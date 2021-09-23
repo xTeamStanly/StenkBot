@@ -124,7 +124,7 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
     finalJson.description = sadrzaj;
     finalJson.url = link;
 
-    message.channel.createMessage({embed: finalJson})
+    await message.channel.createMessage({embed: finalJson})
 });
 
 module.exports = vicevi;

@@ -15,6 +15,7 @@ bot.addFile(path.join(__dirname, 'commands/fun/advice.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/vicevi.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/balkanInfo.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/beogradskePrice.js'));
 
 
 // const pingCommand = new Command('ping', (message, args, context) => {
