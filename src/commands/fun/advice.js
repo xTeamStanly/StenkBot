@@ -1,12 +1,17 @@
 const { Command } = require('yuuko');
 const axios = require('axios');
+const { getTodaysDate } = require('../../lib/tools');
 
 const advice = new Command(['advice', 'savet'], async (message, args, context) => {
-    var finalJson = {
+    const finalJson = {
         author: { name: 'Advice' },
         url: "https://adviceslip.com/",
         color: 0xFE830E,
-        thumbnail: { url: "https://i.imgur.com/U41S13T.png" }
+        thumbnail: { url: "https://i.imgur.com/U41S13T.png" },
+        footer: {
+            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
+            icon_url: message.author.avatarURL
+        },
     };
 
     try {
@@ -27,7 +32,7 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
             finalJson.title = jsonAdvice.slip.advice;
             finalJson.fields = [
                 {
-                    name: 'ID',
+                    name: 'Advice ID',
                     value: jsonAdvice.slip.id,
                     inline: true
                 }

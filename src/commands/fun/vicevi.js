@@ -1,5 +1,5 @@
 const { Command } = require('yuuko');
-const { randomList, randomBetweenIncluding } = require('../../lib/tools');
+const { randomList, randomBetweenIncluding, getTodaysDate } = require('../../lib/tools');
 const data = require('../../resources/commands/fun/vicevi');
 
 const axios = require('axios');
@@ -18,46 +18,51 @@ const nadjiKategoriju = (kategorija) => {
     }
 }
 
+const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => {
+    const finalJson = {
+        author: { name: 'Vic' },
+        color: 0x0B263F,
+        thumbnail: { url: data.image },
+        footer: {
+            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
+            icon_url: message.author.avatarURL
+        }
+    };
 
-const vicevi = async (req, res) => {
-    var finalJson;
     var link = 'https://www.vicevi.rs/';
+    var naslov;
+    var sadrzaj;
 
     try {
 
         //ako ne unesemo kategoriju, onda uzimamo vic dana
-        var kategorija = (req.query.kategorija) ? req.query.kategorija : null;
+        var kategorija = args[0];
+        console.log(args)
 
-
-        //ako je kategorija null, uzimamo vic dana
-        if(kategorija == null) {
+        //ako je kategorija null ili undefined, uzimamo vic dana
+        if(typeof(kategorija) === 'undefined' || kategorija == null) {
 
             const html = await axios.get(link);
             const $ = cheerio.load(html.data);
 
             const article = $('article.single.page.daily');
-            const naslov = article.children('h2').text();
-            const sadrzaj = article.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
+            naslov = article.children('h2').text();
+            sadrzaj = article.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
+            console.log('UNDEFINED!!')
 
-            finalJson = {
-                count: 1,
-                items: [{
-                    title: naslov,
-                    description: sadrzaj,
-                    color: 0xA84300,
-                    url: link,
-                    thumbnailUrl: "https://www.vicevi.rs/assets/images/logo2.png"
-                }]
-            };
-        } else { //kategorija nije nula
+        } else { //kategorija nije nula, odnosno postoji
+
+            //TODO ZNAK PITANJA, POMOC, KATEGORIJE POKAZUJU KATEGORIJE, ILI SVE SPOJI U HELP KOMADU
 
             const validna = validnaKaterogija(kategorija);
+            console.log(validna);
             //ako kategorija nije validna --> odaberi nasumicnu
+
             //TODO PRIKAZIVANJE KATEGORIJA AKO UNESE POGRESNU
             if(!validna) { kategorija = randomList(data.kategorije).value; } else { kategorija = nadjiKategoriju(kategorija); }
 
             link += `vicevi/${kategorija}`;
-
+            console.log(link)
             //ucitao sam pocetnu stranu kategorije
             var html = await axios.get(link);
             var $ = cheerio.load(html.data);
@@ -78,59 +83,47 @@ const vicevi = async (req, res) => {
             const brojVica = randomBetweenIncluding(0, brojVicevaNaStrani - 1);
 
             const vic = $(viceviNaStrani[brojVica]);
-            const naslov = vic.children('h2').text();
-            const sadrzaj = vic.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
-            var url = 'https://www.vicevi.rs' + vic.children('h2').children('a').prop('href');
+            naslov = vic.children('h2').text();
+            sadrzaj = vic.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
+
+            link = 'https://www.vicevi.rs' + vic.children('h2').children('a').prop('href');
 
             const ocena = vic.children('div.box').children('div.rating_box').children('div.star').attr('data-score');
             const brojGlasova = vic.children('div.box').children('div.rating_box').children('span.votes').text();
 
-            finalJson = {
-                count: 1,
-                items: [{
-                    title: naslov,
-                    description: sadrzaj,
-                    color: 0xA84300,
-                    url: url,
-                    thumbnailUrl: "https://www.vicevi.rs/assets/images/logo2.png",
-                    field: [
-                        {
-                            name: "Broj Glasova",
-                            value: brojGlasova,
-                            inline: true
-                        },
-                        {
-                            name: "Ocena",
-                            value: `${ocena}/5.00`,
-                            inline: true
-                        }
-                    ]
-                }]
-            };
+            finalJson.fields = [
+                {
+                    name: "Broj Glasova",
+                    value: brojGlasova,
+                    inline: true
+                },
+                {
+                    name: "Ocena",
+                    value: `${ocena}/5.00`,
+                    inline: true
+                }
+            ];
 
             if(!validna) {
-                finalJson.items[0].field.push({
+                finalJson.fields.push({
                     name: "Random kategorija:",
                     value: kategorija,
                     inline: true
                 });
             }
+
         }
-
     } catch(err) {
-        finalJson = {
-            count: 1,
-            items: [{
-                title: "Desila se greška!",
-                description: "Greška!",
-                color: 0xA84300,
-                url: "https://www.vicevi.rs/",
-                thumbnailUrl: "https://www.vicevi.rs/assets/images/logo2.png"
-            }]
-        };
-    };
+        naslov = "Zovi gazdu";
+        description = "Desila se greška!";
+        console.log(err);
+    }
 
-    res.json(finalJson);
-};
+    finalJson.title = naslov;
+    finalJson.description = sadrzaj;
+    finalJson.url = link;
+
+    message.channel.createMessage({embed: finalJson})
+});
 
 module.exports = vicevi;
