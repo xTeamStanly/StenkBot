@@ -625,7 +625,7 @@ const mocni = [
     "Globalisti"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1bXYEQmPcKc_pgPlHZTYKYkg2Wh17that";
+const image = "https://i.imgur.com/YVxkZEa.jpg";
 
 module.exports = {
     output,

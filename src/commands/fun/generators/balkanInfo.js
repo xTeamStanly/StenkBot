@@ -1,7 +1,8 @@
-const { randomList } = require('../../shared');
+const { Command } = require('yuuko');
+const { randomList, getTodaysDate } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/balkanInfo');
 
-const balkanInfo = (req, res) => {
+const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, context) => {
     var output = randomList(data.output);
     output = output
         .replace("[grupa]", randomList(data.grupa))
@@ -33,17 +34,19 @@ const balkanInfo = (req, res) => {
         .replace("[zastitnik]", randomList(data.zastitnik))
         .replace("[mocni]", randomList(data.mocni));
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            author: "Dobar dan, ja sam Teša Tešanović, dobrodošli u današnju emisiju, tema ove emisije je ...",
+    await message.channel.createMessage({
+        embed: {
+            author: { name: "Balkan Info" },
             title: output,
-            color: 0xAD1457,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-};
+            description: `Dobar dan, ja sam Teša Tešanović, dobrodošli u današnju emisiju, tema ove emisije je ... **${output}**`,
+            color: 0xB2B6C2,
+            thumbnail: { url: data.image },
+            footer: {
+                text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
+                icon_url: message.author.avatarURL
+            }
+        }
+    })
+});
 
 module.exports = balkanInfo;

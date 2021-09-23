@@ -14,6 +14,8 @@ bot.addFile(path.join(__dirname, 'commands/ping.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/advice.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/vicevi.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/balkanInfo.js'));
+
 
 // const pingCommand = new Command('ping', (message, args, context) => {
 // 	// message.channel.createMessage(
@@ -35,6 +37,10 @@ bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
 // 	//https://discord.com/api/webhooks/889578583423594566/8hNoCnvpuqO31wjMr8ptg-5UYWdafm1FP8zNEGAN7D8rVf_3JwXrkkZZMh7hZMx1jm-1
 
 // });
+
+bot.on('warn', () => {
+	console.log("WARNING".yellow);
+})
 
 const colors = require('colors');
 bot.on('ready', () => {
