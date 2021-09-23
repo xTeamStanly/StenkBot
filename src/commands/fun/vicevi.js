@@ -19,6 +19,7 @@ const nadjiKategoriju = (kategorija) => {
 }
 
 const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => {
+
     const finalJson = {
         author: { name: 'Vic' },
         color: 0x0B263F,

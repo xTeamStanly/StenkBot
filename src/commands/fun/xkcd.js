@@ -1,7 +1,22 @@
+const { Command } = require('yuuko');
 const axios = require('axios');
 
-const xkcd = async (req, res) => {
-    var finalJson;
+const { getTodaysDate } = require('../../lib/tools');
+
+const xkcd = new Command('xkcd', async (message, args, context) => {
+    const finalJson = {
+        author: { name: 'XKCD' },
+        color: 0x6F7B91,
+        thumbnail: { url: "https://i.imgur.com/MiXtna4.png" },
+        footer: {
+            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
+            icon_url: message.author.avatarURL
+        }
+    };
+
+    var naslov;
+    var sadrzaj;
+    var url;
 
     try {
         var html = await axios.get("https://xkcd.com/info.0.json");
@@ -9,40 +24,45 @@ const xkcd = async (req, res) => {
 
         const maxComicID = jsonComic["num"];
 
-        var comicID = req.query.id;
+        var comicID = parseInt(args[0]);
 
-        if(!(comicID == null || comicID < 1 || comicID > maxComicID)) {
+        if(!(isNaN(comicID) || comicID < 1 || comicID > maxComicID)) {
             html = await axios.get(`https://xkcd.com/${comicID}/info.0.json`);
             jsonComic = html.data;
         } else {
             comicID = maxComicID;
         }
 
-        finalJson = {
-            count: 1,
-            items: [{
-                author: `${comicID} - ${jsonComic["day"]}.${jsonComic["month"]}.${jsonComic["year"]}.`,
-                title: jsonComic["safe_title"],
-                description: jsonComic["alt"],
-                color: 0x11806A,
-                url: `https://xkcd.com/${comicID}/`,
-                thumbnailUrl: "https://drive.google.com/uc?export=view&id=11AQTQfaFcYZiox7XK7hXbA4leE4E-uth",
-                imageUrl: jsonComic["img"]
-            }]
-        };
+        finalJson.image = { url: jsonComic["img"] };
+
+        naslov = jsonComic["safe_title"];
+        sadrzaj = jsonComic["alt"];
+        url = `https://xkcd.com/${comicID}/`;
+
+        finalJson.fields = [
+            {
+                name: "ID",
+                value: comicID,
+                inline: true
+            },
+            {
+                name: "Date",
+                value: `${jsonComic["day"]}.${jsonComic["month"]}.${jsonComic["year"]}`,
+                inline: true
+            }
+        ];
+
     } catch(err) {
-        finalJson = {
-            count: 1,
-            items: [{
-                title: "Desila se greška!",
-                description: "Greška",
-                color: 0x11806A,
-                url: "https://xkcd.com/",
-                thumbnailUrl: "https://drive.google.com/uc?export=view&id=11AQTQfaFcYZiox7XK7hXbA4leE4E-uth"
-            }]
-        };
+        naslov = "Zovi gazdu!";
+        sadrzaj = "Desila se greška!";
+        url = "https://xkcd.com/";
     }
-    res.json(finalJson);
-};
+
+    finalJson.title = naslov;
+    finalJson.description = sadrzaj;
+    finalJson.url = url;
+
+    message.channel.createMessage({embed: finalJson});
+});
 
 module.exports = xkcd;

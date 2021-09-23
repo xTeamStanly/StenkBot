@@ -13,6 +13,7 @@ const bot = new Client({
 bot.addFile(path.join(__dirname, 'commands/ping.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/advice.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/vicevi.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
 
 // const pingCommand = new Command('ping', (message, args, context) => {
 // 	// message.channel.createMessage(
