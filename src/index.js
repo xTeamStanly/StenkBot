@@ -1,9 +1,11 @@
 const { Client, Command } = require('yuuko');
 const path = require('path');
+const dotenv = require('dotenv').config({ path: './src/config.env' })
 
+//bot client
 const bot = new Client({
-	token: 'ODcxNzIzNjg0MDg2Mjk2NjE3.YQfd8g.rU9OAP4uwlTp9T-pbQ8CBwOVTkA',
-	prefix: '!'
+	token: process.env.BOT_TOKEN,
+	prefix: process.env.PREFIX
 });
 
 //bot.addDir(path.join(__dirname, 'commands'));

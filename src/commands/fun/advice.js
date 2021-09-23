@@ -24,7 +24,7 @@ const advice = async (req, res) => {
                 items: [{
                     title: jsonAdvice.slip.advice,
                     description: `Advice ID: ${jsonAdvice.slip.id}`,
-                    color: 0x3498DB
+                    color: 0xFE830E
                 }]
             };
         } else {
@@ -33,7 +33,7 @@ const advice = async (req, res) => {
                 count: 1,
                 items: [{
                     title: jsonAdvice.message.text,
-                    color: 0x3498DB
+                    color: 0xFE830E
                 }]
             };
         }
