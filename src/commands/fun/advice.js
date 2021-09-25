@@ -1,6 +1,6 @@
 const { Command } = require('yuuko');
 const axios = require('axios');
-const { getTodaysDate } = require('../../lib/tools');
+const { getTodaysDate, errNaslov, errSadrzaj, getMessageReference } = require('../../lib/tools');
 
 const advice = new Command(['advice', 'savet'], async (message, args, context) => {
     const finalJson = {
@@ -32,7 +32,7 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
             finalJson.title = jsonAdvice.slip.advice;
             finalJson.fields = [
                 {
-                    name: 'Advice ID',
+                    name: ':id: Advice ID',
                     value: jsonAdvice.slip.id,
                     inline: true
                 }
@@ -44,12 +44,12 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
 
     } catch(err) {
         //HANDLE ERROR
-        finalJson.title = "Zovi gazdu!";
-        finalJson.description = "Desila se greška!"
+        finalJson.title = errNaslov;
+        finalJson.description = errSadrzaj;
         console.log(err);
     };
 
-    await message.channel.createMessage({ embed: finalJson });
+    await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
 });
 
 module.exports = advice;

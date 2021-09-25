@@ -1,5 +1,5 @@
 const { Command } = require('yuuko');
-const { randomList, randomBetweenIncluding, getTodaysDate } = require('../../lib/tools');
+const { randomList, randomBetweenIncluding, getFooter, getMessageReference, errNaslov, errSadrzaj } = require('../../lib/tools');
 const data = require('../../resources/commands/fun/vicevi');
 
 const axios = require('axios');
@@ -21,13 +21,10 @@ const nadjiKategoriju = (kategorija) => {
 const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => {
 
     const finalJson = {
-        author: { name: 'Vic' },
+        author: { name: 'Vicevi' },
         color: 0x0B263F,
         thumbnail: { url: data.image },
-        footer: {
-            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
-            icon_url: message.author.avatarURL
-        }
+        footer: getFooter(message)
     };
 
     var link = 'https://www.vicevi.rs/';
@@ -38,7 +35,7 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
 
         //ako ne unesemo kategoriju, onda uzimamo vic dana
         var kategorija = args[0];
-        console.log(args)
+        if(kategorija != null) { kategorija.toLowerCase(); }
 
         //ako je kategorija null ili undefined, uzimamo vic dana
         if(typeof(kategorija) === 'undefined' || kategorija == null) {
@@ -49,21 +46,19 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
             const article = $('article.single.page.daily');
             naslov = article.children('h2').text();
             sadrzaj = article.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
-            console.log('UNDEFINED!!')
 
         } else { //kategorija nije nula, odnosno postoji
 
             //TODO ZNAK PITANJA, POMOC, KATEGORIJE POKAZUJU KATEGORIJE, ILI SVE SPOJI U HELP KOMADU
+            // if(kategorija.toLowerCase() == 'kategorije' || kategorija.toLowerCase() == 'kat' || kategorija.toLowerCase() == 'pomoc') { }
 
             const validna = validnaKaterogija(kategorija);
-            console.log(validna);
             //ako kategorija nije validna --> odaberi nasumicnu
 
             //TODO PRIKAZIVANJE KATEGORIJA AKO UNESE POGRESNU
             if(!validna) { kategorija = randomList(data.kategorije).value; } else { kategorija = nadjiKategoriju(kategorija); }
 
             link += `vicevi/${kategorija}`;
-            console.log(link)
             //ucitao sam pocetnu stranu kategorije
             var html = await axios.get(link);
             var $ = cheerio.load(html.data);
@@ -94,12 +89,12 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
 
             finalJson.fields = [
                 {
-                    name: "Broj Glasova",
+                    name: ":mega: Broj Glasova",
                     value: brojGlasova,
                     inline: true
                 },
                 {
-                    name: "Ocena",
+                    name: ":pencil: Ocena",
                     value: `${ocena}/5.00`,
                     inline: true
                 }
@@ -107,16 +102,15 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
 
             if(!validna) {
                 finalJson.fields.push({
-                    name: "Random kategorija:",
+                    name: ":orange_book: Random kategorija",
                     value: kategorija,
                     inline: true
                 });
             }
-
         }
     } catch(err) {
-        naslov = "Zovi gazdu";
-        description = "Desila se greška!";
+        naslov = errNaslov;
+        description = errSadrzaj;
         console.log(err);
     }
 
@@ -124,7 +118,7 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
     finalJson.description = sadrzaj;
     finalJson.url = link;
 
-    await message.channel.createMessage({embed: finalJson})
+    await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
 });
 
 module.exports = vicevi;

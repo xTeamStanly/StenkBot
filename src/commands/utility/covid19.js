@@ -1,15 +1,19 @@
+const { Command } = require('yuuko');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { errNaslov, errSadrzaj, getMessageReference, getFooter } = require('../../lib/tools');
 
-const { Command } = require('yuuko');
+const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (message, args, context) => {
+    var finalJson = {
+        author: { name: "Covid-19 Informacije" },
+        color: 0xE74C3C,
+        url: "https://www.covid19.rs",
+        thumbnail: { url: "https://i.imgur.com/zbNq0N2.png" },
+        footer: getFooter(message)
+    };
 
-const covid19 = new Command('covid', covid19, {});
-
-
-const covid19 = async (message, args, ctx) => {
-    var finalJson;
-
-    console.log(args);
+    var naslov;
+    var sadrzaj;
 
     try {
         //malo je tezi sajt pa mu treba neko vreme da otvori
@@ -21,76 +25,81 @@ const covid19 = async (message, args, ctx) => {
             covidData.push($(node).text().replace('\u202C', "").replace(/,/g, ""));
         });
 
-        finalJson = {
-            count: 1,
-            items: [{
-                author: `Ažurirano: ${covidData[1].substring(10, 21)}`,
-                title: `Ukupan broj: ${covidData[2]}`,
-                color: 0xE74C3C,
-                url: "https://www.covid19.rs",
-                thumbnailUrl: "https://drive.google.com/uc?export=view&id=1pYUIL27Gy9_25YNCuoVNscaLK8XK_kHG",
-                field: [
-                    {
-                        name: "Novozaraženi (24h): ",
-                        value: covidData[12],
-                        inline: false
-                    },
-                    {
-                        name: "Testirani: ",
-                        value: covidData[8],
-                        inline: true,
-                    },
-                    {
-                        name: "Testirani (24h): ",
-                        value: covidData[10],
-                        inline: true,
-                    },
-                    {
-                        name: "\u200b",
-                        value: "\u200b",
-                        inline: true,
-                    },
-                    {
-                        name: "Preminuli: ",
-                        value: covidData[4],
-                        inline: true,
-                    },
-                    {
-                        name: "Preminuli (24h): ",
-                        value: covidData[14],
-                        inline: true,
-                    },
-                    {
-                        name: "Procenat smrtnosti: ",
-                        value: covidData[6],
-                        inline: true,
-                    },
-                    {
-                        name: "Hospitalizovani: ",
-                        value: covidData[16],
-                        inline: true,
-                    },
-                    {
-                        name: "Na respiratorima: ",
-                        value: covidData[18],
-                        inline: true,
-                    }
-                ]
-            }]
-        };
+        const ukupanBroj = covidData[2];
+        naslov = `Ukupan broj: ${ukupanBroj}`;
+        sadrzaj = `Ažurirano: ${covidData[1].substring(10, 21)}`;
+
+        finalJson.fields = [
+            {
+                name: "Ukupan broj",
+                value: `__**${ukupanBroj}**__`,
+                inline: true
+            },
+            {
+                name: "Novozaraženi (24h)",
+                value: `__**${covidData[12]}**__`,
+                inline: true
+            },
+            {
+                name: "\u200b",
+                value: "\u200b",
+                inline: true,
+            },
+            {
+                name: "Testirani",
+                value: covidData[8],
+                inline: true,
+            },
+            {
+                name: "Testirani (24h)",
+                value: covidData[10],
+                inline: true,
+            },
+            {
+                name: "\u200b",
+                value: "\u200b",
+                inline: true,
+            },
+            {
+                name: "Preminuli",
+                value: covidData[4],
+                inline: true,
+            },
+            {
+                name: "Preminuli (24h)",
+                value: covidData[14],
+                inline: true,
+            },
+            {
+                name: "Procenat smrtnosti",
+                value: covidData[6],
+                inline: true,
+            },
+            {
+                name: "Hospitalizovani",
+                value: covidData[16],
+                inline: true,
+            },
+            {
+                name: "Na respiratorima",
+                value: covidData[18],
+                inline: true,
+            },
+            {
+                name: "\u200b",
+                value: "\u200b",
+                inline: true,
+            }
+        ];
     } catch(err) {
-        finalJson = {
-            count: 1,
-            items: [{
-                title: "Desila se greška",
-                color: '0xE74C3C',
-                url: "https://www.covid19.rs",
-                thumbnailUrl: "https://drive.google.com/uc?export=view&id=1pYUIL27Gy9_25YNCuoVNscaLK8XK_kHG"
-            }]
-        };
+        naslov = errNaslov;
+        sadrzaj = errSadrzaj;
     }
 
-    res.json(finalJson);
-};
+    finalJson.title = naslov;
+    finalJson.description = sadrzaj;
+
+    await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson})
+});
 
 module.exports = covid19;

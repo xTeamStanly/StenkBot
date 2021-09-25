@@ -2,6 +2,9 @@ const { Client, Command } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' })
 
+//!!! BOT INVITE LINK + PERMISSIONS
+//https://discord.com/api/oauth2/authorize?client_id=871723684086296617&permissions=536995904&scope=bot
+
 //bot client
 const bot = new Client({
 	token: process.env.BOT_TOKEN,
@@ -16,6 +19,8 @@ bot.addFile(path.join(__dirname, 'commands/fun/vicevi.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/balkanInfo.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/beogradskePrice.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/urbanDictionary.js'));
+bot.addFile(path.join(__dirname, 'commands/utility/covid19.js'));
 
 
 // const pingCommand = new Command('ping', (message, args, context) => {

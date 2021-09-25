@@ -1,17 +1,14 @@
 const { Command } = require('yuuko');
 const axios = require('axios');
 
-const { getTodaysDate } = require('../../lib/tools');
+const { errNaslov, errSadrzaj, getFooter, getMessageReference } = require('../../lib/tools');
 
 const xkcd = new Command('xkcd', async (message, args, context) => {
     const finalJson = {
         author: { name: 'XKCD' },
         color: 0x6F7B91,
         thumbnail: { url: "https://i.imgur.com/MiXtna4.png" },
-        footer: {
-            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
-            icon_url: message.author.avatarURL
-        }
+        footer: getFooter(message)
     };
 
     var naslov;
@@ -41,20 +38,20 @@ const xkcd = new Command('xkcd', async (message, args, context) => {
 
         finalJson.fields = [
             {
-                name: "ID",
+                name: ":id: Comic ID",
                 value: comicID,
                 inline: true
             },
             {
-                name: "Date",
+                name: ":date: Date",
                 value: `${jsonComic["day"]}.${jsonComic["month"]}.${jsonComic["year"]}`,
                 inline: true
             }
         ];
 
     } catch(err) {
-        naslov = "Zovi gazdu!";
-        sadrzaj = "Desila se greška!";
+        naslov = errNaslov,
+        sadrzaj = errSadrzaj;
         url = "https://xkcd.com/";
     }
 
@@ -62,7 +59,7 @@ const xkcd = new Command('xkcd', async (message, args, context) => {
     finalJson.description = sadrzaj;
     finalJson.url = url;
 
-    await message.channel.createMessage({embed: finalJson});
+    await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
 });
 
 module.exports = xkcd;
