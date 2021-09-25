@@ -3,110 +3,26 @@ const cheerio = require('cheerio');
 
 const { Command } = require('yuuko');
 
-const covid19 = new Command('ping', async (message, args, context) => {
-    var finalJson;
 
 
-    console.log(args);
-    console.log(args[0]);
-    console.log(isNaN(args[0]));
-    return;
+const covid19_1 = new Command('pingerino', (message, args, context) => {
+    var rec = args.join(' ');
 
-    try {
-        //malo je tezi sajt pa mu treba neko vreme da otvori
-        const html = await axios.get('https://covid19.rs/');
-        const $ = cheerio.load(html.data);
 
-        var covidData = [];
-        $('p.elementor-heading-title').each((i, node) => {
-            covidData.push($(node).text().replace('\u202C', "").replace(/,/g, ""));
-        });
+    if(rec != '') {
 
-        finalJson = {
-                author: {
-                    name: `Ažurirano: ${covidData[1].substring(10, 21)}`,
-                },
-                title: `Ukupan broj: ${covidData[2]}`,
-                color: 0xE74C3C,
-                url: "https://www.covid19.rs",
-                thumbnail: {
-                    //url: "https://drive.google.com/uc?export=view&id=1pYUIL27Gy9_25YNCuoVNscaLK8XK_kHG"
-                    url: "https://via.placeholder.com/100"
-                },
-                fields: [
-                    {
-                        name: "Novozaraženi (24h): ",
-                        value: covidData[12],
-                        inline: false
-                    },
-                    {
-                        name: "Testirani: ",
-                        value: covidData[8],
-                        inline: true,
-                    },
-                    {
-                        name: "Testirani (24h): ",
-                        value: covidData[10],
-                        inline: true,
-                    },
-                    {
-                        name: "\u200b",
-                        value: "\u200b",
-                        inline: true,
-                    },
-                    {
-                        name: "Preminuli: ",
-                        value: covidData[4],
-                        inline: true,
-                    },
-                    {
-                        name: "Preminuli (24h): ",
-                        value: covidData[14],
-                        inline: true,
-                    },
-                    {
-                        name: "Procenat smrtnosti: ",
-                        value: covidData[6],
-                        inline: true,
-                    },
-                    {
-                        name: "Hospitalizovani: ",
-                        value: covidData[16],
-                        inline: true,
-                    },
-                    {
-                        name: "Na respiratorima: ",
-                        value: covidData[18],
-                        inline: true,
-                    }
-                ]
-        };
+    } else {
 
-    } catch(err) {
-        finalJson = {
-            count: 1,
-            items: [{
-                title: "Desila se greška",
-                //color: '0xE74C3C',
-                url: "http://https://www.covid19.rs",
-                //thumbnailUrl: "https://drive.google.com/uc?export=view&id=1pYUIL27Gy9_25YNCuoVNscaLK8XK_kHG"
-            }]
-        };
     }
 
-    console.log(finalJson)
 
-    const embeding = finalJson;
+    message.channel.createMessage({content: "PINGERINO ENGAGED!"});
+});
 
-    const tst = `Ukupan broj: ${covidData[2].toString()}`;
+const covid19 = new Command('ping', async (message, args, context) => {
+    console.log(args);
+    message.channel.createMessage("PING COMMAND!");
+}).addSubcommand(covid19_1);
 
-    message.channel.createMessage(
-       {
-           content: 'a',
-           embed: finalJson
-       }
-    );
-
-}, {});
 
 module.exports = covid19;
