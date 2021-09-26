@@ -1,5 +1,5 @@
 const { Command } = require('yuuko');
-const { randomList, getTodaysDate } = require('../../../lib/tools');
+const { randomList, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/balkanInfo');
 
 const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, context) => {
@@ -35,16 +35,14 @@ const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, co
         .replace("[mocni]", randomList(data.mocni));
 
     await message.channel.createMessage({
+        messageReference: getMessageReference(message),
         embed: {
             author: { name: "Balkan Info" },
             title: output,
             description: `Dobar dan, ja sam Teša Tešanović, dobrodošli u današnju emisiju, tema ove emisije je ... **${output}**`,
             color: 0xB2B6C2,
             thumbnail: { url: data.image },
-            footer: {
-                text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
-                icon_url: message.author.avatarURL
-            }
+            footer: getFooter(message)
         }
     })
 });

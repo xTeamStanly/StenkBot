@@ -26,7 +26,7 @@ const response = [
     { type: 'bad', message: 'Very doubtful.' }
 ];
 
-const image = "https://i.imgur.com/ULCrSe6.png"; //"https://drive.google.com/uc?export=view&id=1FlmdGRK0FwOv6OGA6sFhgEMWQ1q31JtE";
+const image = "https://i.imgur.com/ClrZmXl.png";
 
 module.exports = {
     response,

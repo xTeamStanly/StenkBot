@@ -51,7 +51,7 @@ const dan = [
     "mandanje s glavu"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1pYUIL27Gy9_25YNCuoVNscaLK8XK_kHG";
+const image = "https://i.imgur.com/zbNq0N2.png";
 
 module.exports = {
     mesec,

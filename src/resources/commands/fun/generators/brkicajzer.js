@@ -102,7 +102,7 @@ const bolest = [
     "embolije hipofize"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1Yc8I0QBmdQubkWlW7Pa825jASBu96vja";
+const image = "https://i.imgur.com/1kPsRRB.jpg";
 
 module.exports = {
     output,

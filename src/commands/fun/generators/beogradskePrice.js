@@ -1,5 +1,5 @@
 const { Command } = require('yuuko');
-const { randomList, countOccurrences, getTodaysDate } = require('../../../lib/tools');
+const { randomList, countOccurrences, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/beogradskePrice');
 
 const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message, args, context) => {
@@ -70,16 +70,14 @@ const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message
     for(let i = 0; i < count; i++) { output = output.replace("[koga]", randomList(data.koga)); }
 
     await message.channel.createMessage({
+        messageReference: getMessageReference(message),
         embed: {
             author: { name: "Beogradske priče" },
             title: "Kratka priča glasi:",
             description: output,
             color: 0x1B5AAB,
             thumbnail: { url: data.image },
-            footer: {
-                text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
-                icon_url: message.author.avatarURL
-            }
+            footer: getFooter(message)
         }
     });
 });

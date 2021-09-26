@@ -117,12 +117,12 @@ const quotes = [
 ];
 
 const image = [
-    "https://drive.google.com/uc?export=view&id=10CXlOV34yj0R__dTmvPVwSdDAP115Duc",
-    "https://drive.google.com/uc?export=view&id=1IXPvwKjvdusYjy7xrjxO121t6I6oaa4l",
-    "https://drive.google.com/uc?export=view&id=1_j439p1nJLw4TTK_RffQFTcTTRBK2x3t",
-    "https://drive.google.com/uc?export=view&id=1enO-1fYW84UPIGyDjlno9t7_pdxAP_RA",
-    "https://drive.google.com/uc?export=view&id=1jxu2iR904Q3jJ9DZNi9WOiVUJ4KuVLtZ",
-    "https://drive.google.com/uc?export=view&id=1zeu8j0xFW_CckbR5GDAl77JEoGKhmcIL"
+    "https://i.imgur.com/svYQWh3.png",
+    "https://i.imgur.com/TYDjVQk.png",
+    "https://i.imgur.com/nEKjVGO.png",
+    "https://i.imgur.com/Ncx4d43.png",
+    "https://i.imgur.com/mulOKCA.png",
+    "https://i.imgur.com/1MepUOS.jpg"
 ];
 
 module.exports = {

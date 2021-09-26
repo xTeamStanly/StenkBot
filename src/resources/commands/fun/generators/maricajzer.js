@@ -219,7 +219,7 @@ const dogadjaj = [
     "je Šešelj silovan u zatvoru u Zenici i nazvan Balerina"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1Xsj1TE2KifNiAk7R9iTit0jKge7Jnq3c";
+const image = "https://i.imgur.com/vpQ2PCu.jpg";
 
 module.exports = {
     output,

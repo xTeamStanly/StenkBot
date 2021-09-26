@@ -95,7 +95,7 @@ const dogadjaj = [
     "[lik] priveden na saslušanje"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1UXWryAeWelYWgvyaGg8zY4ux4dyrj5Yl";
+const image = "https://i.imgur.com/wAAyFqd.png";
 
 module.exports = {
     output,

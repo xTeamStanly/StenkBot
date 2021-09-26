@@ -1,19 +1,19 @@
-const { randomList } = require("../../shared");
+const { Command } = require("yuuko");
+const { randomList, getMessageReference, getFooter } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/krizniStab');
 
-const krizniStab = (req, res) => {
+const krizniStab = new Command(['kriznistab', 'ks', 'covidmera', 'kovidmera', 'mera'], async (message, args, context) => {
     const output = `${randomList(data.mesec)} ${randomList(data.dan)} ${randomList(data.godina)}!`;
-    var finalJson = {
-        count: 1,
-        items: [{
-            author: "Nova Covid19 mera glasi: ",
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Šaljiva mera kriznog štaba" },
             title: output,
             color: 0x2ECC71,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-};
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    })
+});
 
 module.exports = krizniStab;
