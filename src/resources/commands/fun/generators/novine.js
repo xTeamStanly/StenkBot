@@ -358,7 +358,7 @@ const objectPerson = [
 ];
 
 const postfix = [
-    "",
+    "!!!",
     "[FOTO]",
     "[VIDEO]",
     "[SISE]",
@@ -368,7 +368,7 @@ const postfix = [
     "[FOTO] [VIDEO] [SISE]"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=12jCcyN8OKdQmckX0DjqKOEgDZTDh48l3";
+const image = "https://i.imgur.com/sqBWqG2.png";
 
 module.exports = {
     output,

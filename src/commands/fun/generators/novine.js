@@ -1,7 +1,8 @@
-const { randomList } = require("../../shared");
+const { Command } = require("yuuko");
+const { randomList, getMessageReference, getFooter } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/novine');
 
-const novine = (req, res) => {
+const novine = new Command(['novine', 'naslov'], async (message, args, context) => {
     var output = randomList(data.output);
     output = output
         .replace("[intro]", randomList(data.intro))
@@ -15,17 +16,16 @@ const novine = (req, res) => {
         .replace("[postfix]", randomList(data.postfix))
         .replace("[objectPerson]", randomList(data.objectPerson));
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            author: "StenkAI Novine!",
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Novine" },
             title: output,
-            color: 0x3498DB,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-};
+            thumbnail: { url: data.image },
+            color: 0xE7E7E7,
+            footer: getFooter(message)
+        }
+    })
+});
 
 module.exports = novine;

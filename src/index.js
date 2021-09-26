@@ -27,6 +27,12 @@ bot.addFile(path.join(__dirname, 'commands/fun/generators/eightBall.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/goliZivot.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/kanyeTweet.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/krizniStab.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/maricajzer.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/niskePrice.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/novine.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/oldInsult.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/periodic.js')); //TODO VELIKI TODO, PROBNI POKUSAJI, SLIKA ...
+bot.addFile(path.join(__dirname, 'commands/fun/generators/pitajJodu.js'));
 
 bot.addFile(path.join(__dirname, 'commands/fun/advice.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/ispovesti.js'));

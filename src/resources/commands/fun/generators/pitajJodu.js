@@ -1,11 +1,11 @@
 const response = [
-    { type: '50/50', message: 'Verovatno' },
-    { type: 'Da', message: 'Sila snažna je' },
-    { type: '???', message: 'Kasnije pitajte' },
-    { type: 'Ne', message: 'Izvori moji ne kažu' }
+    { type: '50/50', message: ':man_shrugging: Verovatno' },
+    { type: 'Da', message: ':thumbsup: Sila snažna je' },
+    { type: '???', message: ':clock1: Kasnije pitajte' },
+    { type: 'Ne', message: ':thumbsdown: Izvori moji ne kažu' }
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1AKPQMp1LeZACED8b0zIEgqojVGHstXZs";
+const image = "https://i.imgur.com/kIIzmud.png";
 
 module.exports = {
     response,

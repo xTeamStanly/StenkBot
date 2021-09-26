@@ -120,7 +120,7 @@ const object2 = [
     "Durlan"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1WIFZ1_KcOhxv7l-yDkr-ReDIqV4oB4-M";
+const image = "https://i.imgur.com/FO0X7WX.png";
 
 module.exports = {
     output,

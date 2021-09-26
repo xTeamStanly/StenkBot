@@ -1,3 +1,4 @@
+const { Command } = require('yuuko');
 const elementsJson = require('../../../resources/commands/fun/generators/periodic');
 
 const lista2json = (lista) => {
@@ -134,11 +135,28 @@ const jesteValidno = (unos) => {
     return (unos != null && unos !== "" && (/^[a-zA-Z\s]*$/).test(unos) === true); //!(/[^a-zA-Z]/.test(unos)) === true);
 }
 
+//TODO SLIKA ZA PERIODIC
+const periodic = new Command('periodic', async (message, args, context) => {
+    //TODO PARSE & HANDLE EMPTY INPUT MESSAGE
+    //za sad pp da input nije empty
+
+    var input = args.join(' ');
+    if(jesteValidno(input)) {
+        finalJson = string2periodni(input.toLowerCase());
+    } else {
+        //TODO HANDLE ERROR
+        finalJson = 'error';
+    }
+
+    console.log(finalJson);
+
+});
+
 //TODO RESPONSE
 //TODO VALIDIRAJ OUTPUT
 //TODO SKOCKAJ
 //TODO RECENICA
-const periodic = (req, res) => {
+const periodic0 = (req, res) => {
     var input = req.query.input;
     const skockaj = (req.query.skockaj === "true");
     var finalJson;

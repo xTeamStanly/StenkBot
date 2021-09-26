@@ -253,10 +253,13 @@ const thirdPhrase = [
     "tyrant",
     "purified-cur",
     "misbegotten-divel",
-    "mildewed-ear"
+    "mildewed-ear",
+
+    "demon",
+    "foul demon"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1niOy_blDRFYVEjW6tJXkzpvweBeCNYvh";
+const image = "https://i.imgur.com/4NT1ySN.jpg";
 
 module.exports = {
     firstPhrase,
