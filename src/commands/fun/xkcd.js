@@ -5,7 +5,7 @@ const { errNaslov, errSadrzaj, getFooter, getMessageReference } = require('../..
 
 const xkcd = new Command('xkcd', async (message, args, context) => {
     const finalJson = {
-        author: { name: 'XKCD' },
+        author: { name: 'XKCD', url: `https://xkcd.com/` },
         color: 0x6F7B91,
         thumbnail: { url: "https://i.imgur.com/MiXtna4.png" },
         footer: getFooter(message)

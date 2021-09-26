@@ -7,8 +7,8 @@ const encodeUrl = require('encodeurl');
 const skockajString = (input, link) => {
     if(input != null) {
         input = input.replace(/(\[|\])/g, '__');
-        if(input.length > 900) {
-            input = input.substring(0, 900);
+        if(input.length > 300) {
+            input = input.substring(0, 300);
             input += ` [...**More**](${link})`;
         }
     }
@@ -39,7 +39,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                     const permaUrl = responseJson.permalink;
 
                     hookEmbeds.push({
-                        author: { name: "Urban Dictionary" },
+                        author: { name: "Urban Dictionary", url: "https://www.urbandictionary.com" },
                         title: responseJson.word,
                         color: 0x1E2439,
                         url: permaUrl,
@@ -72,7 +72,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                 await message.channel.createMessage({
                     messageReference: getMessageReference(message),
                     embed: {
-                        author: { name: "Urban Dictionary" },
+                        author: { name: "Urban Dictionary", url: "https://www.urbandictionary.com" },
                         title: ":mag_right: Reč nije pronađena!",
                         description: `:frowning2: Reč nažalost nije pronađena.`,
                         color: 0x1E2439,
@@ -97,7 +97,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
             await message.channel.createMessage({
                 messageReference: getMessageReference(message),
                 embed: {
-                    author: { name: "Urban Dictionary" },
+                    author: { name: "Urban Dictionary", url: "https://www.urbandictionary.com" },
                     title: date,
                     description: skockajString(meaning, url),
                     color: 0x1E2439,
@@ -119,7 +119,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
         await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: {
-                author: { name: "Urban Dictionary" },
+                author: { name: "Urban Dictionary", url: "https://www.urbandictionary.com" },
                 url: "https://www.urbandictionary.com",
                 color: 0x1E2439,
                 thumbnail: { url: "https://i.imgur.com/aZnKcUC.png" },

@@ -21,7 +21,7 @@ const nadjiKategoriju = (kategorija) => {
 const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => {
 
     const finalJson = {
-        author: { name: 'Vicevi' },
+        author: { name: 'Vicevi', url: 'https://www.vicevi.rs' },
         color: 0x0B263F,
         thumbnail: { url: data.image },
         footer: getFooter(message)

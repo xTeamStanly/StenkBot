@@ -8,8 +8,8 @@ const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookChec
 //skrati na 900 karaktera
 const skockajString = (input, link) => {
     if(input != null) {
-        if(input.length > 900) {
-            input = input.substring(0, 900);
+        if(input.length > 300) {
+            input = input.substring(0, 300);
             input += ` [...**Više**](${link})`;
         }
     }

@@ -4,7 +4,7 @@ const { getTodaysDate, errNaslov, errSadrzaj, getMessageReference } = require('.
 
 const advice = new Command(['advice', 'savet'], async (message, args, context) => {
     const finalJson = {
-        author: { name: 'Advice' },
+        author: { name: 'Advice', url: "https://adviceslip.com/" },
         url: "https://adviceslip.com/",
         color: 0xFE830E,
         thumbnail: { url: "https://i.imgur.com/U41S13T.png" },

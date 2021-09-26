@@ -1,82 +1,207 @@
 const axios = require('axios');
+const cheerio = require('cheerio');
+const { Command } = require('yuuko');
+const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
 //TODO MOZDA ISPOVEST DANA, MESECA, NEDELJE???
 
-//tipovi: random, novo, popularno, najbolje
-const ispovesti = async (req, res) => {
-    const tip = (req.query.tip) ? req.query.tip : 'random';
-    var link;
+const ispovest2embeds2message = async (link, message, context) => {
+    var ovaKomandaTrajePoruka = null;
 
-    const brojIspovesti = 5;
-    var pageNumber = null;
+    var finalJson = [];
+    const brojIspovesti = 5; //LIMIT
 
-    switch(tip) {
-        case 'novo':
-            link = "https://ispovesti.com/api/main.php?sort=novo&value=1&step=10";
-            break;
-        case 'popularno':
-            link = "http://ispovesti.com/api/main.php?sort=popularno&value=0&step=10";
-            break;
-        case 'najbolje':
-            link = "https://ispovesti.com/api/main.php?popularno=najbolje&value=1&step=10";
-            break;
-        case 'random':
-        default:
-            pageNumber = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-            if(Math.random() > 0.5) { pageNumber *= -1; }
-            link = `https://ispovesti.com/api/main.php?sort=random&value=${pageNumber}&step=10`;
-            break;
-    };
-
-    var finalJson;
     try {
+
+        ovaKomandaTrajePoruka = await message.channel.createMessage({
+            content: "Ispovesti su prilično spora i nestabilna komanda, pošto je sajt (i API) spor, a ponekad ni ne radi."
+        });
+
         const html = await axios.get(link);
         var jsonIspovesti = html.data;
 
-        finalJson = { count: brojIspovesti, items: [] };
         for(let i = 0; i < brojIspovesti; i++) {
-            var ispovestJson = jsonIspovesti[`isp${i+1}`];
-            var id = ispovestJson["id"];
 
-            var json = { };
-            json.title = `Ispovest: ${id}`;
-            json.description = ispovestJson.text;
-            json.color = 0x206694;
-            json.url = `http://ispovesti.com/ispovest/${id}`;
-            json.thumbnailUrl = "https://drive.google.com/uc?export=view&id=1CpJFwUdS96o9AnF1QHbxZJofUdHnL7QM";
-            json.field = [
+            var ispovestJson = jsonIspovesti[`isp${i+1}`];
+            var id = ispovestJson['id'];
+
+            finalJson.push({
+                author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+                title: `Ispovest: ${id}`,
+                description: ispovestJson.text,
+                color: 0x000000,
+                url: `http://ispovesti.com/ispovest/${id}`,
+                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                fields: [
+                    {
+                        name: "👍",
+                        value: ispovestJson.oprost,
+                        inline: true
+                    },
+                    {
+                        name: "👎",
+                        value: ispovestJson.osuda,
+                        inline: true
+                    },
+                    {
+                        name: ":date: Datum",
+                        value: ispovestJson.time,
+                        inline: true
+                    }
+                ],
+                footer: getFooter(message)
+            });
+
+        }
+
+        const hook = await customWebHookCheckAndCreate(message, context);
+        await context.client.executeWebhook(
+            hook.id,
+            hook.token,
+            {
+                content: `:warning: Ja sam WebHook i **ne mogu** da uradim **reply**, zato evo **[link ka poruci](${message.jumpLink})** :warning:`,
+                embeds: finalJson
+            }
+        );
+    } catch(err) {
+        console.log(err);
+        await message.channel.createMessage({
+            messageReference: getMessageReference(message),
+            embed: {
+                author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+                title: errNaslov,
+                description: errSadrzaj,
+                color: 0x000000,
+                url: 'http://ispovesti.com/',
+                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                footer: getFooter(message)
+            }
+        });
+    }
+
+    if(ovaKomandaTrajePoruka != null) {
+        ovaKomandaTrajePoruka.channel.deleteMessage(ovaKomandaTrajePoruka.id, "Ispovesti brisanje poruke.")
+    }
+}
+
+const ispovestiRandom = new Command(['random', 'rand'], async (message, args, context) => {
+
+    var pageNumber = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    if(Math.random() > 0.5) { pageNumber *= -1; }
+
+    await ispovest2embeds2message(`https://ispovesti.com/api/main.php?sort=random&value=${pageNumber}&step=10`, message, context);
+})
+
+const ispovestiNovo = new Command(['novo', 'new'], async (message, args, context) => {
+    await ispovest2embeds2message("https://ispovesti.com/api/main.php?sort=novo&value=1&step=10", message, context);
+});
+
+const ispovestiPopularno = new Command(['popularno', 'popular', 'pop'], async (message, args, context) => {
+    await ispovest2embeds2message("http://ispovesti.com/api/main.php?sort=popularno&value=0&step=10", message, context);
+});
+
+const ispovestiNajbolje = new Command(['najbolje', 'best', 'naj'], async (message, args, context) => {
+    await ispovest2embeds2message("https://ispovesti.com/api/main.php?popularno=najbolje&value=1&step=10", message, context);
+});
+
+const ispovestiDanNedeljaMesec = async (tip, message) => {
+    var ovaKomandaTrajePoruka = null;
+    try {
+
+        ovaKomandaTrajePoruka = await message.channel.createMessage({
+            content: "Ispovesti su prilično spora i nestabilna komanda, pošto je sajt (i API) spor, a ponekad ni ne radi."
+        });
+
+        var elementID = "#conf-of-day-wrap"; var title = "Ispovest dana";
+        switch(tip) {
+            case 'dan': elementID = "#conf-of-day-wrap"; title = "Ispovest dana"; break;
+            case 'nedelja': elementID = "#conf-of-week-wrap"; title = "Ispovest nedelje"; break;
+            case 'mesec': elementID = "#conf-of-month-wrap"; title = "Ispovest meseca"; break;
+        }
+
+        const html = await axios.get('http://ispovesti.com/');
+        const $ = cheerio.load(html.data);
+
+        const ispovest = $(elementID);
+
+        //parsujemo osude i potvrde
+        const osudePotvrde = ispovest.children('div.smallInfo').text().split('•');
+        const potvrde = parseInt(osudePotvrde[0].replace('odobravam', ''));
+        const osude = parseInt(osudePotvrde[1].replace('osuđujem', ''));
+
+        ispovestJson = {
+            author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+            title: title,
+            description: ispovest.children('p').text(),
+            url: 'http://ispovesti.com' + ispovest.children('a.miniLink').prop('href'),
+            thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+            color: 0x000000,
+            fields: [
                 {
                     name: "👍",
-                    value: ispovestJson.oprost,
+                    value: potvrde,
                     inline: true
                 },
                 {
                     name: "👎",
-                    value: ispovestJson.osuda,
+                    value: osude,
                     inline: true
                 },
-                {
-                    name: "Datum",
-                    value: ispovestJson.time,
-                    inline: true
-                }
-            ];
-            finalJson.items.push(json);
+            ],
+            footer: getFooter(message)
         }
+
+        await message.channel.createMessage({
+            messageReference: getMessageReference(message),
+            embed: ispovestJson
+        });
     } catch(err) {
         console.log(err);
-        finalJson = {
-            count: 1,
-            items: [{
-                title: 'Desila se greška.',
-                color: 0x206694,
-                url: `http://ispovesti.com/`,
-                thumbnailUrl: "https://drive.google.com/uc?export=view&id=1CpJFwUdS96o9AnF1QHbxZJofUdHnL7QM"
-            }]
-        }
+        await message.channel.createMessage({
+            messageReference: getMessageReference(message),
+            embed: {
+                author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+                title: errNaslov,
+                description: errSadrzaj,
+                color: 0x000000,
+                url: 'http://ispovesti.com/',
+                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                footer: getFooter(message)
+            }
+        });
     }
 
-    res.json(finalJson);
-};
+    if(ovaKomandaTrajePoruka != null) {
+        ovaKomandaTrajePoruka.channel.deleteMessage(ovaKomandaTrajePoruka.id, "Ispovesti brisanje poruke.")
+    }
+
+}
+
+const ispovestDana = new Command(['dan', 'dana', 'day'], async (message, args, context) => {
+    await ispovestiDanNedeljaMesec('dan', message);
+});
+
+const ispovestNedelje = new Command(['nedelja', 'nedelje', 'week'], async (message, args, context) => {
+    await ispovestiDanNedeljaMesec('nedelja', message);
+});
+
+const ispovestMeseca = new Command(['mesec', 'meseca', 'month'], async (message, args, context) => {
+    await ispovestiDanNedeljaMesec('mesec', message);
+});
+
+//ako ne navede nista, daj mu novo random
+const ispovesti = new Command(['ispovesti', 'ispovest'], async (message, args, context) => {
+
+    var pageNumber = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    if(Math.random() > 0.5) { pageNumber *= -1; }
+
+    await ispovest2embeds2message(`https://ispovesti.com/api/main.php?sort=random&value=${pageNumber}&step=10`, message, context);
+}).addSubcommand(ispovestiRandom)
+  .addSubcommand(ispovestiNovo)
+  .addSubcommand(ispovestiPopularno)
+  .addSubcommand(ispovestiNajbolje)
+  .addSubcommand(ispovestDana)
+  .addSubcommand(ispovestNedelje)
+  .addSubcommand(ispovestMeseca);
 
 module.exports = ispovesti;
