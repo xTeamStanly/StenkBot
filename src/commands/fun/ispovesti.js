@@ -3,8 +3,6 @@ const cheerio = require('cheerio');
 const { Command } = require('yuuko');
 const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
-//TODO MOZDA ISPOVEST DANA, MESECA, NEDELJE???
-
 const ispovest2embeds2message = async (link, message, context) => {
     var ovaKomandaTrajePoruka = null;
 
