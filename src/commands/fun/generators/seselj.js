@@ -14,7 +14,7 @@ registerFont('./src/resources/commands/fun/generators/seselj/miroslav.ttf', { fa
 const templateImage = new Image();
 templateImage.src = './src/resources/commands/fun/generators/seselj/template.png';
 canvasTxt.font = 'Miroslav';
-canvasTxt.fontSize = 40; //canvasTxt.fontSize = 64;
+canvasTxt.fontSize = 42; //canvasTxt.fontSize = 64;
 canvasTxt.align = 'center'; //canvasTxt.debug = true;
 
 //boje gradijenta
@@ -130,7 +130,7 @@ const generisiSliku = (naslov, bojaHex) => {
     return canvas.toBuffer('image/jpeg', { quality: 1 });
 }
 
-const filename = "knjiga.jpeg";
+const filename = "knjiga.jpg";
 //komanda
 const seselj = new Command('seselj', async (message, args, context) => {
     const thumbUrl = randomList(data.image);

@@ -7,7 +7,7 @@ const socFirma = new Command(['firma', 'socfirma', 'socijalistickafirma', 'firma
         messageReference: getMessageReference(message),
         embed: {
             author: { name: "Socijalistička firma" },
-            title: `${randomList(data.prvideo)}${randomList(data.drugideo)}`,
+            title: `:tools: ${randomList(data.prvideo)}${randomList(data.drugideo)} :tools:`,
             color: 0x940404,
             thumbnail: { url: data.image },
             fields: [

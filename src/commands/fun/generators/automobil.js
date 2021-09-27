@@ -1,7 +1,8 @@
 
 
-const { randomList, randomBetweenIncluding } = require('../../shared');
+const { randomList, randomBetweenIncluding } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/automobil');
+const { Command } = require('yuuko');
 
 const dvocifreni = () => { return randomBetweenIncluding(10, 99); }
 const trocifren = () => { return randomBetweenIncluding(100, 999); }
@@ -36,7 +37,7 @@ const dvaslova = (cirlica) => {
     }
 };
 
-const automobil = (req, res) => {
+const automobilIOIII = (req, res) => {
 
     var finalJson = {
         count: 1,
@@ -72,3 +73,9 @@ const automobil = (req, res) => {
     }
 
 };
+
+
+const automobil = new Command('auto', async (message, args, context) => {
+    await message.channel.createMessage({content: "automobili xd"});
+});
+module.exports = automobil;
