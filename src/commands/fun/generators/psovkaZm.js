@@ -1,10 +1,11 @@
-const { randomList, countOccurrences } = require("../../shared");
+const { randomList, countOccurrences, getMessageReference, getFooter } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/psovkaZm');
+const { Command } = require("yuuko");
 
 const maxBrPrideva = 5;
 const minBrPrideva = 1;
 
-const psovkaZm = (req, res) => {
+const generisiPsovku = () => {
     //broj prideva izmedju 1 i 5
     const brojPrideva = Math.floor(Math.random() * (maxBrPrideva - minBrPrideva + 1) + minBrPrideva);
 
@@ -24,16 +25,21 @@ const psovkaZm = (req, res) => {
     psovka += `${randomList(data.kraj)}!`;
     psovka = psovka.charAt(0).toUpperCase() + psovka.slice(1);
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            author: "Ti si jedna...",
-            title: psovka,
-            color: 0x992D22
-        }]
-    };
-
-    res.json(finalJson);
+    return psovka;
 };
+
+const psovkaZm = new Command(['psovka', 'zorica', 'zoricapsuje'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Psovka" },
+            title: "Ti si jedna...",
+            description: `**${generisiPsovku()}**`,
+            color: 0xED7517,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+});
 
 module.exports = psovkaZm;

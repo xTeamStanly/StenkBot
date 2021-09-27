@@ -4,6 +4,8 @@ const { Command } = require('yuuko');
 const { getMessageReference, getFooter, customWebHookCheckAndCreate, errNaslov, errSadrzaj } = require('../../lib/tools');
 const encodeUrl = require('encodeurl');
 
+const image = "https://i.imgur.com/aZnKcUC.png";
+
 const skockajString = (input, link) => {
     if(input != null) {
         input = input.replace(/(\[|\])/g, '__');
@@ -43,7 +45,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                         title: responseJson.word,
                         color: 0x1E2439,
                         url: permaUrl,
-                        thumbnail: { url: "https://i.imgur.com/aZnKcUC.png" },
+                        thumbnail: { url: image },
                         footer: footer,
                         description: skockajString(responseJson.definition, permaUrl),
                         fields: [
@@ -77,7 +79,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                         description: `:frowning2: Reč nažalost nije pronađena.`,
                         color: 0x1E2439,
                         url: "https://www.urbandictionary.com",
-                        thumbnail: { url: "https://i.imgur.com/aZnKcUC.png" },
+                        thumbnail: { url: image },
                         footer: getFooter(message)
                     }
                 });
@@ -102,7 +104,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                     description: skockajString(meaning, url),
                     color: 0x1E2439,
                     url: url,
-                    thumbnail: { url: "https://i.imgur.com/aZnKcUC.png" },
+                    thumbnail: { url: image },
                     footer: getFooter(message),
                     fields: [
                         {
@@ -122,7 +124,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
                 author: { name: "Urban Dictionary", url: "https://www.urbandictionary.com" },
                 url: "https://www.urbandictionary.com",
                 color: 0x1E2439,
-                thumbnail: { url: "https://i.imgur.com/aZnKcUC.png" },
+                thumbnail: { url: image },
                 footer: getFooter(message),
                 title: errNaslov,
                 description: errSadrzaj

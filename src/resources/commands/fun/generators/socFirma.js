@@ -228,6 +228,242 @@ const drugideo = [
     "prom"
 ];
 
+const gradovi = [
+    //source
+    //https://sr.wikipedia.org/sr-el/%D0%A1%D0%BF%D0%B8%D1%81%D0%B0%D0%BA_%D0%B3%D1%80%D0%B0%D0%B4%D0%BE%D0%B2%D0%B0_%D1%83_%D0%A1%D1%80%D0%B1%D0%B8%D1%98%D0%B8
+
+    //A
+    'Ada',
+    'Aleksandrovac',
+    'Aleksinac',
+    'Aleksinački Rudnik',
+    'Alibunar',
+    'Apatin',
+    'Aranđelovac',
+    'Arilje',
+
+    //B
+    'Babušnica',
+    'Batočina',
+    'Bajina Bašta',
+    'Bajmok',
+    'Baljevac',
+    'Banatski Karlovac',
+    'Banja Koviljača',
+    'Bač',
+    'Bačka Palanka',
+    'Bačka Topola',
+    'Bački Jarak',
+    'Bački Petrovac',
+    'Begeč',
+    'Belanovica',
+    'Bela Palanka',
+    'Bela Crkva',
+    'Beli Potok',
+    'Belo Polje',
+    'Batajnica',
+    'Beograd',
+    'Beočin',
+    'Bečej',
+    'Blace',
+    'Bogatić',
+    'Boljevac',
+    'Bor',
+    'Borča',
+    'Bosilegrad',
+    'Brza Palanka',
+    'Brus',
+    'Bujanovac',
+
+    //V
+    'Valjevo',
+    'Velika Plana',
+    'Veliki Crljeni',
+    'Veliko Gradište',
+    'Vladičin Han',
+    'Vlasotince',
+    'Vranje',
+    'Vranjska Banja',
+    'Vrbas',
+    'Vrnjačka Banja',
+    'Vršac',
+    'Vučje',
+
+    //G
+    'Gornji Milanovac',
+    'Grdelica',
+    'Grocka',
+    'Guča',
+
+    //D
+    'Despotovac',
+    'Divčibare',
+    'Dimitrovgrad',
+    'Dobanovci',
+    'Donji Milanovac',
+
+    //Ž
+    'Žabalj',
+    'Žitište',
+
+    //Z
+    'Zaječar',
+    'Zlatibor',
+    'Zrenjanin',
+
+    //I
+    'Ivanjica',
+    'Inđija',
+    'Irig',
+
+    //J
+    'Jagodina',
+    'Jaša Tomić',
+    'Jošanička Banja',
+
+    //K
+    'Kanjiža',
+    'Kačarevo',
+    'Kikinda',
+    'Kladovo',
+    'Knjaževac',
+    'Kovačica',
+    'Kovin',
+    'Kosjerić',
+    'Kostolac',
+    'Kragujevac',
+    'Kraljevo',
+    'Krupanj',
+    'Kruševac',
+    'Kula',
+    'Kuršumlija',
+    'Kuršumlijska Banja',
+    'Kučevo',
+
+    //L
+    'Lazarevac',
+    'Lajkovac',
+    'Lapovo',
+    'Lebane',
+    'Leskovac',
+    'Loznica',
+    'Lučani',
+
+    //Lj
+    'Ljig',
+
+    //M
+    'Majdanpek',
+    'Mali Zvornik',
+    'Mataruška Banja',
+    'Mačvanska Mitrovica',
+    'Medveđa',
+    'Mionica',
+    'Mladenovac',
+    'Mol',
+
+    //N
+    'Negotin',
+    'Niš',
+    'Niška Banja',
+    'Nova Varoš',
+    'Novi Bečej',
+    'Novi Kneževac',
+    'Novi Pazar',
+    'Novi Sad',
+
+    //O
+    'Obrenovac',
+    'Ovča',
+    'Opovo',
+    'Ostružnica',
+    'Odžaci',
+
+    //P
+    'Palić',
+    'Pančevo',
+    'Paraćin',
+    'Petrovaradin',
+    'Petrovac',
+    'Peć',
+    'Pećani',
+    'Pinosava',
+    'Pirot',
+    'Podujevo',
+    'Požarevac',
+    'Požega',
+    'Priboj',
+    'Prijepolje',
+    'Priština',
+    'Prizren',
+    'Prokuplje',
+
+    //R
+    'Ralja',
+    'Rača',
+    'Raška',
+    'Resavica',
+    'Ribnica',
+    'Rudovci',
+    'Ruma',
+    'Rucka',
+
+    //S
+    'Svilajnac',
+    'Svrljig',
+    'Sevojno',
+    'Senta',
+    'Sijarinska Banja',
+    'Sjenica',
+    'Smederevo',
+    'Smederevska Palanka',
+    'Sokobanja',
+    'Sombor',
+    'Sopot',
+    'Srbobran',
+    'Sremska Kamenica',
+    'Sremska Mitrovica',
+    'Sremski Karlovci',
+    'Stara Pazova',
+    'Starčevo',
+    'Subotica',
+    'Surdulica',
+    'Surčin',
+
+    //T
+    'Temerin',
+    'Titel',
+    'Topola',
+    'Trstenik',
+    'Tutin',
+
+    //Ć
+    'Ćićevac',
+    'Ćuprija',
+
+    //U
+    'Ub',
+    'Užice',
+    'Umka',
+    'Uljma',
+
+    //F
+    'Futog',
+
+    //C
+    'Crvenka',
+
+    //Č
+    'Čajetina',
+    'Čačak',
+    'Čoka',
+    'Čelarevo',
+
+    //Š
+    'Šabac',
+    'Šid'
+];
+
 //! ne koristi se vise!!
 const izmedju = [
     "",
@@ -235,10 +471,11 @@ const izmedju = [
     "-"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1F5-GyL66VCP4CbavqJq3vZWM_nqEXS1n";
+const image = "https://i.imgur.com/GDIULGP.png";
 
 module.exports = {
     prvideo,
     drugideo,
+    gradovi,
     image
 };

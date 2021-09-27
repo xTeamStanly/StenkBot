@@ -1069,12 +1069,12 @@ const akcija = [
 ];
 
 const image = [
-    "https://drive.google.com/uc?export=view&id=13vj8C9zqsTzQXILPRb-i3Wv-E9Dewyo4",
-    "https://drive.google.com/uc?export=view&id=1BlZY66hFpDi-FEAuuYloFTJDqjz6ZK8d",
-    "https://drive.google.com/uc?export=view&id=1pjtm8cA2FnMnymXvsAr-wcvfBE2utIkY",
-    "https://drive.google.com/uc?export=view&id=14hP7_RqeUhJTF-fSSJ54SS1ngphdsBsP",
-    "https://drive.google.com/uc?export=view&id=1XXu0ZiT5d7cDTMaTXHeOIfdnbFES6Wtx",
-    "https://drive.google.com/uc?export=view&id=1Q5e9V0riVov0ln7BYNFDWB-PhhzjUPuA"
+    "https://i.imgur.com/qPwclgM.png",
+    "https://i.imgur.com/ZIqNYpt.png",
+    "https://i.imgur.com/epJtqOJ.jpg",
+    "https://i.imgur.com/JDJGIzp.jpg",
+    "https://i.imgur.com/MFSPOCF.jpg",
+    "https://i.imgur.com/5R0tUWM.jpg"
 ];
 
 module.exports = {

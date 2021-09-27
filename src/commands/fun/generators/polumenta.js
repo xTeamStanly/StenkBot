@@ -1,5 +1,6 @@
-const { randomList } = require("../../shared");
+const { randomList, getMessageReference, getFooter } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/polumenta');
+const { Command } = require("yuuko");
 
 const rado = () => {
     var A;
@@ -12,7 +13,7 @@ const rado = () => {
         B = randomList(data.B);
         C = randomList(data.C);
         D = randomList(data.D);
-        final += `${A}${B}${C}${D} Polumenta\n`;
+        final += `- ${A}${B}${C}${D} Polumenta\n`;
     };
     return final;
 };
@@ -28,7 +29,7 @@ const radodado = () => {
         B = randomList(data.B);
         C = randomList(data.C);
         D = randomList(data.D);
-        final += `${A}${B}${C}${D}${C}${B}${C}${D} Polumenta\n`;
+        final += `- ${A}${B}${C}${D}${C}${B}${C}${D} Polumenta\n`;
     };
     return final;
 };
@@ -46,35 +47,65 @@ const folotrolo = () => {
         C = randomList(data.C);
         D = randomList(data.D);
         E = randomList(data.E);
-        final += `${A}${B}${C}${D}${E}${B}${C}${D} Polumenta\n`;
+        final += `- ${A}${B}${C}${D}${E}${B}${C}${D} Polumenta\n`;
     };
     return final;
 };
 
-const tipovi = [ 'rado', 'radodado', 'folotrolo' ];
+const polumentaRado = new Command('rado', async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Polumenta - Rado" },
+            title: "Dalje idu, dalje idu, dalje idu...",
+            description: rado(),
+            color: 0x804936,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+});
 
-const polumenta = (req, res) => {
-    var polumentaTip = req.query.tip;
-    if(!tipovi.includes(polumentaTip)) { polumentaTip = 'rado'; }
+const polumentaRadoDado = new Command('radodado', async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Polumenta - RadoDado" },
+            title: "Dalje idu, dalje idu, dalje idu...",
+            description: radodado(),
+            color: 0x804936,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+});
 
-    var output;
-    switch(polumentaTip) {
-        case 'rado': output = rado(); break;
-        case 'radodado': output = radodado(); break;
-        case 'folotrolo': output = folotrolo(); break;
-    }
+const polumentaFoloTrolo = new Command('folotrolo', async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Polumenta - FoloTrolo" },
+            title: "Dalje idu, dalje idu, dalje idu...",
+            description: folotrolo(),
+            color: 0x804936,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+});
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            author: "Dalje idu, dalje idu, dalje idu...",
-            title: output,
-            color: 0x3498DB,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-}
+const polumenta = new Command(['polumenta', 'sako', 'dado'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Polumenta - Rado" },
+            title: "Dalje idu, dalje idu, dalje idu...",
+            description: rado(),
+            color: 0x804936,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+}).addSubcommand(polumentaRado).addSubcommand(polumentaRadoDado).addSubcommand(polumentaFoloTrolo);
 
 module.exports = polumenta;

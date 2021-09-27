@@ -33,6 +33,12 @@ bot.addFile(path.join(__dirname, 'commands/fun/generators/novine.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/oldInsult.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/generators/periodic.js')); //TODO VELIKI TODO, PROBNI POKUSAJI, SLIKA ...
 bot.addFile(path.join(__dirname, 'commands/fun/generators/pitajJodu.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/polumenta.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/prica.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/psovkaZm.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/socFirma.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/srba.js'));
+bot.addFile(path.join(__dirname, 'commands/fun/generators/seselj.js'));
 
 bot.addFile(path.join(__dirname, 'commands/fun/advice.js'));
 bot.addFile(path.join(__dirname, 'commands/fun/ispovesti.js'));
@@ -43,6 +49,9 @@ bot.addFile(path.join(__dirname, 'commands/fun/xkcd.js'));
 
 bot.addFile(path.join(__dirname, 'commands/utility/covid19.js'));
 
+bot.on('shardReady', () => {
+	console.log("NEW SHARD".red);
+})
 
 //TODO STATUSI ZA ELFAK
 //0 is playing

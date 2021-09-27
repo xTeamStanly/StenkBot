@@ -76,8 +76,10 @@ const atribut = [
 ];
 
 //TODO Image - mozda emoji koji je ljut??
+const image = 'https://i.imgur.com/PFhkB6T.png';
 
 module.exports = {
     kraj,
-    atribut
+    atribut,
+    image
 };

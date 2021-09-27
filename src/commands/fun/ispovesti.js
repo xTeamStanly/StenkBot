@@ -3,6 +3,8 @@ const cheerio = require('cheerio');
 const { Command } = require('yuuko');
 const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
+const image = "https://i.imgur.com/qCzQHRV.png";
+
 const ispovest2embeds2message = async (link, message, context) => {
     var ovaKomandaTrajePoruka = null;
 
@@ -29,7 +31,7 @@ const ispovest2embeds2message = async (link, message, context) => {
                 description: ispovestJson.text,
                 color: 0x000000,
                 url: `http://ispovesti.com/ispovest/${id}`,
-                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                thumbnail: { url: image },
                 fields: [
                     {
                         name: "👍",
@@ -71,7 +73,7 @@ const ispovest2embeds2message = async (link, message, context) => {
                 description: errSadrzaj,
                 color: 0x000000,
                 url: 'http://ispovesti.com/',
-                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                thumbnail: { url: image },
                 footer: getFooter(message)
             }
         });
@@ -132,7 +134,7 @@ const ispovestiDanNedeljaMesec = async (tip, message) => {
             title: title,
             description: ispovest.children('p').text(),
             url: 'http://ispovesti.com' + ispovest.children('a.miniLink').prop('href'),
-            thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+            thumbnail: { url: image },
             color: 0x000000,
             fields: [
                 {
@@ -163,7 +165,7 @@ const ispovestiDanNedeljaMesec = async (tip, message) => {
                 description: errSadrzaj,
                 color: 0x000000,
                 url: 'http://ispovesti.com/',
-                thumbnail: { url: "https://i.imgur.com/qCzQHRV.png" },
+                thumbnail: { url: image },
                 footer: getFooter(message)
             }
         });

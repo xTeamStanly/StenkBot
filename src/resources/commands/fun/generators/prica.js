@@ -183,7 +183,7 @@ const popijem = [
     "limunadu"
 ];
 
-const image = "https://drive.google.com/uc?export=view&id=1HvmrAaRF4MFKNe1pnLIcWjVt8BzVX9TR";
+const image = "https://i.imgur.com/M9CQloT.png";
 
 module.exports = {
     output,

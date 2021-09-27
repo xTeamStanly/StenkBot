@@ -2,12 +2,14 @@ const { Command } = require('yuuko');
 const axios = require('axios');
 const { getTodaysDate, errNaslov, errSadrzaj, getMessageReference } = require('../../lib/tools');
 
+const image = "https://i.imgur.com/U41S13T.png";
+
 const advice = new Command(['advice', 'savet'], async (message, args, context) => {
     const finalJson = {
         author: { name: 'Advice', url: "https://adviceslip.com/" },
         url: "https://adviceslip.com/",
         color: 0xFE830E,
-        thumbnail: { url: "https://i.imgur.com/U41S13T.png" },
+        thumbnail: { url: image },
         footer: {
             text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
             icon_url: message.author.avatarURL

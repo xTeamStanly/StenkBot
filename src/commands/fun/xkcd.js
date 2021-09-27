@@ -3,11 +3,13 @@ const axios = require('axios');
 
 const { errNaslov, errSadrzaj, getFooter, getMessageReference } = require('../../lib/tools');
 
+const image = "https://i.imgur.com/MiXtna4.png";
+
 const xkcd = new Command('xkcd', async (message, args, context) => {
     const finalJson = {
         author: { name: 'XKCD', url: `https://xkcd.com/` },
         color: 0x6F7B91,
-        thumbnail: { url: "https://i.imgur.com/MiXtna4.png" },
+        thumbnail: { url: image },
         footer: getFooter(message)
     };
 

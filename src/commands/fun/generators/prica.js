@@ -1,7 +1,8 @@
-const { randomList } = require("../../shared");
+const { Command } = require("yuuko");
+const { randomList, getMessageReference, getFooter } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/prica');
 
-const prica = (req, res) => {
+const prica = new Command(['prica', 'story'], async (message, args, context) => {
     var output = data.output;
     output = output
         .replace("[ko]", randomList(data.ko))
@@ -24,17 +25,17 @@ const prica = (req, res) => {
         output = output.replace("[Popijem]", randomList(data.popijem));
         output = output.replace("[kolko]", randomList(data.kolko));
 
-    var finalJson = {
-        count: 1,
-        items: [{
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Priča' },
             title: "Kratka priča",
             description: output,
-            color: 0x11806A,
-            thumbnailUrl: data.image
-        }]
-    };
-
-    res.json(finalJson);
-};
+            color: 0x8a3a34,
+            thumbnail: { url: data.image },
+            footer: getFooter(message)
+        }
+    });
+});
 
 module.exports = prica;

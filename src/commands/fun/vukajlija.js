@@ -5,6 +5,8 @@ const encodeUrl = require('encodeurl');
 
 const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
+const image = "https://i.imgur.com/YAOcXt2.png";
+
 //skrati na 900 karaktera
 const skockajString = (input, link) => {
     if(input != null) {
@@ -95,7 +97,7 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
                     color: 0x1F8B4C,
                     url: url,
                     description: skockajString(defka, url),
-                    thumbnail: { url: "https://i.imgur.com/YAOcXt2.png" },
+                    thumbnail: { url: image },
                     fields: [],
                     footer: getFooter(message)
                 }
@@ -136,7 +138,7 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
                 description: ":frowning2: Reč nažalost nije pronađena. Stranica je uklonjena ili nikada nije ni postojala!",
                 color: 0x1F8B4C,
                 url: "https://vukajlija.com/",
-                thumbnail: { url: "https://i.imgur.com/YAOcXt2.png" },
+                thumbnail: { url: image },
                 footer: getFooter(message)
             }];
 
@@ -148,7 +150,7 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
             description: errSadrzaj,
             color: 0x1F8B4C,
             url: "https://vukajlija.com/",
-            thumbnail: { url: "https://i.imgur.com/YAOcXt2.png" },
+            thumbnail: { url: image },
             footer: getFooter(message)
         }];
         console.log(err);
