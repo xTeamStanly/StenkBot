@@ -129,11 +129,15 @@ const ispovestiDanNedeljaMesec = async (tip, message) => {
         const potvrde = parseInt(osudePotvrde[0].replace('odobravam', ''));
         const osude = parseInt(osudePotvrde[1].replace('osuđujem', ''));
 
+        var ispoDesc = ispovest.children('p').text();
+        const ispoUrl = 'http://ispovesti.com' + ispovest.children('a.miniLink').prop('href');
+        if (ispoDesc.endsWith('...')) { ispoDesc = ispoDesc + `[Detaljnije]`; ispoDesc = ispoDesc.replace('...[Detaljnije]', ` [...**Više**](${ispoUrl})`) };
+
         ispovestJson = {
             author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
             title: title,
-            description: ispovest.children('p').text(),
-            url: 'http://ispovesti.com' + ispovest.children('a.miniLink').prop('href'),
+            description: ispoDesc,
+            url: ispoUrl,
             thumbnail: { url: image },
             color: 0x000000,
             fields: [
