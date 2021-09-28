@@ -11,7 +11,7 @@ const skockajString = (input, link) => {
         input = input.replace(/(\[|\])/g, '__');
         if(input.length > 300) {
             input = input.substring(0, 300);
-            input += ` [...**More**](${link})`;
+            input += ` **[...More](${link})**`;
         }
     }
     return input;

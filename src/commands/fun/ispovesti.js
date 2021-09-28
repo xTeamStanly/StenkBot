@@ -34,12 +34,12 @@ const ispovest2embeds2message = async (link, message, context) => {
                 thumbnail: { url: image },
                 fields: [
                     {
-                        name: "👍",
+                        name: ":thumbsup: Potvrde",
                         value: ispovestJson.oprost,
                         inline: true
                     },
                     {
-                        name: "👎",
+                        name: ":thumbsdown: Osude",
                         value: ispovestJson.osuda,
                         inline: true
                     },
@@ -131,7 +131,7 @@ const ispovestiDanNedeljaMesec = async (tip, message) => {
 
         var ispoDesc = ispovest.children('p').text();
         const ispoUrl = 'http://ispovesti.com' + ispovest.children('a.miniLink').prop('href');
-        if (ispoDesc.endsWith('...')) { ispoDesc = ispoDesc + `[Detaljnije]`; ispoDesc = ispoDesc.replace('...[Detaljnije]', ` [...**Više**](${ispoUrl})`) };
+        if (ispoDesc.endsWith('...')) { ispoDesc = ispoDesc + `[Detaljnije]`; ispoDesc = ispoDesc.replace('...[Detaljnije]', ` **[...Više](${ispoUrl})**`) };
 
         ispovestJson = {
             author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
@@ -142,12 +142,12 @@ const ispovestiDanNedeljaMesec = async (tip, message) => {
             color: 0x000000,
             fields: [
                 {
-                    name: "👍",
+                    name: ":thumbsup: Potvrde",
                     value: potvrde,
                     inline: true
                 },
                 {
-                    name: "👎",
+                    name: ":thumbsdown: Osude",
                     value: osude,
                     inline: true
                 },

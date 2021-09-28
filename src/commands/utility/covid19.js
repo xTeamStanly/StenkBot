@@ -1,7 +1,7 @@
 const { Command } = require('yuuko');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { errNaslov, errSadrzaj, getMessageReference, getFooter } = require('../../lib/tools');
+const { errNaslov, errSadrzaj, getMessageReference, getFooter, emptyEmbedField } = require('../../lib/tools');
 
 const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (message, args, context) => {
     var finalJson = {
@@ -40,11 +40,7 @@ const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (mes
                 value: `__**${covidData[12]}**__`,
                 inline: true
             },
-            {
-                name: "\u200b",
-                value: "\u200b",
-                inline: true,
-            },
+            emptyEmbedField(),
             {
                 name: "Testirani",
                 value: covidData[8],
@@ -55,11 +51,7 @@ const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (mes
                 value: covidData[10],
                 inline: true,
             },
-            {
-                name: "\u200b",
-                value: "\u200b",
-                inline: true,
-            },
+            emptyEmbedField(),
             {
                 name: "Preminuli",
                 value: covidData[4],
@@ -85,11 +77,7 @@ const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (mes
                 value: covidData[18],
                 inline: true,
             },
-            {
-                name: "\u200b",
-                value: "\u200b",
-                inline: true,
-            }
+            emptyEmbedField()
         ];
     } catch(err) {
         naslov = errNaslov;

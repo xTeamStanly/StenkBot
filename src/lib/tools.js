@@ -25,7 +25,15 @@ const randomBetweenIncluding = (min, max) => {
 const getTodaysDate = () => {
     const trenutnoVreme = new Date();
     return `${trenutnoVreme.toLocaleDateString('sr-RS')} ${trenutnoVreme.toLocaleTimeString('sr-RS')}`;
-}
+};
+
+const emptyEmbedField = () => {
+    return {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+    }
+};
 
 const getFooter = (message) => {
     const trenutnoVreme = new Date();
@@ -77,6 +85,8 @@ module.exports = {
     getFooter,
     getMessageReference,
     customWebHookCheckAndCreate,
+
+    emptyEmbedField,
 
     botAvatar,
     botID,

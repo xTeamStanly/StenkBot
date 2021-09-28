@@ -130,27 +130,33 @@ const generisiSliku = (naslov, bojaHex) => {
     return canvas.toBuffer('image/jpeg', { quality: 1 });
 }
 
-const filename = "knjiga.jpg";
 //komanda
 const seselj = new Command('seselj', async (message, args, context) => {
     const thumbUrl = randomList(data.image);
     const boja = generisiBoju();
     const embedBoja = boja.integer;
+    var naslov = generisiNaslov();
+
+    var userTitle = args.join(' ');
+    if(userTitle != '') {
+        if(userTitle.length >= 100) { userTitle = userTitle.substring(0, 100) + '...'; }
+        naslov = userTitle;
+    }
 
     try {
-        const naslov = generisiNaslov();
+        const slikaBuffer = generisiSliku(naslov, boja.hex);
         await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: {
                 author: { name: "Шешељ - Ново Шешељево дело!" },
                 title: naslov,
-                description: "*Пријатно читање!*",
+                description: "*Пријатно читање!*\n\n\n***Због уплоад-а, може да се деси\nда нека слика неће да ради!***",
                 color: embedBoja,
                 thumbnail: { url: thumbUrl },
-                image: { url: `attachment://${filename}` },
+                image: { url: `attachment://knjiga.jpg` },
                 footer: getFooter(message),
             }
-        }, { name: filename, file: generisiSliku(naslov, boja.hex) });
+        }, { name: 'knjiga.jpg', file: slikaBuffer });
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({

@@ -12,7 +12,7 @@ const skockajString = (input, link) => {
     if(input != null) {
         if(input.length > 300) {
             input = input.substring(0, 300);
-            input += ` [...**Više**](${link})`;
+            input += ` **[...Više](${link})**`;
         }
     }
     return input;
