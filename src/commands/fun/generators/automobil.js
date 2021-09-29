@@ -1,6 +1,6 @@
 
 
-const { randomList, randomBetweenIncluding } = require('../../../lib/tools');
+const { randomList, randomBetweenIncluding, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/automobil');
 const { Command } = require('yuuko');
 
@@ -22,60 +22,95 @@ const generisi345 = () => {
     //ako se nesto prejebe
     return "000";
 };
-const trislova = (cirlica) => {
-    if(cirilica) {
-        return `${cirilicaSlovo()}${cirilicaSlovo()}${cirilicaSlovo()}`;
-    } else {
-        return `${latinicaSlovo()}${latinicaSlovo()}${latinicaSlovo()}`;
-    }
-};
-const dvaslova = (cirlica) => {
-    if(cirilica) {
-        return `${cirilicaSlovo()}${cirilicaSlovo()}`;
-    } else {
-        return `${latinicaSlovo()}${latinicaSlovo()}`;
-    }
-};
+const trislova = (cirilica) => { if(cirilica) { return `${cirilicaSlovo()}${cirilicaSlovo()}${cirilicaSlovo()}`; } else { return `${latinicaSlovo()}${latinicaSlovo()}${latinicaSlovo()}`; } };
+const dvaslova = (cirilica) => { if(cirilica) { return `${cirilicaSlovo()}${cirilicaSlovo()}`; } else { return `${latinicaSlovo()}${latinicaSlovo()}`; } };
 
-const automobilIOIII = (req, res) => {
+const automobil = new Command(['auto', 'automobil'], async (message, args, context) => {
 
-    var finalJson = {
-        count: 1,
-        items: [{
-            title: "Automobil",
-            //TODO thumbnailURL
-            field: [ ]
-        }]
-    }
+    var autoData = { brend: '', model: '', registracija: '' }
+
+    //title: "Automobil",
+    //TODO thumbnailURL
 
     //marka automobila
     const autoJson = randomList(data.modeliAutomobila);
-    const autoMarka = autoJson.brand;
-    const autoModel = randomList(autoJson.models);
+    autoData.brend = autoJson.brand;
+    autoData.model = randomList(autoJson.models);
 
     //registracija/tablica
     const cirilica = (Math.random() > 0.5); //random true/false
     const tipTablice = randomList(data.tipoviTablica);
-    var tablica;
+    var tablica; var boja;
     switch(tipTablice) {
         case "civilna":
-            tablica = `${regionRandom(cirilica)} ${generisi345()}∙${dvaslova(cirlica)}`;
-            finalJson.items[0].color = 0xFAFAFA;
+            tablica = `${regionRandom(cirilica)} ${generisi345()}∙${dvaslova(cirilica)}`;
+            boja = 0xFAFAFA;
             break;
-
         case "agrokultura":
-            tablica = agrokultura(cirilica);
-            finalJson.items[0].color = 0x3FD5AE;
+            tablica = `${regionRandom(cirilica)} ${dvocifreni()}∙${trislova()}`;
+            boja = 0x3FD5AE;
             break;
         case "moped":
-            tablica = moped(cirilica);
-
+            tablica = `${regionRandom(cirilica)} ${trocifren()}∙${dvocifreni()}`;
+            boja = 0xE6AA1B;
+            break;
+        case "prikolica":
+            tablica = `${dvaslova()}∙${generisi345()} ${regionRandom(cirilica)}`;
+            boja = 0xFAFAFA;
+            break;
+        case "taxi":
+            tablica = `${regionRandom(cirilica)} ${generisi345()}∙TX`;
+            boja = 0xFAFAFA;
+            break;
+        case "diplomatska":
+            tablica = `${randomBetweenIncluding(10, 144)}∙${randomList(data.diplomatskiSimbol)}∙${trocifren()}`;
+            boja = 0x010000;
+            break;
+        case "izvozna":
+            tablica = `${trislova(cirilica)} ${regionRandom(cirlica)}∙${trocifren()}`;
+            boja = 0xFAFAFA;
+            break;
+        case "vojna":
+            tablica = `${randomList(data.vojniSimbol)} - ${cetvorocifren()}`;
+            boja = 0xE6E2D9;
+            break;
+        case "policijska":
+            tablica = `P ${trocifren()}∙${trocifren()}`;
+            boja = 0x114080;
+            break;
     }
 
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Automobil" },
+            title: `${message.author.username}#${message.author.discriminator} vozi ...`,
+            color: boja,
+            thumbnail: { url: 'https://i.imgur.com/R118ElN.png' },
+            fields: [
+                {
+                    name: "Vozilo",
+                    value: `:race_car: **${autoData.brend} ${autoData.model}**`,
+                    inline: true,
+                },
+                {
+                    name: ":hash: Tablica",
+                    value: `**${tablica} (${tipTablice})**`,
+                    inline: true,
+                }
+            ],
+            footer: getFooter(message)
+        }
+    });
+});
+
+const generisiTablice = () => {
+    tablica = { tip: 'a', vrednost: 'a' }
+    return tablica;
 };
 
-
-const automobil = new Command('auto', async (message, args, context) => {
+const automobil0 = new Command('auto', async (message, args, context) => {
     await message.channel.createMessage({content: "automobili xd"});
 });
+
 module.exports = automobil;
