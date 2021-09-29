@@ -25,7 +25,7 @@ const generisi345 = () => {
 const trislova = (cirilica) => { if(cirilica) { return `${cirilicaSlovo()}${cirilicaSlovo()}${cirilicaSlovo()}`; } else { return `${latinicaSlovo()}${latinicaSlovo()}${latinicaSlovo()}`; } };
 const dvaslova = (cirilica) => { if(cirilica) { return `${cirilicaSlovo()}${cirilicaSlovo()}`; } else { return `${latinicaSlovo()}${latinicaSlovo()}`; } };
 
-const automobil = new Command(['auto', 'automobil'], async (message, args, context) => {
+const automobil = new Command(['auto', 'automobil', 'kola'], async (message, args, context) => {
 
     var autoData = { brend: '', model: '', registracija: '' }
 
@@ -102,15 +102,6 @@ const automobil = new Command(['auto', 'automobil'], async (message, args, conte
             footer: getFooter(message)
         }
     });
-});
-
-const generisiTablice = () => {
-    tablica = { tip: 'a', vrednost: 'a' }
-    return tablica;
-};
-
-const automobil0 = new Command('auto', async (message, args, context) => {
-    await message.channel.createMessage({content: "automobili xd"});
 });
 
 module.exports = automobil;
