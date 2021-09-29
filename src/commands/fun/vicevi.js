@@ -50,7 +50,22 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
         } else { //kategorija nije nula, odnosno postoji
 
             //TODO ZNAK PITANJA, POMOC, KATEGORIJE POKAZUJU KATEGORIJE, ILI SVE SPOJI U HELP KOMADU
-            // if(kategorija.toLowerCase() == 'kategorije' || kategorija.toLowerCase() == 'kat' || kategorija.toLowerCase() == 'pomoc') { }
+            const kategorijaLowerCase = kategorija.toLowerCase();
+            if(['kategorije', 'kategorija', 'kat', 'pomoc', '?'].includes(kategorijaLowerCase)) {
+                await message.channel.createMessage({
+                    messageReference: getMessageReference(message),
+                    embed: {
+                        author: { name: 'Vicevi', url: 'https://www.vicevi.rs' },
+                        color: 0x0B263F,
+                        thumbnail: { url: data.image },
+                        footer: getFooter(message),
+                        url: 'https://www.vicevi.rs/',
+                        title: "Kategorije viceva",
+                        description: data.kategorijeLista
+                    }
+                });
+                return;
+            }
 
             const validna = validnaKaterogija(kategorija);
             //ako kategorija nije validna --> odaberi nasumicnu

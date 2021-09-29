@@ -21,16 +21,15 @@ const kategorije = [
     { ime: "zivotinje", value: "zivotinje"   }
 ];
 
-//TODO
 const kategorijeLista =
     "**Vic dana** - Ako ne navedete kategoriju\n" +
-    "**Nasumicna Kategorija** - Pogresna kategorija\n\n" +
+    "**Nasumična Kategorija** - Pogrešna kategorija\n\n" +
     "Korišćenje: vic <kategorija>\n" +
-    "**• random** - Nasumicna kategorija\n" +
+    "**• random** - Nasumična kategorija\n" +
     "**• top** - Najbolji vicevi\n" +
     "**• novo** - Najnoviji vicevi\n" +
     "**• babe** - Vicevi o babama\n" +
-    "**• chuck** - Vicevi o Cak Norisu\n" +
+    "**• chuck** - Vicevi o Čak Norisu\n" +
     "**• ciga** - Vicevi o Ciganima\n" +
     "**• crni** - Crni Humor\n" +
     "**• grafiti** - Grafiti\n" +
@@ -39,14 +38,14 @@ const kategorijeLista =
     "**• narodi** - Vicevi o narodima\n" +
     "**• oglasi** - Oglasi\n" +
     "**• perica** - Vicevi o Perici\n" +
-    "**• pirot** - Vicevi o Pirocancima\n" +
-    "**• plavuse** - Vicevi o plavusama\n" +
+    "**• pirot** - Vicevi o Piroćancima\n" +
+    "**• plavuse** - Vicevi o plavušama\n" +
     "**• policajci** - Vicevi o policajcima\n" +
-    "**• politicki** - Politicki vicevi\n" +
+    "**• politicki** - Politički vicevi\n" +
     "**• sijalice** - Sijalice\n" +
-    "**• svasta** - Svastara\n" +
+    "**• svasta** - Svaštara\n" +
     "**• zemun** - Vicevi o Zemuncima\n" +
-    "**• zivotinje** - Zivotinjski vicevi\n";
+    "**• zivotinje** - Životinjski vicevi\n";
 
 const image = 'https://i.imgur.com/NOQmMHQ.png';
 
