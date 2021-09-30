@@ -3,6 +3,8 @@ const cheerio = require('cheerio');
 const { Command } = require('yuuko');
 const encodeUrl = require('encodeurl');
 
+const moment = require('moment');
+
 const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
 const image = "https://i.imgur.com/YAOcXt2.png";
@@ -88,8 +90,9 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
 
                 const autor = info.children('li.post-votal-show').children('a');
                 const defkaAutor = `[${autor.text()}](https://vukajlija.com${autor.prop('href')})`;
-                const defkaDatum = info.children('li').children('abbr').prop('title');
 
+                const datumParsed = new Date(info.children('li').children('abbr').prop('title'));
+                const defkaDatum = `${datumParsed.toLocaleDateString('sr')} ${datumParsed.toLocaleTimeString('sr')}`;
 
                 const jsonDefka = {
                     author: { name: "Vukajlija" },
