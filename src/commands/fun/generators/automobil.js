@@ -83,14 +83,14 @@ const automobil = new Command(['auto', 'automobil', 'kola'], async (message, arg
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
-            author: { name: "Automobil" },
+            author: { name: "Automobil", url: 'https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Serbia#Special_license_plates' },
             title: `${message.author.username}#${message.author.discriminator} vozi ...`,
             color: boja,
             thumbnail: { url: 'https://i.imgur.com/R118ElN.png' },
             fields: [
                 {
-                    name: "Vozilo",
-                    value: `:race_car: **${autoData.brend} ${autoData.model}**`,
+                    name: ":race_car: Vozilo",
+                    value: `**${autoData.brend} ${autoData.model}**`,
                     inline: true,
                 },
                 {
