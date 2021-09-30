@@ -4,7 +4,7 @@ const { Command } = require("yuuko");
 
 const datumFormati = ["DD/MM/YYYY", "DD.MM.YYYY."];
 
-const date = new Command(['date', 'datediff', 'diff'], async (message, args, context) => {
+const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, args, context) => {
 
     var finalJson = {
         author: { name: "Datum" },
@@ -27,7 +27,7 @@ const date = new Command(['date', 'datediff', 'diff'], async (message, args, con
         //neka drugi bude uvek veci
         if(prvi > drugi) { [prvi, drugi] = [drugi, prvi]; }
 
-        finalJson.title = `Razlikuju se za ${Math.abs(prvi.diff(drugi, "days"))} dan/a`;
+        finalJson.title = `Razlikuju se za ${razlika} dan/a`;
         finalJson.description = `**${prvi.toDate().toLocaleDateString('sr')}** :arrow_right: **${drugi.toDate().toLocaleDateString('sr')}**`;
 
     } catch(err) {
