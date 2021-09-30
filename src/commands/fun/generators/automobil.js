@@ -10,7 +10,7 @@ const cetvorocifren = () => { return randomBetweenIncluding(1000, 9999); }
 const petocifren = () => { return randomBetweenIncluding(10000, 99999); }
 const latinicaSlovo = () => { return randomList(data.abeceda); }
 const cirilicaSlovo = () => { return randomList(data.azbuka); }
-const regionRandom = (cirilica) => { return (cirilica) ? randomList(data.azbuka) : randomList(data.abeceda); }
+const regionRandom = (cirilica) => { return (cirilica) ? randomList(data.regioniTablicaCYR) : randomList(data.regioniTablicaLAT); }
 const generisi345 = () => {
     const cifre = randomBetweenIncluding(3, 5);
     switch(cifre) {
@@ -67,7 +67,7 @@ const automobil = new Command(['auto', 'automobil', 'kola'], async (message, arg
             boja = 0x010000;
             break;
         case "izvozna":
-            tablica = `${trislova(cirilica)} ${regionRandom(cirlica)}∙${trocifren()}`;
+            tablica = `${trislova(cirilica)} ${regionRandom(cirilica)}∙${trocifren()}`;
             boja = 0xFAFAFA;
             break;
         case "vojna":
@@ -90,12 +90,12 @@ const automobil = new Command(['auto', 'automobil', 'kola'], async (message, arg
             fields: [
                 {
                     name: ":race_car: Vozilo",
-                    value: `**${autoData.brend} ${autoData.model}**`,
+                    value: `${autoData.brend} ${autoData.model}`,
                     inline: true,
                 },
                 {
                     name: ":hash: Tablica",
-                    value: `**${tablica} (${tipTablice})**`,
+                    value: `${tablica} (${tipTablice})`,
                     inline: true,
                 }
             ],

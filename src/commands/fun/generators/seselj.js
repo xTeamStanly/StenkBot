@@ -2,7 +2,7 @@ const { Command } = require('yuuko');
 const { randomList, getMessageReference, getFooter, errNaslov, errSadrzaj } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/seselj/seselj');
 
-
+//#region
 //canvas dependencies
 const { Image, createCanvas, registerFont } = require('canvas');
 const canvasTxt = require('canvas-txt').default;
@@ -129,6 +129,7 @@ const generisiSliku = (naslov, bojaHex) => {
 
     return canvas.toBuffer('image/jpeg', { quality: 1 });
 }
+//#endregion
 
 //komanda
 const seselj = new Command('seselj', async (message, args, context) => {
@@ -144,19 +145,25 @@ const seselj = new Command('seselj', async (message, args, context) => {
     }
 
     try {
-        const slikaBuffer = generisiSliku(naslov, boja.hex);
-        await message.channel.createMessage({
+        const x = await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: {
                 author: { name: "Шешељ - Ново Шешељево дело!" },
                 title: naslov,
-                description: "*Пријатно читање!*\n\n\n***Због уплоад-а, може да се деси\nда нека слика неће да ради!***",
+                description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nможе се десити да се некад слика\nне учита!***",
                 color: embedBoja,
                 thumbnail: { url: thumbUrl },
-                image: { url: `attachment://knjiga.jpg` },
+                image: { url: `attachment://knjiga.jpeg` },
                 footer: getFooter(message),
             }
-        }, { name: 'knjiga.jpg', file: slikaBuffer });
+        }, { name: 'knjiga.jpeg', file: generisiSliku(naslov, boja.hex) });
+
+        console.log("KANAL: " + message.channel.id);
+        //console.log(x);
+        console.log(x.attachments);
+        console.log("AUTOR SESELJ ID: " + x.author.id);
+        console.log("SESELJ MSG ID: " + x.id);
+        console.log("URL: "); console.log(x.embeds[0].image);
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({

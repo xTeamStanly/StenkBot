@@ -14,7 +14,6 @@ try {
 		prefix: process.env.PREFIX,
 		maxShards: 'auto',
 		ignoreBots: true,
-		compress: true,
 		defaultImageFormat: 'jpg'
 	});
 
