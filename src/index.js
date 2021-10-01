@@ -3,6 +3,9 @@ const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' })
 const { stenkLog, colors } = require('./lib/botHelper')
 
+const ErisComponents = require('eris-components');
+
+
 //!!! BOT INVITE LINK + PERMISSIONS
 //https://discord.com/api/oauth2/authorize?client_id=871723684086296617&permissions=536995904&scope=bot
 
@@ -15,6 +18,18 @@ try {
 		maxShards: 'auto',
 		ignoreBots: true,
 		defaultImageFormat: 'jpg'
+	});
+
+	//!eris-components
+	//!BETA STENKBOT
+	ErisComponents.Client(bot); //init za komponente
+	bot.on('interactionCreate', (message) => {
+		if(message.data.custom_id == 'dobardan') {
+			bot.replyInteraction(message, [], { embeds: [{title: "EMBED1"}, {title: "EMBED2"}] }) // Type 5. See https://discord.com/developers/docs/interactions/slash-commands#interaction-response-object-interaction-callback-type
+
+			//bot.replyInteraction(message, [], { embed: { title: 'aa' } }, );
+		}
+		console.log(message);
 	});
 
 	//dodajemo sve komande
@@ -32,7 +47,6 @@ try {
 	});
 
 	bot.on('messageCreate', () => { console.log("OVERRIDER") })
-
 
 	//todo help command
 	bot.on('invalidCommand', async (message,args, context) => {
