@@ -18,7 +18,6 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Cheerio](https://www.npmjs.com/package/cheerio)
 
 ### 📒 ToDo
-- Popravi format embeda
-- Popravi slike embeda
+- testiraj sip-fetcher
 
 ### 👋 Pozdrav
