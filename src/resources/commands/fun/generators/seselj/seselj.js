@@ -308,13 +308,6 @@ const titles = [
     },
     {
         gendered: true,
-        word_main: "коњчина",
-        gender_main: "m",
-        word_alt: "кобилетина",
-        gender_alt: "f"
-    },
-    {
-        gendered: true,
         word_main: "кер",
         gender_main: "m",
         word_alt: "керуша",

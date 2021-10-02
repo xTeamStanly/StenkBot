@@ -49,7 +49,7 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
 
         } else { //kategorija nije nula, odnosno postoji
 
-            //TODO ZNAK PITANJA, POMOC, KATEGORIJE POKAZUJU KATEGORIJE, ILI SVE SPOJI U HELP KOMADU
+            //prikazi kategorije ako korisnik zahteva
             const kategorijaLowerCase = kategorija.toLowerCase();
             if(['kategorije', 'kategorija', 'kat', 'pomoc', '?'].includes(kategorijaLowerCase)) {
                 await message.channel.createMessage({
