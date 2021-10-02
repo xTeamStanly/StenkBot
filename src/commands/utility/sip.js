@@ -1,5 +1,5 @@
 const { Command, Client } = require("yuuko");
-const { getMessageReference, customWebHookCheckAndCreate, errNaslov, errSadrzaj, getFooter } = require('../../../lib/tools');
+const { getMessageReference, customWebHookCheckAndCreate, errNaslov, errSadrzaj, getFooter } = require('../../lib/tools');
 const storage = require('node-persist');
 
 // const cron = require('node-cron');

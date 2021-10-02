@@ -2,6 +2,7 @@
 *.env
 
 #storage
+.node-persist
 storage
 
 # Logs
