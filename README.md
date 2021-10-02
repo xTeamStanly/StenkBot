@@ -13,6 +13,9 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Node.js](https://nodejs.org/)
 - [Eris](https://www.npmjs.com/package/eris)
 - [Yuuko](https://www.npmjs.com/package/eris)
+- [Cron](https://www.npmjs.com/package/node-cron)
+- [Axios](https://www.npmjs.com/package/axios)
+- [Cheerio](https://www.npmjs.com/package/cheerio)
 
 ### 📒 ToDo
 - Popravi format embeda
