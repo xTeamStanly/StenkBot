@@ -148,25 +148,38 @@ const seselj = new Command('seselj', async (message, args, context) => {
     }
 
     try {
-        const x = await message.channel.createMessage({
+
+        var embed = {
+            author: { name: "Шешељ - Ново Шешељево дело!" },
+            title: naslov,
+            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nможе се десити да се некад слика\nне учита!***",
+            color: embedBoja,
+            thumbnail: { url: thumbUrl },
+            image: { url: `attachment://knjiga.jpeg` },
+            footer: getFooter(message),
+        }
+
+        var x = await message.channel.createMessage({
             messageReference: getMessageReference(message),
-            embed: {
-                author: { name: "Шешељ - Ново Шешељево дело!" },
-                title: naslov,
-                description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nможе се десити да се некад слика\nне учита!***",
-                color: embedBoja,
-                thumbnail: { url: thumbUrl },
-                image: { url: `attachment://knjiga.jpeg` },
-                footer: getFooter(message),
-            }
+            embed: embed
         }, { name: 'knjiga.jpeg', file: generisiSliku(naslov, boja.hex) });
 
-        console.log("KANAL: " + message.channel.id);
+        //#region seselj debug
         //console.log(x);
-        console.log(x.attachments);
-        console.log("AUTOR SESELJ ID: " + x.author.id);
-        console.log("SESELJ MSG ID: " + x.id);
-        console.log("URL: "); console.log(x.embeds[0].image);
+        //console.log("KANAL: " + message.channel.id);
+        //console.log(x.attachments);
+        //console.log("AUTOR SESELJ ID: " + x.author.id);
+        //console.log("SESELJ MSG ID: " + x.id);
+        //console.log("URL: "); console.log(x.embeds[0].image);
+        //embed.image.url = x.embeds[0].image.url;
+        //#endregion
+
+        //ako editujemo poruku, embed se sam osvezi
+        //to radimo kod onih koji nece odmah da prepoznaju link slike
+        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
+        //trebale da rade
+        //losa stvar je to sto uvek pise edited  u poruci :/
+        await message.channel.editMessage(x.id, x.content);
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({

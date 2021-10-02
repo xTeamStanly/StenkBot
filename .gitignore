@@ -1,6 +1,9 @@
 #config
 *.env
 
+#txt
+.*.txt
+
 #storage
 .node-persist
 storage
