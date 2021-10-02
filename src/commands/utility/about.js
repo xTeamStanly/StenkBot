@@ -20,7 +20,7 @@ const about = new Command(['about', 'gazda', 'stenk'], async (message, args, con
                 },
                 {
                     name: ":zap: Powered by",
-                    value: `- Eris\n- Yuuko\n- Node.js`,
+                    value: `- Eris\n- Yuuko\n- Node.js\n- Cron\n- Axios\n- Cheerio`,
                     inline: true
                 },
                 {

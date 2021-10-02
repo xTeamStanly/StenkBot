@@ -74,7 +74,7 @@ const generisiNaslov = (sansaZaDvaPrideva = 0.2) => {
     };
 
 	//koristi samo prvi
-    let titleFinal = `${adjOne} ${title} ${person.name}`;
+    let titleFinal = `${adjOne} ${title}\n${person.name}`;
 
 	//dal da koristim i drugi?
     let usetwoadjectives = (Math.random() < sansaZaDvaPrideva) && (first_adj != second_adj);
@@ -140,8 +140,11 @@ const seselj = new Command('seselj', async (message, args, context) => {
 
     var userTitle = args.join(' ');
     if(userTitle != '') {
-        if(userTitle.length >= 100) { userTitle = userTitle.substring(0, 100) + '...'; }
+        if(userTitle.length >= 128) { userTitle = userTitle.substring(0, 128) + '...'; }
+        userTitle = userTitle.replace(/(\\n)/g, '\n'); //podrzava \n u strigu :)
+        console.log(userTitle)
         naslov = userTitle;
+
     }
 
     try {

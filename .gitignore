@@ -1,6 +1,9 @@
 #config
 *.env
 
+#storage
+storage
+
 # Logs
 log
 logs
