@@ -19,7 +19,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         var postoji = false;
         const hook = await customWebHookCheckAndCreate(message, context);
 
-        const currentHooks = await storage.getItem('sipHooks'); //svi trenutni hook-ovi iz fajla
+        var currentHooks = await storage.getItem('sipHooks'); //svi trenutni hook-ovi iz fajla
 
         //trazimo hook
         for (let i = 0; i < currentHooks.length && !postoji; i++) {
