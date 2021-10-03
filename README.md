@@ -12,7 +12,7 @@ Nastao kao druga iteracija ***StenkAI***.
 ### ⚡ Powered by
 - [Node.js](https://nodejs.org/)
 - [Eris](https://www.npmjs.com/package/eris)
-- [Yuuko](https://www.npmjs.com/package/eris)
+- [Yuuko (Modded)](https://www.npmjs.com/package/eris)
 - [Cron](https://www.npmjs.com/package/node-cron)
 - [Axios](https://www.npmjs.com/package/axios)
 - [Cheerio](https://www.npmjs.com/package/cheerio)
