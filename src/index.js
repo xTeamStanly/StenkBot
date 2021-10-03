@@ -53,7 +53,8 @@ const cron = require('node-cron');
 			prefix: process.env.PREFIX,
 			maxShards: 'auto',
 			ignoreBots: true,
-			defaultImageFormat: 'jpg'
+			defaultImageFormat: 'jpg',
+			disableDefaultMessageListener: false
 		});
 
 		//require('eris-components').Client(bot); require('eris-additions/lib/Channel/')

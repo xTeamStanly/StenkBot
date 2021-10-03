@@ -2,13 +2,6 @@ const { Command } = require("yuuko");
 const { getMessageReference, customWebHookCheckAndCreate, errNaslov, errSadrzaj, getFooter } = require('../../lib/tools');
 const storage = require('node-persist');
 
-// const cron = require('node-cron');
-// const { fetchPostovi } = require('./sip-fetcher');
-// cron.schedule('0 */1 * * * *', async () => {
-//     await fetchPostovi();
-// });
-
-
 const image = 'https://i.imgur.com/dyu12dZ.png';
 
 const sipRegister = new Command('sip', async (message, args, context) => {
@@ -39,7 +32,6 @@ const sipRegister = new Command('sip', async (message, args, context) => {
                     thumbnail: { url: image },
                     title: `:warning: WebHook registrovan :warning:`,
                     color: 0x65BD36,
-                    /*description: `**[Link ka poruci](${message.jumpLink})**`,*/
                     footer: getFooter(message)
                 }
             });
@@ -68,29 +60,9 @@ const sipRegister = new Command('sip', async (message, args, context) => {
                     thumbnail: { url: image },
                     title: `:warning: WebHook obrisan :warning:`,
                     color: 0x65BD36,
-                    /*description: `**[Link ka poruci](${message.jumpLink})**`,*/
                     footer: getFooter(message)
                 }
             });
-
-
-
-            //webhook postoji - STARA METODA NE KORISTI SE
-            /*
-            await context.client.executeWebhook(
-                hook.id,
-                hook.token,
-                {
-                    embeds: [{
-                        author: { name: "SIP" },
-                        thumbnail: { url: image },
-                        title: `:warning: WebHook već postoji :warning:`,
-                        color: 0x65BD36,
-                        description: `**[Link ka poruci](${message.jumpLink})**`,
-                        footer: getFooter(message)
-                    }]
-                }
-            );*/
         }
 
     } catch(err) {
