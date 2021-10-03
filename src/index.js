@@ -3,28 +3,11 @@ const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
 const { stenkLog, colors } = require('./lib/botHelper');
 
+//cron job
+const cron = require('node-cron');
 
 //storage
 const storage = require('node-persist');
-
-
-// (async () => {
-// 	//init storage
-// 	//await storage.init({ dir: 'storage', ttl: 0 /*, logging: true*/ });
-
-// 	await storage.create({ dir: 'storage', ttl: 0 /*, logging: true*/ });
-// 	await storage.init();
-
-// 	if(!await storage.getItem('sipHooks')) { await storage.setItem('sipHooks', []); };
-// 	if(!await storage.getItem('stariPostoviDesni')) { await storage.setItem('stariPostoviDesni', []); };
-// 	if(!await storage.getItem('noviPostoviLevi')) { await storage.setItem('noviPostoviLevi', []); };
-// 	if(!await storage.getItem('stariPostoviDesni')) { await storage.setItem('stariPostoviDesni', []); };
-// 	if(!await storage.getItem('noviPostoviDesni')) { await storage.setItem('noviPostoviDesni', []); };
-// });
-
-
-
-const cron = require('node-cron');
 
 (async () => {
 
@@ -57,6 +40,8 @@ const cron = require('node-cron');
 			disableDefaultMessageListener: false
 		});
 
+		//#region
+		//! ERIS EXPANZIJE
 		//require('eris-components').Client(bot); require('eris-additions/lib/Channel/')
 		//require('eris-additions')(Eris, { disabled: ["Channel.createCode"]/*, disabled: ["Channel.sendMessage", "Channel.sendCode", "Eris.Embed"]*/ })
 
@@ -72,10 +57,15 @@ const cron = require('node-cron');
 			console.log(message);
 		});*/
 
+		//bot.on('messageCreate', (message) => { if(message.author.id != bot.user.id) { message.channel.createCode("console.log('hi')", "js"); }	/*console.log("OVERRIDER")*/ })
+
+		//#endregion
+
 		//dodajemo sve komande
 		bot.addDir(path.join(__dirname, 'commands'));
 
-		//bot eventi + logging (manje performanse zbog fajla)
+
+		//bot eventi + logging (manje performanse zbog fajla?)
 		bot.on('debug', async (logMessage) => { await stenkLog('DEBUG', 'magenta', logMessage); }); //!debug event!
 		bot.on('warn', async (logMessage) => { await stenkLog('WARN', 'yellow', logMessage); });
 		bot.on('error', async (logMessage) => { await stenkLog('ERROR', 'red', logMessage); });
@@ -86,7 +76,6 @@ const cron = require('node-cron');
 			await stenkLog(' CMD ', 'blue', logMessage);
 		});
 
-		//bot.on('messageCreate', (message) => { if(message.author.id != bot.user.id) { message.channel.createCode("console.log('hi')", "js"); }	/*console.log("OVERRIDER")*/ })
 
 		//todo help command
 		bot.on('invalidCommand', async (message, args, context) => {
@@ -94,8 +83,7 @@ const cron = require('node-cron');
 		});
 
 
-		//SIP FETCH CRON
-		const sipCronJob = cron.schedule('0 */10 * * * *', async () => {
+		const sipFetcher = async () => {
 			const hooks = await storage.getItem('sipHooks');
 			if(hooks.length > 0) {
 
@@ -130,7 +118,6 @@ const cron = require('node-cron');
 						});
 					});
 
-					var index;
 					var brojEmbedaLevi = postoviLevi.length;
 					var sesijeLevi = Math.floor(brojEmbedaLevi / 10) + 1; //ili 1 ili 2
 
@@ -154,19 +141,23 @@ const cron = require('node-cron');
 					});
 				}
 			}
-		}, { scheduled: false });
+		};
 
+		//SIP FETCH CRON
+		const sipCronJob = cron.schedule('0 */10 * * * *', sipFetcher, { scheduled: false });
+		//0 */10 * * * *
 
-
+		//BOT JE SPREMAN
 		bot.on('ready', async () => {
-			bot.setDefaultCommand('about');
+			bot.setDefaultCommand('about'); //ako ga pinguju, ovo je defult komanda
 
-			//await stenkLog('')
 			console.log("READY".green);
 
-			sipCronJob.start();
+			await sipFetcher(); //cim je ready neka proveri, a posle ide cron job
+			sipCronJob.start(); //pokreni cron job
 		});
 
+		//BOT CONNECT
 		bot.connect();
 
 

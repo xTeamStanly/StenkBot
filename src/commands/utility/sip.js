@@ -81,4 +81,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
     }
 });
 
+//! SAMO GAZDA MOZE DA POKRENE OVU KOMANDU
+sipRegister.requirements = { owner: true }
+
 module.exports = sipRegister;

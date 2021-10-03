@@ -1,6 +1,7 @@
 /* -- sip fetcher -- */
 const axios = require('axios');
 const cheerio = require('cheerio'); require('colors');
+const { stenkLog } = require('../lib/botHelper');
 
 const storage = require('node-persist');
 
@@ -10,7 +11,7 @@ var stariPostoviDesni;
 var noviPostoviDesni;
 
 (async () => {
-    stariPostoviLevi = await storage.getItem('stariPostoviDesni');
+    stariPostoviLevi = await storage.getItem('stariPostoviLevi');
     noviPostoviLevi = await storage.getItem('noviPostoviLevi');
     stariPostoviDesni = await storage.getItem('stariPostoviDesni');
     noviPostoviDesni = await storage.getItem('noviPostoviDesni');
@@ -19,13 +20,13 @@ var noviPostoviDesni;
 
 const fetchPostovi = async () => {
 
-    console.log('TASK STARTED'.red);
+    await stenkLog('SIP FETCHER', 'red', 'TASK STARTED');
 
     const html = await axios.get('https://sip.elfak.ni.ac.rs/');
-    console.log('FETCH ENDED'.yellow);
+    await stenkLog('SIP FETCHER', 'yellow', 'FETCH ENDED');
 
     const $ = cheerio.load(html.data);
-    console.log('PARSE ENDED'.blue);
+    await stenkLog('SIP FETCHER', 'blue', 'PARSE ENDED');
 
     stariPostoviLevi = noviPostoviLevi;
     noviPostoviLevi = [];
@@ -73,7 +74,7 @@ const fetchPostovi = async () => {
         })
     });
 
-    console.log('TASK ENDED\n\n'.green);
+    await stenkLog('SIP FETCHER', 'green', 'TASK ENDED');
 
     await storage.setItem('stariPostoviDesni', stariPostoviDesni);
     await storage.setItem('noviPostoviDesni', noviPostoviDesni);
