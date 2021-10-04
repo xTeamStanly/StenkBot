@@ -85,26 +85,15 @@ const storage = require('node-persist');
 
 		const sipFetcher = async () => {
 			const hooks = await storage.getItem('sipHooks');
+
 			if(hooks.length > 0) {
 
 				const sviPostovi = await fetchPostovi();
 				const postoviLevi = sviPostovi[0];
 				const postoviDesni = sviPostovi[1];
-				if(postoviLevi.length > 0) {
-					const embedsLevi = [];
-					const embedsDesni = [];
 
-					postoviLevi.forEach(post => {
-						embedsLevi.push({
-							author: { name: 'Најновије вести' },
-							title: post.naslov,
-							description: post.sadrzaj,
-							color: 0x65BD36,
-							url: post.link,
-							thumbnail: { url: 'https://i.imgur.com/dyu12dZ.png' }
-							// footer: { text: post.link }
-						});
-					});
+				if(postoviDesni.length > 0) {
+					const embedsDesni = [];
 
 					postoviDesni.forEach(post => {
 						embedsDesni.push({
@@ -118,11 +107,36 @@ const storage = require('node-persist');
 						});
 					});
 
-					var brojEmbedaLevi = postoviLevi.length;
-					var sesijeLevi = Math.floor(brojEmbedaLevi / 10) + 1; //ili 1 ili 2
-
 					var brojEmbedaDesni = postoviDesni.length;
 					var sesijeDesni = Math.floor(brojEmbedaDesni / 10) + 1;
+
+					hooks.forEach(async (hook) => {
+						if(sesijeDesni == 1) { //ako je jedna sesija, dovoljan je 1 webhook
+							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni } );
+						} else if(sesijeDesni == 2) { //2 seseije, 1 webhook 10 embeda + 2 webhook ostatak
+							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni.slice(0, 10) } );
+							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni.slice(10, embedsDesni.length) } );
+						}
+					});
+				}
+
+				if(postoviLevi.length > 0) {
+					const embedsLevi = [];
+
+					postoviLevi.forEach(post => {
+						embedsLevi.push({
+							author: { name: 'Најновије вести' },
+							title: post.naslov,
+							description: post.sadrzaj,
+							color: 0x65BD36,
+							url: post.link,
+							thumbnail: { url: 'https://i.imgur.com/dyu12dZ.png' }
+							// footer: { text: post.link }
+						});
+					});
+
+					var brojEmbedaLevi = postoviLevi.length;
+					var sesijeLevi = Math.floor(brojEmbedaLevi / 10) + 1; //ili 1 ili 2
 
 					hooks.forEach(async (hook) => {
 						if(sesijeLevi == 1) { //ako je jedna sesija, dovoljan je 1 webhook
@@ -130,13 +144,6 @@ const storage = require('node-persist');
 						} else if(sesijeLevi == 2) { //2 seseije, 1 webhook 10 embeda + 2 webhook ostatak
 							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsLevi.slice(0, 10) } );
 							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsLevi.slice(10, embedsLevi.length) } );
-						}
-
-						if(sesijeDesni == 1) { //ako je jedna sesija, dovoljan je 1 webhook
-							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni } );
-						} else if(sesijeDesni == 2) { //2 seseije, 1 webhook 10 embeda + 2 webhook ostatak
-							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni.slice(0, 10) } );
-							await bot.executeWebhook(hook.id, hook.token, { embeds: embedsDesni.slice(10, embedsDesni.length) } );
 						}
 					});
 				}

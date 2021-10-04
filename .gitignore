@@ -1,6 +1,9 @@
 #config
 *.env
 
+#jmbg vlada cpp
+jmbg.cpp
+
 #txt
 .*.txt
 
