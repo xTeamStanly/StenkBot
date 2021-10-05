@@ -1,6 +1,7 @@
 const { Command } = require("yuuko");
 const axios = require('axios');
-const { getFooter, errNaslov, errSadrzaj, getMessageReference } = require("../../lib/tools");
+const { getFooter, errNaslov, errSadrzaj, getMessageReference, randomList } = require("../../lib/tools");
+const data = require('../../resources/commands/fun/quote');
 
 const quoteBreakingBad = new Command(['brekingbad', 'bb'], async (message, args, context) => {
     var finalJson = {
@@ -87,6 +88,41 @@ const quoteOffice = new Command('office', async (message, args, context) => {
     });
 });
 
+const quoteProgramerski = new Command(['cs', 'programmer', 'programerski'], async (message, args, context) => {
+    const csJson = randomList(data.programerskiCitati);
+    var citat = `***"${csJson.en}"***\n`;
+    if(csJson.sr) { citat += `\n***"${csJson.sr}"***\n`; }
+    citat += `- ${csJson.author}`;
+
+    //TODO ADD IMAGE & COLOR
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "CS", url: 'https://github.com/skolakoda/programming-quotes-api' },
+            thumbnail: { url: 'https://i.imgur.com/EuAxIry.png' },
+            color: 0x7EC2B0,
+            title: "CS Citati",
+            description: citat,
+            footer: getFooter(message)
+        }
+    });
+});
+
+const quoteSveteMisli = new Command(['svetemisli', 'svete'], async (message, args, context) => {
+    const misaoJson = randomList(data.sveteMisli);
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Svete Misli", url: 'https://github.com/skolakoda/programming-quotes-api' },
+            thumbnail: { url: 'https://i.imgur.com/S9vCi5J.png' },
+            color: 0xFBD70D,
+            title: "Svete Misli Citat",
+            description: `***"${misaoJson.sr}"***\n- ${misaoJson.author}`,
+            footer: getFooter(message)
+        }
+    });
+});
+
 const quote = new Command(['quote', 'quotes'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
@@ -98,10 +134,16 @@ const quote = new Command(['quote', 'quotes'], async (message, args, context) =>
             description: "**Vrste citata:**\n" +
             "**• breakingbad | bb**\n" +
             "**• ron | ronswanson | swanson**\n" +
-            "**• office**",
+            "**• office**\n" +
+            "**• svetemisli | sveti**\n" +
+            "**• cs | programmer | programerski**",
             footer: getFooter(message)
         }
-    });;
-}).addSubcommand(quoteBreakingBad).addSubcommand(quoteRonSwanson).addSubcommand(quoteOffice);
+    });
+}).addSubcommand(quoteBreakingBad)
+  .addSubcommand(quoteRonSwanson)
+  .addSubcommand(quoteOffice)
+  .addSubcommand(quoteProgramerski)
+  .addSubcommand(quoteSveteMisli);
 
 module.exports = quote;
