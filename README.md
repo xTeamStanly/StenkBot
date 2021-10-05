@@ -18,6 +18,5 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Cheerio](https://www.npmjs.com/package/cheerio)
 
 ### 📒 ToDo
-- testiraj sip-fetcher
 
 ### 👋 Pozdrav
