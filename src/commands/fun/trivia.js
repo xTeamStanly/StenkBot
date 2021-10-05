@@ -15,25 +15,23 @@ const trivia = new Command(['trivia', 'question'], async (message, args, context
 
     try {
         const triviaJson = (await axios.get('https://jservice.io/api/random')).data[0];
-        console.log(triviaJson)
 
         naslov = "Trivia Question";
-        sadrzaj = `**Pitanje:**\n${triviaJson.question}`;
+        sadrzaj = `**Pitanje:**\n${triviaJson.question.replace(/<[^>]*>/g, '')}`;
 
-        //TODO ADD EMOJIS
         finalJson.fields = [
             {
-                name: "Odgovor",
-                value: `||${triviaJson.answer}||`,
+                name: ":mega: Odgovor",
+                value: `||${triviaJson.answer.replace(/<[^>]*>/g, '')}||`,
                 inline: true
             },
             {
-                name: "Value",
+                name: ":fleur_de_lis: Value",
                 value: triviaJson.value,
                 inline: true
             },
             {
-                name: "Kategorija",
+                name: ":orange_book: Kategorija",
                 value: triviaJson.category.title,
                 inline: true
             }
