@@ -74,6 +74,7 @@ const fetchPostovi = async () => {
         })
     });
 
+    await stenkLog('SIP FETCHER', 'green', `Novi postovi: ${desni.length + levi.length}`);
     await stenkLog('SIP FETCHER', 'green', 'TASK ENDED');
 
     await storage.setItem('stariPostoviDesni', stariPostoviDesni);

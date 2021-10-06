@@ -151,7 +151,7 @@ const storage = require('node-persist');
 		};
 
 		//SIP FETCH CRON
-		const sipCronJob = cron.schedule('*/10 * * * *', sipFetcher, { scheduled: false });
+		const sipCronJob = cron.schedule('*/30 * * * *', sipFetcher, { scheduled: false });
 		//0 */10 * * * *
 
 		//BOT JE SPREMAN
