@@ -8,7 +8,8 @@ const niskePrice = new Command(['nis', 'niskeprice', 'naissus', 'niskaposla'], a
         .replace("[animal]", randomList(data.animal))
         .replace("[adjective]", randomList(data.adjective))
         .replace("[verb]", randomList(data.verb))
-        .replace("[location]", randomList(data.location))
+        .replace("[location]", randomList(data.location)) //duplikat
+        .replace("[location]", randomList(data.location)) //duplikat
         .replace("[object]", randomList(data.object))
         .replace("[object2]", randomList(data.object2));
 
