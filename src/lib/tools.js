@@ -74,9 +74,6 @@ const customWebHookCheckAndCreate = async (message, context) => {
     );
 }
 
-
-
-
 module.exports = {
     randomList,
     countOccurrences,
