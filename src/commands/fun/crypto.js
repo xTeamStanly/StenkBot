@@ -3,23 +3,23 @@ const axios = require('axios');
 const { errNaslov, errSadrzaj, getFooter, getMessageReference } = require('../../lib/tools');
 const encodeUrl = require('encodeurl');
 
-const firstLineOutput = `${"Rank".padEnd(6, ' ')} ${"Simbol".padEnd(8, ' ')} ${"Ime".padEnd(20, ' ')} ${"$".padEnd(8, ' ')}`;
+const firstLineOutput = `${" Rank".padEnd(6, ' ')}|${" Simbol".padEnd(8, ' ')}|${"        Ime         ".padEnd(20, ' ')}|${"  $$$   ".padEnd(8, ' ')}\n------+--------+--------------------+---------`;
 
 const coin2string = (coin) => {
     var finalString = '';
 
     var rank = coin.rank;
-    if(rank) { finalString += `${rank.padEnd(6, ' ')} `; } else { finalString += `${'-'.repeat(6)} `; }
+    if(rank) { finalString += `${rank.padEnd(6, ' ')}|`; } else { finalString += `${'-'.repeat(6)}|`; }
 
     var symbol = coin.symbol;
-    if(symbol) { finalString += `${symbol.padEnd(8, ' ')} `; } else { finalString += `${'-'.repeat(8)} `; }
+    if(symbol) { finalString += `${symbol.padEnd(8, ' ')}|`; } else { finalString += `${'-'.repeat(8)}|`; }
 
     var ime = coin.name;
     if(ime) {
-        if(ime.length > 20) { ime = ime.substring(0, 17) + "..."; }
-        finalString += `${ime.padEnd(20, ' ')} `;
+        if(ime.length >= 16) { ime = ime.substring(0, 16) + "... "; }
+        finalString += `${ime.padEnd(20, ' ')}|`;
     } else {
-        finalString += `${'-'.repeat(20)} `;
+        finalString += `${'-'.repeat(20)}|`;
     }
 
     var cena = coin.priceUsd;
@@ -76,7 +76,7 @@ const cryptoSearch = new Command(['search', 'pretrazi', 'pretraga'], async (mess
 
                 var coinJson; var tempString;
                 for(let i = 0; i < len; i++) {
-                    if(i > 50) { break; }
+                    if(i == 50) { break; }
                     coinJson = cryptoJson.data[i];
                     tempString = coin2string(coinJson);
                     output += `${tempString}\n`;
@@ -140,12 +140,13 @@ const crypto = new Command(['crypto', 'kripto'], async (message, args, context) 
 
             var coinJson; var tempString;
             for(let i = 0; i < cryptoJson.data.length; i++) {
-                if(i > 50) { break; }
+                if(i == 50) { break; }
                 coinJson = cryptoJson.data[i];
                 tempString = coin2string(coinJson);
                 output += `${tempString}\n`;
             }
 
+            naslov = "50 Kriptovaluta";
             sadrzaj = `\`\`\`${output}\`\`\``;
 
         } else {
