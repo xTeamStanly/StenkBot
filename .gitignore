@@ -1,6 +1,9 @@
 #config
 *.env
 
+#todo folder
+TODO
+
 #storage
 .node-persist
 storage
