@@ -10,7 +10,7 @@ function msToTime(ms) {
     if (seconds < 60) return seconds + " s";
     else if (minutes < 60) return minutes + " m";
     else if (hours < 24) return hours + " h";
-    else return days + " d"
+    else return days + " d";
 }
 
 const about = new Command(['about', 'gazda', 'stenk'], async (message, args, context) => {
