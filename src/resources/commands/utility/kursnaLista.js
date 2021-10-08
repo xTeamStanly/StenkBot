@@ -50,6 +50,4 @@ const currencies = [
     'pln'
 ];
 
-//TODO IMAGE
-
 module.exports = { flags, currencies };

@@ -68,9 +68,8 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
             }
 
             const validna = validnaKaterogija(kategorija);
-            //ako kategorija nije validna --> odaberi nasumicnu
 
-            //TODO PRIKAZIVANJE KATEGORIJA AKO UNESE POGRESNU
+            //ako kategorija nije validna --> odaberi nasumicnu
             if(!validna) { kategorija = randomList(data.kategorije).value; } else { kategorija = nadjiKategoriju(kategorija); }
 
             link += `vicevi/${kategorija}`;

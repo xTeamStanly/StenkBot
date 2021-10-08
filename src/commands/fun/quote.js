@@ -94,7 +94,6 @@ const quoteProgramerski = new Command(['cs', 'programmer', 'programerski'], asyn
     if(csJson.sr) { citat += `\n***"${csJson.sr}"***\n`; }
     citat += `- ${csJson.author}`;
 
-    //TODO ADD IMAGE & COLOR
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

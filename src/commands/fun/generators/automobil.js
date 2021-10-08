@@ -29,9 +29,6 @@ const automobil = new Command(['auto', 'automobil', 'kola'], async (message, arg
 
     var autoData = { brend: '', model: '', registracija: '' }
 
-    //title: "Automobil",
-    //TODO thumbnailURL
-
     //marka automobila
     const autoJson = randomList(data.modeliAutomobila);
     autoData.brend = autoJson.brand;

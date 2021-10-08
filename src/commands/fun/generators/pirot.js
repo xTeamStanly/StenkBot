@@ -1,7 +1,6 @@
 const { Command } = require("yuuko");
 const { randomList, getFooter, getMessageReference } = require("../../../lib/tools");
 const data = require('../../../resources/commands/fun/generators/pirot');
-//TODO PIROT
 
 const pirot = new Command(['pirot', 'pirotskaorata'], async (message, args, context) => {
     var output = randomList(data.output);
