@@ -1,4 +1,7 @@
-const { Client, Command, Eris } = require('yuuko');
+const express = require('express');
+const app = express();
+
+const { Client, Command } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
 const { stenkLog, colors } = require('./lib/botHelper');
@@ -10,6 +13,15 @@ const cron = require('node-cron');
 const storage = require('node-persist');
 
 (async () => {
+
+	//EXPRESS SERVER
+	app.get('/', (req, res) => {
+		res.send("StenkBot!");
+	});
+
+	app.listen(3000);
+
+
 
 	//init storage
 	//await storage.init({ dir: 'storage', ttl: 0 /*, logging: true*/ });
