@@ -19,7 +19,7 @@ const storage = require('node-persist');
 		res.send("StenkBot!");
 	});
 
-	app.listen(3000);
+	app.listen(8080);
 
 
 
