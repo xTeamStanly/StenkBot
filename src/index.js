@@ -228,7 +228,7 @@ const botStart = async () => {
 			});
 
 		} else {
-			res.json({});
+			res.json({error: 'Try again - bot not initialised!'});
 		}
 	});
 
@@ -244,7 +244,6 @@ const botStart = async () => {
 
 		res.json(result);
 	});
-
 
 })();
 
