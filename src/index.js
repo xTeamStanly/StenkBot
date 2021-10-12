@@ -195,7 +195,7 @@ const botStart = async () => {
 		bot.on('ready', async () => {
 			bot.setDefaultCommand('about'); //ako ga pinguju, ovo je defult komanda
 
-			console.log("READY".green);
+			await stenkLog("READY", 'cyan', 'Bot is ready!');
 
 			await sipFetcher(); //cim je ready neka proveri, a posle ide cron job
 			sipCronJob.start(); //pokreni cron job
@@ -214,7 +214,9 @@ const botStart = async () => {
 	await botStart();
 
 	//EXPRESS SERVER
-	app.listen(8080);
+	app.listen(8080, async () => {
+		await stenkLog('EXPRS', 'green', 'Express server active!');
+	});
 
 	app.get('/', (req, res) => {
 		res.send("StenkBot!");

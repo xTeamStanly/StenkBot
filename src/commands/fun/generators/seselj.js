@@ -152,7 +152,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
         var embed = {
             author: { name: "Шешељ - Ново Шешељево дело!" },
             title: naslov,
-            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nможе се десити да се некад слика\nне учита!***",
+            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nnačina kako embed handle-uje slike\ni crne magije - може се десити\nда се некад слика не учита!***",
             color: embedBoja,
             thumbnail: { url: thumbUrl },
             image: { url: `attachment://knjiga.jpeg` },
