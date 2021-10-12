@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 
-const { Client, Command } = require('yuuko');
+const { Client, Command, Eris } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
 const { stenkLog, colors } = require('./lib/botHelper');
+const { msToTime } = require('./lib/tools');
 
 //cron job
 const cron = require('node-cron');
@@ -12,16 +13,20 @@ const cron = require('node-cron');
 //storage
 const storage = require('node-persist');
 
-(async () => {
-
-	//EXPRESS SERVER
-	app.get('/', (req, res) => {
-		res.send("StenkBot!");
-	});
-
-	app.listen(8080);
 
 
+
+
+var bot = new Client({
+	token: process.env.BOT_TOKEN,
+	prefix: process.env.PREFIX,
+	maxShards: 'auto',
+	ignoreBots: true,
+	defaultImageFormat: 'jpg',
+	disableDefaultMessageListener: true
+});
+
+const botStart = async () => {
 
 	//init storage
 	//await storage.init({ dir: 'storage', ttl: 0 /*, logging: true*/ });
@@ -43,14 +48,34 @@ const storage = require('node-persist');
 	try {
 
 		//inicijalizacija bot klijenta
-		const bot = new Client({
+		/*bot = new Client({
 			token: process.env.BOT_TOKEN,
 			prefix: process.env.PREFIX,
 			maxShards: 'auto',
 			ignoreBots: true,
 			defaultImageFormat: 'jpg',
-			disableDefaultMessageListener: false
+			disableDefaultMessageListener: true
+		});*/
+
+		//message parser
+		bot.on('messageCreate', (msg) => {
+			//! STENKBOT ADD
+
+    		//direktna poruka nema guildID,
+    		//bot ne gleda direktne poruke
+    		if(!msg.guildID && !msg.author.bot) {
+        		return;
+				//da ne trosi energiju za dzabe
+        		//?msg.channel.createMessage({ content: "Nema DM-ova!" });
+    		}
+
+    		if (!msg.author)
+        		return; // this is a bug and shouldn't really happen
+    		if (bot.ignoreBots && msg.author.bot)
+        		return;
+				bot.processCommand(msg);
 		});
+
 
 		//#region
 		//! ERIS EXPANZIJE
@@ -179,13 +204,49 @@ const storage = require('node-persist');
 		//BOT CONNECT
 		bot.connect();
 
-
-
 	} catch(err) {
 		stenkLog("MAJOR ERROR", 'red', err.message);
 	}
-})();
+}
 
+
+(async () => {
+	await botStart();
+
+	//EXPRESS SERVER
+	app.listen(8080);
+
+	app.get('/', (req, res) => {
+		res.send("StenkBot!");
+	});
+
+	app.get('/info', async (req, res) => {
+		if(bot) {
+			res.json({
+				uptime: msToTime(bot.uptime),
+				servers: bot.guilds.size
+			});
+
+		} else {
+			res.json({});
+		}
+	});
+
+	app.get('/sip', async (req, res) => {
+		var hooks = await storage.getItem('sipHooks');
+		const result = {};
+
+		hooks.forEach(hook => {
+			Object.keys(hook).forEach((key) => {
+				result[key] = hook[key];
+			});
+		});
+
+		res.json(result);
+	});
+
+
+})();
 
 
 

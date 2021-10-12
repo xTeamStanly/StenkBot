@@ -179,7 +179,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
         //pa ih za svaki slucaj osvezimo, tako da bi sve slike
         //trebale da rade
         //losa stvar je to sto uvek pise edited  u poruci :/
-        await message.channel.editMessage(x.id, x.content);
+        //?await message.channel.editMessage(x.id, x.content);
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({
