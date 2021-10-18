@@ -3,9 +3,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const { errNaslov, errSadrzaj, getMessageReference, getFooter, emptyEmbedField } = require('../../lib/tools');
 
-const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (message, args, context) => {
+const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid', 'kovid19'], async (message, args, context) => {
     var finalJson = {
-        author: { name: "Covid-19 Informacije" },
+        author: { name: "Covid-19 Informacije", url: "https://www.covid19.rs" },
         color: 0xE74C3C,
         url: "https://www.covid19.rs",
         thumbnail: { url: "https://i.imgur.com/zbNq0N2.png" },
@@ -88,6 +88,19 @@ const covid19 = new Command(['covid', 'covid19', 'koronka', 'kovid'], async (mes
     finalJson.description = sadrzaj;
 
     await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson})
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Covid-19 Informacije", url: "https://www.covid19.rs" },
+            color: 0xE74C3C,
+            url: "https://www.covid19.rs",
+            thumbnail: { url: "https://i.imgur.com/zbNq0N2.png" },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje Covid19 statistiku.\n\n__***Sva imena komande:***__\n• **covid**\n• **kovid**\n• **covid19**\n• **kovid19**\n• **koronka**\n\n__***Korišćenje:***__\n• **covid** - prikazuje Covid19 statistiku"
+        }
+    });
+}));
 
 module.exports = covid19;

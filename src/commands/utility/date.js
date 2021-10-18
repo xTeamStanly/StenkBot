@@ -14,6 +14,7 @@ const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, 
     }
 
     try {
+
         //args - prvi datum
         var prvi = moment(args[0], datumFormati);
         if(!prvi.isValid()) { prvi = moment(new Date()); } //ako nije validan uzmi danas
@@ -41,6 +42,18 @@ const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, 
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Datum" },
+            color: 0x558ED5,
+            thumbnail: { url: 'https://i.imgur.com/XyRHQz4.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje razliku između dva datuma u danima.\n• Unos može biti jedan ili dva datuma.\n• Koji god datum da izostavimo računa se kao danas.\n\n__***Sva imena komande:***__\n• **datum**\n• **date**\n• **diff**\n• **datediff**\n\n__***Korišćenje:***__\n• **date** - izbacuje razliku između danas i danas u danima\n• **date __<DATUM>__** - izbacuje razliku između danas i __DATUM-a__ u danima\n• **date __<DATUM1>__ __<DATUM2>__** - izbacuje razliku između __DATUM1-a__ i __DATUM2-a__ u danima\n\n__***Dodatno:***__\n• Formati datuma: __DD/MM/YYYY__, __DD.MM.YYYY.__"
+        }
+    });
+}));
 
 module.exports = date;

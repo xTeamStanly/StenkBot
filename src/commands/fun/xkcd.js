@@ -62,6 +62,19 @@ const xkcd = new Command('xkcd', async (message, args, context) => {
     finalJson.url = url;
 
     await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Advice', url: "https://adviceslip.com/" },
+            url: "https://adviceslip.com/",
+            color: 0xFE830E,
+            thumbnail: { url: image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumičan xkcd strip.\n\n__***Sva imena komande:***__\n• **xkcd**\n\n__***Korišćenje:***__\n• **xkcd** - prikazuje nasumičan xkcd strip\n• **xkcd __<BROJ>__** - prikazuje xkcd strip sa brojem __BROJ__"
+        }
+    });
+}));
 
 module.exports = xkcd;
