@@ -27,6 +27,18 @@ const goliZivot = new Command(['golizivot', 'gz'], async (message, args, context
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Goli Život" },
+            color: 0x61625C,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše tekst iz Marićeve emisije \"Goli Život\" na Happy-ju.\n\n__***Sva imena komande:***__\n• **golizivot**\n• **gz**\n\n__***Korišćenje:***__\n• **gz** - generiše tekst iz Marićeve emisije \"Goli Život\" na Happy-ju"
+        }
+    });
+}));
 
 module.exports = goliZivot;

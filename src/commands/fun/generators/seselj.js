@@ -186,7 +186,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
 
 
 
-        //TODO
+        //!STEPS
         //1 - posalji fajl
         //2 - edituj poruku u embed
         //3 - slika je uvek ucitana
@@ -216,10 +216,19 @@ const seselj = new Command('seselj', async (message, args, context) => {
             }
         });
     }
-});
-
-//TODO
-seselj.summary = "...";
-seselj.usage = "...";
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Шешељ - Ново Шешељево дело!" },
+            url: 'http://ispovesti.com/',
+            color: generisiBoju().integer,
+            thumbnail: { url: randomList(data.image) },
+            footer: getFooter(message),
+            title: ':book: Помоћ',
+            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**`
+        }
+    });
+}));
 
 module.exports = seselj;

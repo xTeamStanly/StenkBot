@@ -99,6 +99,18 @@ const automobil = new Command(['auto', 'automobil', 'kola'], async (message, arg
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Automobil", url: 'https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Serbia#Special_license_plates' },
+            thumbnail: { url: 'https://i.imgur.com/R118ElN.png' },
+            color: 0xC75C5C,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše nasumičnu registraciju i marku automobila.\n\n__***Sva imena komande:***__\n• **auto**\n• **automobil**\n• **kola**\n\n__***Korišćenje:***__\n• **automobil** - generiše nasumičnu registraciju i marku automobila"
+        }
+    });
+}));
 
 module.exports = automobil;

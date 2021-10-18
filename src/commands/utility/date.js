@@ -51,7 +51,7 @@ const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, 
             thumbnail: { url: 'https://i.imgur.com/XyRHQz4.png' },
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Prikazuje razliku između dva datuma u danima.\n• Unos može biti jedan ili dva datuma.\n• Koji god datum da izostavimo računa se kao danas.\n\n__***Sva imena komande:***__\n• **datum**\n• **date**\n• **diff**\n• **datediff**\n\n__***Korišćenje:***__\n• **date** - izbacuje razliku između danas i danas u danima\n• **date __<DATUM>__** - izbacuje razliku između danas i __DATUM-a__ u danima\n• **date __<DATUM1>__ __<DATUM2>__** - izbacuje razliku između __DATUM1-a__ i __DATUM2-a__ u danima\n\n__***Dodatno:***__\n• Formati datuma: __DD/MM/YYYY__, __DD.MM.YYYY.__"
+            description: "__***Opis:***__\n• Prikazuje razliku između dva datuma u danima.\n• Unos može biti jedan ili dva datuma.\n• Koji god datum da izostavimo računa se kao danas.\n\n__***Sva imena komande:***__\n• **datum**\n• **date**\n• **diff**\n• **datediff**\n\n__***Korišćenje:***__\n• **date** - prikazuje razliku između danas i danas u danima\n• **date __<DATUM>__** - prikazuje razliku između danas i __DATUM-a__ u danima\n• **date __<DATUM1>__ __<DATUM2>__** - prikazuje razliku između __DATUM1-a__ i __DATUM2-a__ u danima\n\n__***Dodatno:***__\n• Formati datuma: __DD/MM/YYYY__, __DD.MM.YYYY.__"
         }
     });
 }));

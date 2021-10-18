@@ -24,6 +24,18 @@ const pirot = new Command(['pirot', 'pirotskaorata'], async (message, args, cont
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Pirotska orata" },
+            color: 0xDCC397,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generise nasumičnu Pirotsku oratu.\n\n__***Sva imena komande:***__\n• **pirot**\n• **pirotskaorata**\n\n__***Korišćenje:***__\n• **pirot** - generise nasumičnu Pirotsku oratu"
+        }
+    });
+}));
 
 module.exports = pirot;

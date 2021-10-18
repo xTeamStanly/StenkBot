@@ -77,6 +77,18 @@ const synthwave = new Command(['synth', 'synthwave'], async (message, args, cont
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "SynthWave band name", url: 'https://synthwavegenerator.com/' },
+            color: 0x371E57,
+            thumbnail: { url: 'https://i.imgur.com/mAoTKas.jpg' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše nasumično ime nekog synthwave benda.\n\n__***Sva imena komande:***__\n• **synth**\n• **synthwave**\n\n__***Korišćenje:***__\n• **synth** - generiše nasumično ime nekog synthwave benda"
+        }
+    });
+}));
 
 module.exports = synthwave;

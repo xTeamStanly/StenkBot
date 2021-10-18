@@ -80,6 +80,18 @@ const beogradskePrice = new Command(["bg", "beograd", "bgprice", "beogradskepric
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Beogradske priče" },
+            color: 0x1B5AAB,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše kratku priču iz Beograda.\n\n__***Sva imena komande:***__\n• **bg**\n• **beograd**\n• **bgprice**\n• **beogradskeprice**\n\n__***Korišćenje:***__\n• **bg** - generiše kratku priču iz Beograda"
+        }
+    });
+}));
 
 module.exports = beogradskePrice;

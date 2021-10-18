@@ -33,6 +33,18 @@ const eightBall = new Command('8ball', async (message, args, context) => {
             fields: (validno) ? [{ name: ':thinking: Pitanje', value: pitanje, inline: false }] : []
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: '8Ball' },
+            color: 0x070707,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Postavite pitanje kugli.\n\n__***Sva imena komande:***__\n• **8ball**\n\n__***Korišćenje:***__\n• **8ball __<PITANJE>__?** - postavlja __PITANJE__ kugli"
+        }
+    });
+}));;
 
 module.exports = eightBall;

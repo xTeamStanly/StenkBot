@@ -110,7 +110,7 @@ const periodic = new Command(['periodni', 'periodic', 'chem'], async (message, a
     } else {
         output = ':frowning2: Unos nije validan';
 
-        if(input.length == 0) {
+        if(input.length != 0) {
             sadrzaj = "Podržana je abeceda sa razmacima!";
         } else {
             sadrzaj = "Unesite nešto!"
@@ -130,6 +130,18 @@ const periodic = new Command(['periodni', 'periodic', 'chem'], async (message, a
         }
     });
 
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Periodni' },
+            color: 0x43A5F7,
+            footer: getFooter(message),
+            thumbnail: { url: 'https://i.imgur.com/xHCuCW1.png' },
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Pokušava da napiše unos preko simbola hemijskih elemenata.\n\n__***Sva imena komande:***__\n• **periodni**\n• **periodic**\n• **chem**\n\n__***Korišćenje:***__\n• **chem __<UNOS>__** - pokušava da napiše __UNOS__ preko simbola hemijskih elemenata"
+        }
+    });
+}));
 
 module.exports = periodic;

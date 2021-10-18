@@ -17,7 +17,7 @@ const skockajString = (input, link) => {
     return input;
 };
 
-const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, context) => {
+const urbanDictionary = new Command(['urban', 'udefine', 'urbandictionary'], async (message, args, context) => {
     var rec = args.join(' ');
 
     try {
@@ -142,7 +142,7 @@ const urbanDictionary = new Command(['urban', 'udefine'], async (message, args, 
             color: 0x1E2439,
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Prikazuje reč dana sa početne stranice.\n\n__***Sva imena komande:***__\n• **urban**\n• **udefine**\n\n__***Korišćenje:***__\n• **urban** - prikazuje reč dana sa početne strane\n• **urban __<REČ>__** - pretražuje __REČ__ i vraća maksimalno 5 defincija (ako pronađe reč)\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)"
+            description: "__***Opis:***__\n• Prikazuje reč dana sa početne stranice.\n\n__***Sva imena komande:***__\n• **urban**\n• **urbandictionary**\n• **udefine**\n\n__***Korišćenje:***__\n• **urban** - prikazuje reč dana sa početne strane\n• **urban __<REČ>__** - pretražuje __REČ__ i vraća maksimalno 5 defincija (ako pronađe reč)\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)"
         }
     })
 }));

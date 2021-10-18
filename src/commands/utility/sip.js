@@ -89,7 +89,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
             thumbnail: { url: image },
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Dodaje ili pomera SIP WebHook sa kanala.\n• Registruje određeni kanal kako bi primao SIP obaveštenja.\n• Radi na principu prekidača.\n\n__***Sva imena komande:***__\n• **sip**\n\n__***Korišćenje:***__\n• **sip** - registruje/sklanja SIP WebHook kanal\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)\n• Samo gazda ima pravo na ovu komandu!\n• Pre nego što izbacite bota sa servera poželjno je da odjavite sve kanale."
+            description: "__***Opis:***__\n• Registruje ili uklanja SIP WebHook sa kanala.\n• Registruje određeni kanal kako bi primao SIP obaveštenja.\n• Radi na principu prekidača.\n\n__***Sva imena komande:***__\n• **sip**\n\n__***Korišćenje:***__\n• **sip** - registruje/uklanja SIP WebHook kanal\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)\n• Samo gazda ima pravo na ovu komandu!\n• Pre nego što izbacite bota sa servera poželjno je da odjavite sve kanale."
         }
     });
 }));

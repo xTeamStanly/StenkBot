@@ -36,6 +36,18 @@ const mock = new Command(['mock','spongebob'], async (message, args, context) =>
             description: sadrzaj
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Mocking" },
+            thumbnail: { url: 'https://i.imgur.com/kzauus7.png' },
+            color: 0xF9FB45,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše tekst koji se \"PoDSmeVa\".\n\n__***Sva imena komande:***__\n• **mock**\n• **spongebob**\n\n__***Korišćenje:***__\n• **mock __<UNOS>__** - pretvara __UNOS__ u tekst koji se \"PoDSmeVa\""
+        }
+    });
+}));
 
 module.exports = mock;

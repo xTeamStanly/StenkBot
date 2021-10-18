@@ -206,6 +206,20 @@ const ispovesti = new Command(['ispovesti', 'ispovest'], async (message, args, c
   .addSubcommand(ispovestiNajbolje)
   .addSubcommand(ispovestDana)
   .addSubcommand(ispovestNedelje)
-  .addSubcommand(ispovestMeseca);
+  .addSubcommand(ispovestMeseca)
+  .addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+            url: 'http://ispovesti.com/',
+            color: 0x000000,
+            thumbnail: { url: image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje 5 ispovesti sa početne strane.\n\n__***Sva imena komande:***__\n• **ispovest**\n• **ispovesti**\n\n__***Podkomande:***__\n• **random**, **rand** - prikazuje 5 nasumičnih ispovesti\n• **novo**, **new** - prikazuje 5 novih ispovesti\n• **popularno**, **popular**, **pop** - prikazuje 5 popularnih ispovesti\n• **najbolje**, **best**, **naj** - prikazuje 5 najboljih ispovesti\n• **dan**, **dana**, **day** - prikazuje ispovest dana\n• **nedelja**, **nedelje**, **week** - prikazuje ispovest nedelje\n• **mesec**, **meseca**, **month** - prikazuje ispovest meseca\n\n__***Korišćenje:***__\n• **ispovest** - prikazuje 5 ispovesti sa početne strane\n• **ispovest random** - prikazuje 5 nasumičnih ispovesti\n• **ispovest novo** - prikazuje 5 novih ispovesti\n• **ispovest popularno** - prikazuje 5 popularnih ispovesti\n• **ispovest najbolje** - prikazuje 5 najboljih ispovesti\n• **ispovest dana** - prikazuje ispovest dana\n• **ispovest nedelje** - prikazuje ispovest nedelje\n• **ispovest meseca** - prikazuje ispovest meseca\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)"
+        }
+    });
+}));
 
 module.exports = ispovesti;

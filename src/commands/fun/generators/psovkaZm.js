@@ -40,6 +40,18 @@ const psovkaZm = new Command(['psovka', 'zorica', 'zoricapsuje'], async (message
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Psovka" },
+            color: 0xED7517,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše novu psovku.\n\n__***Sva imena komande:***__\n• **psovka**\n• **zorica**\n• **zoricapsuje**\n\n__***Korišćenje:***__\n• **psovka** - generiše novu psovku"
+        }
+    });
+}));
 
 module.exports = psovkaZm;

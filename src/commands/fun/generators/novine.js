@@ -26,6 +26,18 @@ const novine = new Command(['novine', 'naslov'], async (message, args, context) 
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Novine" },
+            thumbnail: { url: data.image },
+            color: 0xE7E7E7,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše tipičan clickbait novinarski naslov.\n\n__***Sva imena komande:***__\n• **novine**\n• **naslov**\n\n__***Korišćenje:***__\n• **naslov** - generiše tipičan clickbait novinarski naslov"
+        }
+    });
+}));
 
 module.exports = novine;
