@@ -4,11 +4,39 @@ const { getMessageReference, getFooter, botAvatar } = require('../lib/tools');
 //TODO ADD COMMAND LIST
 const commandListString =
 `\`\`\`
+• help
 • Zabava
   • Generatori
     • automobil
     • balkaninfo
-    • ...
+    • beogradskeprice
+    • brkicajzer
+    • boja
+    • commit
+    • programer
+    • 8ball
+    • eros
+    • golizivot
+    • kanye
+    • kriznistab
+    • maricajzer
+    • mock
+    • nibba
+    • nis
+    • naslov
+    • oldinsult
+    • periodic
+    • pirot
+    • dedajodo
+    • polumenta
+    • prica
+    • psovka
+    • seselj
+    • socfirma
+    • srba
+    • svetemisli
+    • synthwave
+    • zalgo
   • advice
   • bored
   • breakingbad
@@ -18,7 +46,7 @@ const commandListString =
   • dog
   • fox
   • insult
-  • ISPOVESTI!!!
+  • ispovesti
   • merkur
   • office
   • roll
