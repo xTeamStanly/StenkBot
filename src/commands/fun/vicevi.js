@@ -18,6 +18,21 @@ const nadjiKategoriju = (kategorija) => {
     }
 }
 
+const viceviKategorije = new Command(['kategorije', 'kategorija', 'kat', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Vicevi', url: 'https://www.vicevi.rs' },
+            color: 0x0B263F,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            url: 'https://www.vicevi.rs/',
+            title: "Kategorije viceva",
+            description: data.kategorijeLista
+        }
+    });
+});
+
 const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => {
 
     const finalJson = {
@@ -48,24 +63,6 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
             sadrzaj = article.children('p').html().replace(/<br\s*[\/]?>/gi,"\n");
 
         } else { //kategorija nije nula, odnosno postoji
-
-            //prikazi kategorije ako korisnik zahteva
-            const kategorijaLowerCase = kategorija.toLowerCase();
-            if(['kategorije', 'kategorija', 'kat', 'pomoc', '?'].includes(kategorijaLowerCase)) {
-                await message.channel.createMessage({
-                    messageReference: getMessageReference(message),
-                    embed: {
-                        author: { name: 'Vicevi', url: 'https://www.vicevi.rs' },
-                        color: 0x0B263F,
-                        thumbnail: { url: data.image },
-                        footer: getFooter(message),
-                        url: 'https://www.vicevi.rs/',
-                        title: "Kategorije viceva",
-                        description: data.kategorijeLista
-                    }
-                });
-                return;
-            }
 
             const validna = validnaKaterogija(kategorija);
 
@@ -133,6 +130,6 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
     finalJson.url = link;
 
     await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
-});
+}).addSubcommand(viceviKategorije);
 
 module.exports = vicevi;

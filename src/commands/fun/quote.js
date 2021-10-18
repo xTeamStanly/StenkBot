@@ -88,7 +88,7 @@ const quoteOffice = new Command('office', async (message, args, context) => {
     });
 });
 
-const quoteProgramerski = new Command(['cs', 'programmer', 'programerski'], async (message, args, context) => {
+const quoteProgramerski = new Command(['cs', 'programmer', 'programer', 'programerski'], async (message, args, context) => {
     const csJson = randomList(data.programerskiCitati);
     var citat = `***"${csJson.en}"***\n`;
     if(csJson.sr) { citat += `\n***"${csJson.sr}"***\n`; }
@@ -107,7 +107,7 @@ const quoteProgramerski = new Command(['cs', 'programmer', 'programerski'], asyn
     });
 });
 
-const quoteSveteMisli = new Command(['svetemisli', 'svete'], async (message, args, context) => {
+const quoteSveteMisli = new Command(['svetemisli', 'svete', 'holy'], async (message, args, context) => {
     const misaoJson = randomList(data.sveteMisli);
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
@@ -134,8 +134,8 @@ const quote = new Command(['quote', 'quotes'], async (message, args, context) =>
             "**• breakingbad | bb**\n" +
             "**• ron | ronswanson | swanson**\n" +
             "**• office**\n" +
-            "**• svetemisli | sveti**\n" +
-            "**• cs | programmer | programerski**",
+            "**• svetemisli | sveti | holy**\n" +
+            "**• cs | programmer | programerski | programer**",
             footer: getFooter(message)
         }
     });

@@ -149,10 +149,14 @@ const seselj = new Command('seselj', async (message, args, context) => {
 
     try {
 
+        var slika = generisiSliku(naslov, boja.hex);
+
+        //#region
+        /* prvi nacin - posalji fajl i embed, za svaki slucaj edituj embed da bi se osvezila slika */
         var embed = {
             author: { name: "Шешељ - Ново Шешељево дело!" },
             title: naslov,
-            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nnačina kako embed handle-uje slike\ni crne magije - може се десити\nда се некад слика не учита!***",
+            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nначина како ембед хендлује слике\nи црне магије - може се десити\nда се некад слика не учита!***",
             color: embedBoja,
             thumbnail: { url: thumbUrl },
             image: { url: `attachment://knjiga.jpeg` },
@@ -162,7 +166,31 @@ const seselj = new Command('seselj', async (message, args, context) => {
         var x = await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: embed
-        }, { name: 'knjiga.jpeg', file: generisiSliku(naslov, boja.hex) });
+        }, { name: 'knjiga.jpeg', file: slika });
+
+        /*
+        console.log(x.embeds[0].image);
+        var y = await message.channel.createMessage({}, {name: 'fajl.jpeg', file: slika});
+        console.log(y.attachments[0]);
+        */
+
+        //ako editujemo poruku, embed se sam osvezi
+        //to radimo kod onih koji nece odmah da prepoznaju link slike
+        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
+        //trebale da rade
+        //losa stvar je to sto uvek pise edited  u poruci :/
+        //?await message.channel.editMessage(x.id, x.content);
+        /**/
+       //#endregion
+
+
+
+
+        //TODO
+        //1 - posalji fajl
+        //2 - edituj poruku u embed
+        //3 - slika je uvek ucitana
+
 
         //#region seselj debug
         //console.log(x);
@@ -174,12 +202,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
         //embed.image.url = x.embeds[0].image.url;
         //#endregion
 
-        //ako editujemo poruku, embed se sam osvezi
-        //to radimo kod onih koji nece odmah da prepoznaju link slike
-        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
-        //trebale da rade
-        //losa stvar je to sto uvek pise edited  u poruci :/
-        //?await message.channel.editMessage(x.id, x.content);
+
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({
@@ -194,5 +217,9 @@ const seselj = new Command('seselj', async (message, args, context) => {
         });
     }
 });
+
+//TODO
+seselj.summary = "...";
+seselj.usage = "...";
 
 module.exports = seselj;

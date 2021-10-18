@@ -20,7 +20,7 @@ const prevedi = (input) => {
     return 'Zanimacija';
 };
 
-const bored = new Command(['bored', 'dosada', 'dosada'], async (message, args, context) => {
+const bored = new Command(['bored', 'dosada', 'dosadno'], async (message, args, context) => {
     var finalJson = {
         author: { name: 'Bored', url: 'https://www.boredapi.com/' },
         thumbnail: { url: 'https://i.imgur.com/krYlg16.png' },

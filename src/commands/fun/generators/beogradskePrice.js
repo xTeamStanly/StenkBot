@@ -2,7 +2,7 @@ const { Command } = require('yuuko');
 const { randomList, countOccurrences, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/beogradskePrice');
 
-const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message, args, context) => {
+const beogradskePrice = new Command(["bg", "beograd", "bgprice", "beogradskeprice"], async (message, args, context) => {
     var output = data.output;
 
     //nezavisni

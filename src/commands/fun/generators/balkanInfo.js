@@ -2,7 +2,7 @@ const { Command } = require('yuuko');
 const { randomList, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/balkanInfo');
 
-const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, context) => {
+const balkanInfo = new Command(["bi", "binfo", "tesa", "balkaninfo"], async (message, args, context) => {
     var output = randomList(data.output);
     output = output
         .replace("[grupa]", randomList(data.grupa))

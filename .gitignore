@@ -1,6 +1,9 @@
 #config
 *.env
 
+#vscode
+.vscode
+
 #todo folder
 TODO
 
