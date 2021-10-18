@@ -64,9 +64,20 @@ const roll = new Command(['kockica', 'roll', 'rolladie', 'rolladice'], async (me
             ],
             footer: getFooter(message)
         }
+    });
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
+            url: 'http://ispovesti.com/',
+            color: 0xAC2727,
+            thumbnail: { url: 'https://i.imgur.com/NGMrS3S.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Baca kockicu sa B stranica A puta (AdB) i prikazuje rezultate bacanja.\n• Podrazumevano bacanje je 1d6.\n• Maksimalno bacanje je 64d64.\n\n__***Sva imena komande:***__\n• **kockica**\n• **roll**\n• **rolladie**\n• **rolladice**\n\n__***Korišćenje:***__\n• **kockica** - baca kockicu sa 6 stranica jedanput i prikazuje rezultate\n• **kockica 10d20** - baca kockicu sa 20 stranica 10 puta i prikazuje rezultate"
+        }
     })
-
-
-});
+}));
 
 module.exports = roll;

@@ -69,6 +69,19 @@ const rpsScissors = new Command(['scissors', 'makaze'], async (message, args, co
 
 const rps = new Command('rps', async (message, args, context) => {
     await rps2message(randomList(items).tip, message, true);
-}).addSubcommand(rpsRock).addSubcommand(rpsPaper).addSubcommand(rpsScissors);
+}).addSubcommand(rpsRock).addSubcommand(rpsPaper).addSubcommand(rpsScissors)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "RPS" },
+            color: 0x61E9FF,
+            thumbnail: { url: randomList(items).link },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Igrica papir kamen makaze.\n\n__***Sva imena komande:***__\n• **rps**\n\n__***Podkomande:***__\n• **rock**, **kamen** - prikazuje 5 nasumičnih ispovesti\n• **paper**, **papir** - prikazuje 5 nasumičnih ispovesti\n• **scissors**, **makaze** - prikazuje 5 nasumičnih ispovesti\n\n__***Korišćenje:***__\n• **rps** - računar vs računar\n• **rps kamen** - čovek (kamen) vs računar\n• **rps papir** - čovek (papir) vs računar\n• **rps makaze** - čovek (makaze) vs računar"
+        }
+    })
+}));
 
 module.exports = rps;

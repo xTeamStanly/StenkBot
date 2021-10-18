@@ -32,6 +32,19 @@ const insult = new Command(['insult', 'uvreda'], async (message, args, context) 
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Insult', url: 'https://evilinsult.com/' },
+            url: 'https://evilinsult.com/' ,
+            color: 0xED7517,
+            thumbnail: { url: 'https://i.imgur.com/PFhkB6T.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumičnu uvredu na engleskom.\n\n__***Sva imena komande:***__\n• **insult**\n• **uvreda**\n\n__***Korišćenje:***__\n• **uvreda** - prikazuje nasumičnu uvredu"
+        }
+    });
+}));
 
 module.exports = insult;

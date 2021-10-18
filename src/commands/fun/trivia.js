@@ -50,6 +50,19 @@ const trivia = new Command(['trivia', 'question'], async (message, args, context
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Trivia", url: "http://jservice.io/" },
+            url: "http://jservice.io/",
+            thumbnail: { url: 'https://i.imgur.com/8UYfsF0.png' },
+            color: 0xEF862A,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumično pitanje i odgovor na engleskom.\n\n__***Sva imena komande:***__\n• **trivia**\n• **question**\n\n__***Korišćenje:***__\n• **trivia** - prikazuje nasumično pitanje i odgovor na engleskom"
+        }
+    })
+}));
 
 module.exports = trivia;

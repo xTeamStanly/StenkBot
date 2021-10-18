@@ -35,6 +35,19 @@ const merkur = new Command(['retrogradni', 'merkur', 'rm'], async (message, args
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Retrogradni Merkur", url: 'https://mercuryretrogradeapi.com/' },
+            color: 0x5C699F,
+            thumbnail: { url: 'https://i.imgur.com/xMQ7wj0.png' },
+            footer: getFooter(message),
+            url: 'https://mercuryretrogradeapi.com/',
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje da li je Merkur trenutno u retrogradi.\n\n__***Sva imena komande:***__\n• **retrogradni**\n• **merkur**\n• **rm**\n\n__***Korišćenje:***__\n• **retrogradni** - prikazuje da li je Merkur trenutno u retrogradi"
+        }
+    })
+}));
 
 module.exports = merkur;

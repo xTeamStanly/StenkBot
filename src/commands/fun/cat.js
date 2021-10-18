@@ -31,6 +31,19 @@ const cat = new Command(['macka', 'cat'], async (message, args, context) => {
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Nasumična mačka", url: 'https://aws.random.cat/' },
+            url: 'https://aws.random.cat/',
+            color: 0xFAAD8A,
+            thumbnail: { url: 'https://i.imgur.com/ZBA8lRS.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumičnu sliku mačke.\n\n__***Sva imena komande:***__\n• **macka**\n• **cat**\n• **dosadno**\n\n__***Korišćenje:***__\n• **macka** - prikazuje nasumičnu sliku mačke"
+        }
+    });
+}));
 
 module.exports = cat;

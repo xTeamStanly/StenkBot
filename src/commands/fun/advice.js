@@ -1,6 +1,6 @@
 const { Command } = require('yuuko');
 const axios = require('axios');
-const { getTodaysDate, errNaslov, errSadrzaj, getMessageReference } = require('../../lib/tools');
+const { getTodaysDate, errNaslov, errSadrzaj, getMessageReference, getFooter } = require('../../lib/tools');
 
 const image = "https://i.imgur.com/U41S13T.png";
 
@@ -10,10 +10,7 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
         url: "https://adviceslip.com/",
         color: 0xFE830E,
         thumbnail: { url: image },
-        footer: {
-            text: `Zahtevao ${message.author.username} - ${getTodaysDate()}`,
-            icon_url: message.author.avatarURL
-        },
+        footer: getFooter(message),
     };
 
     try {
@@ -52,6 +49,19 @@ const advice = new Command(['advice', 'savet'], async (message, args, context) =
     };
 
     await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Advice', url: "https://adviceslip.com/" },
+            url: "https://adviceslip.com/",
+            color: 0xFE830E,
+            thumbnail: { url: image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumičan savet na engleskom.\n\n__***Sva imena komande:***__\n• **advice**\n• **savet**\n\n__***Korišćenje:***__\n• **advice** - prikazuje nasumičan savet\n• **advice __<ID>__** - prikazuje savet sa određenim __ID-jem__"
+        }
+    });
+}));
 
 module.exports = advice;

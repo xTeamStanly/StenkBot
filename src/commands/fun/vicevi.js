@@ -18,7 +18,7 @@ const nadjiKategoriju = (kategorija) => {
     }
 }
 
-const viceviKategorije = new Command(['kategorije', 'kategorija', 'kat', 'pomoc', '?'], async (message, args, context) => {
+const viceviKategorije = new Command(['kategorije', 'kategorija', 'kat'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
@@ -130,6 +130,20 @@ const vicevi = new Command(['vic', 'vicevi'], async (message, args, context) => 
     finalJson.url = link;
 
     await message.channel.createMessage({messageReference: getMessageReference(message), embed: finalJson});
-}).addSubcommand(viceviKategorije);
+}).addSubcommand(viceviKategorije)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Vicevi', url: 'https://www.vicevi.rs' },
+            url: 'https://www.vicevi.rs/',
+            color: 0x0B263F,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje vic dana.\n\n__***Sva imena komande:***__\n• **vic**\n• **vicevi**\n\n__***Podkomande:***__\n• **kategorije**, **kategorija**, **kat**, **cat** - prikazuje sve moguće kategorije viceva\n\n__***Korišćenje:***__\n• **vic** - prikazuje vic dana\n• **vic kat** - prikazuje sve moguće kategorije viceva\n• **vic __<KAT>__** - prikazuje nasumičan vic kategorije __KAT__ (nevažeća kategorija prikazuje nasumičnu kategoriju)"
+        }
+    });
+}));
 
 module.exports = vicevi;

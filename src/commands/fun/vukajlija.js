@@ -59,7 +59,21 @@ const vukajlija = new Command(['vukajlija', 'vuk'], async (message, args, contex
     } else {
         await vukajlija2embeds2message("https://vukajlija.com/", rec, message, context);
     }
-}).addSubcommand(vukajlijaDefinisi).addSubcommand(vukajlijaPretrazi);
+}).addSubcommand(vukajlijaDefinisi).addSubcommand(vukajlijaPretrazi)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Vukajlija", url: "https://vukajlija.com/" },
+            url: "https://vukajlija.com/",
+            color: 0x1F8B4C,
+            thumbnail: { url: image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje 5 definicija sa početne stranice.\n\n__***Sva imena komande:***__\n• **vukajlija**\n• **vuk**\n\n__***Podkomande:***__\n• **pretrazi**, **pretraga**, **search** - prikazuje maksimalno 5 definicija pretražene reči\n• **definisi**, **define**, **def** - prikazuje maksimalno 5 definicija konkretne unesene reči\n\n__***Korišćenje:***__\n• **vuk** - prikazuje 5 definicija sa početne stranice\n• **vuk __<REČ>__** - pretražuje __REČ__ i prikazuje maksimalno 5 definicija\n• **vuk pretrazi __<REČ>__** - pretražuje __REČ__ i prikazuje maksimalno 5 definicija\n• **vuk definisi __<REČ>__** - definiše konkretnu __REČ__ i prikazuje maksimalno 5 definicija\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)\n"
+        }
+    });
+}));
 
 const vukajlija2embeds2message = async (link, rec, message, context) => {
     var finalJson = [];
@@ -136,7 +150,7 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
             //if(rec.length > 900) { rec = rec.substring(0, 900); rec += " **...**"; }
 
             finalJson = [{
-                author: { name: "Vukajlija" },
+                author: { name: "Vukajlija", url: "https://vukajlija.com/" },
                 title: ":mag_right: Definicija nije pronađena!",
                 description: ":frowning2: Reč nažalost nije pronađena. Stranica je uklonjena ili nikada nije ni postojala!",
                 color: 0x1F8B4C,

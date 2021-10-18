@@ -176,6 +176,20 @@ const crypto = new Command(['crypto', 'kripto'], async (message, args, context) 
     });
 
 
-}).addSubcommand(cryptoSearch);
+}).addSubcommand(cryptoSearch)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "CoinCap", url: 'https://coincap.io/' },
+            url: 'https://coincap.io/',
+            color: 0x65C196,
+            thumbnail: { url: 'https://i.imgur.com/B3l0Ysz.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje listu vrednosti kriptovaluta.\n\n__***Sva imena komande:***__\n• **crypto**\n• **kripto**\n\n__***Podkomande:***__\n• **search**, **pretrazi**, **pretraga** - pretražuje i prikazuje vrednost unesene kriptovalute\n\n__***Korišćenje:***__\n• **crypto** - prikazuje listu vrednosti kriptovaluta\n• **crypto search __<NAZIV>__** - pretražuje i prikazuje vrednost kriptovalute koja odgovara __NAZIVU__\n\n__***Dodatno:***__\n• Postoji API limit (ili sačekate ili probajte ponovo)"
+        }
+    })
+}));
 
 module.exports = crypto;
