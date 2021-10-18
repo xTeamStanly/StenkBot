@@ -2,7 +2,7 @@ const { Command } = require('yuuko');
 const { randomList, countOccurrences, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/beogradskePrice');
 
-const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message, args, context) => {
+const beogradskePrice = new Command(["bg", "beograd", "bgprice", "beogradskeprice"], async (message, args, context) => {
     var output = data.output;
 
     //nezavisni
@@ -80,6 +80,18 @@ const beogradskePrice = new Command(["bg", "beograd", "bgprice"], async (message
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Beogradske priče" },
+            color: 0x1B5AAB,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše kratku priču iz Beograda.\n\n__***Sva imena komande:***__\n• **bg**\n• **beograd**\n• **bgprice**\n• **beogradskeprice**\n\n__***Korišćenje:***__\n• **bg** - generiše kratku priču iz Beograda"
+        }
+    });
+}));
 
 module.exports = beogradskePrice;

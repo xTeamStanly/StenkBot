@@ -28,7 +28,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
             await message.channel.createMessage({
                 messageReference: getMessageReference(message),
                 embed: {
-                    author: { name: "SIP" },
+                    author: { name: "SIP", url: 'https://sip.elfak.ni.ac.rs/' },
                     thumbnail: { url: image },
                     title: `:warning: WebHook registrovan :warning:`,
                     color: 0x65BD36,
@@ -56,7 +56,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
             await message.channel.createMessage({
                 messageReference: getMessageReference(message),
                 embed: {
-                    author: { name: "SIP" },
+                    author: { name: "SIP", url: 'https://sip.elfak.ni.ac.rs/' },
                     thumbnail: { url: image },
                     title: `:warning: WebHook obrisan :warning:`,
                     color: 0x65BD36,
@@ -70,7 +70,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: {
-                author: { name: "SIP" },
+                author: { name: "SIP", url: 'https://sip.elfak.ni.ac.rs/' },
                 thumbnail: { url: image },
                 title: errNaslov,
                 description: errSadrzaj,
@@ -79,7 +79,20 @@ const sipRegister = new Command('sip', async (message, args, context) => {
             }
         });
     }
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "SIP", url: 'https://sip.elfak.ni.ac.rs/' },
+            url: 'https://sip.elfak.ni.ac.rs/',
+            color: 0x65BD36,
+            thumbnail: { url: image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Registruje ili uklanja SIP WebHook sa kanala.\n• Registruje određeni kanal kako bi primao SIP obaveštenja.\n• Radi na principu prekidača.\n\n__***Sva imena komande:***__\n• **sip**\n\n__***Korišćenje:***__\n• **sip** - registruje/uklanja SIP WebHook kanal\n\n__***Dodatno:***__\n• Koristi WebHook kako bi poslao više embed-a odjednom (smanjuje spam)\n• Samo gazda ima pravo na ovu komandu!\n• Pre nego što izbacite bota sa servera poželjno je da odjavite sve kanale."
+        }
+    });
+}));
 
 //! SAMO GAZDA MOZE DA POKRENE OVU KOMANDU
 sipRegister.requirements = { owner: true }

@@ -5,7 +5,7 @@ const colors = require('colors');
 const stenkLog = async (type, color, message) => {
     const vreme = new Date();
     const vremeVreme = vreme.toLocaleTimeString('sr-RS');
-    const vremeDatum = vreme.toLocaleDateString('sr-RS');
+    //const vremeDatum = vreme.toLocaleDateString('sr-RS');
     const logMessage = `[${type}] ${vremeVreme} `[color] + message;
     const logMessageClean = `[${type}] ${vremeVreme} ` + message + '\n';
 
@@ -13,7 +13,7 @@ const stenkLog = async (type, color, message) => {
     if(!fs.existsSync('./log')) { fs.mkdirSync(`./log`); }
 
     //ako ne postoji danasnji log folder, napravi ga
-    await fs.appendFile(`./log/${vremeDatum}txt`, logMessageClean, (err) => {
+    await fs.appendFile(`./log/${vreme.getDay()}.${vreme.getMonth()}.${vreme.getFullYear()}.txt`, logMessageClean, (err) => {
         if(err) { console.log("[FILE] ".red + err) };
     });
 

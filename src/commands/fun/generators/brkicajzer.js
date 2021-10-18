@@ -27,6 +27,18 @@ const brkicajzer = new Command(['brkic', 'brk', 'brkicajzer'], async (message, a
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Brkićajzer' },
+            color: 0x6C645F,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše tipičnu priču Milovana Brkića.\n\n__***Sva imena komande:***__\n• **brk**\n• **brkic**\n• **brkicajzer**\n\n__***Korišćenje:***__\n• **brkic** - generiše tipičnu priču Milovana Brkića"
+        }
+    });
+}));
 
 module.exports = brkicajzer;

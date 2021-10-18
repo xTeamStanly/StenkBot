@@ -106,6 +106,19 @@ const polumenta = new Command(['polumenta', 'sako', 'dado'], async (message, arg
             footer: getFooter(message)
         }
     });
-}).addSubcommand(polumentaRado).addSubcommand(polumentaRadoDado).addSubcommand(polumentaFoloTrolo);
+}).addSubcommand(polumentaRado).addSubcommand(polumentaRadoDado).addSubcommand(polumentaFoloTrolo)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Polumenta - Rado" },
+            color: 0x804936,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše naziv petorice braće Polumenta.\n\n__***Sva imena komande:***__\n• **polumenta**\n• **sako**\n• **dado**\n\n__***Podkomande:***__\n• **rado** - generiše naziv petorice braće Polumenta v1\n• **radodado** - generiše naziv petorice braće Polumenta v2\n• **folotrolo** - generiše naziv petorice braće Polumenta v3\n\n__***Korišćenje:***__\n• **polumenta** - generiše naziv petorice braće Polumenta\n• **polumenta rado** - generiše naziv petorice braće Polumenta v1\n• **polumenta radodado** - generiše naziv petorice braće Polumenta v2\n• **polumenta folotrolo** - generiše naziv petorice braće Polumenta v3"
+        }
+    });
+}));
 
 module.exports = polumenta;

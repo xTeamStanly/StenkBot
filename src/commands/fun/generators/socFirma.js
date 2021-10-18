@@ -44,7 +44,19 @@ const socFirma = new Command(['firma', 'socfirma', 'socijalistickafirma', 'firma
             ],
             footer: getFooter(message)
         }
+    });'', '', '', ''
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Socijalistička firma" },
+            color: 0x940404,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše naziv firme iz socijalističkog vremena.\n\n__***Sva imena komande:***__\n• **firma**\n• **socfirma**\n• **socfirma**\n• **socijalistickafirma**\n\n__***Korišćenje:***__\n• **firma** - generiše naziv firme iz socijalističkog vremena"
+        }
     });
-});
+}));
 
 module.exports = socFirma;

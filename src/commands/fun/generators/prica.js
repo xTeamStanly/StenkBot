@@ -36,6 +36,18 @@ const prica = new Command(['prica', 'story'], async (message, args, context) => 
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Priča' },
+            color: 0x8a3a34,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše kratak tekst koji liči na neku pričicu.\n\n__***Sva imena komande:***__\n• **prica**\n• **story**\n\n__***Korišćenje:***__\n• **prica** - generiše kratak tekst koji liči na neku pričicu"
+        }
+    });
+}));
 
 module.exports = prica;

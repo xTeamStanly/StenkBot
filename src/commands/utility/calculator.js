@@ -16,7 +16,7 @@ Pi     Proizvod od x do y po n - Pi(x, y, n)
 n      Promenljiva po kojoj se
        vrši suma/proizvod
 
-pi     Kontanta π = 3.1415...
+pi     Konstanta π = 3.1415...
 
 e      Konstanta e = 2.7182...
 
@@ -60,7 +60,7 @@ acosh  Arkus kosinus hiperbolični - acosh(x)
 
 atanh  Arkus tangens hiperbolični - atanh(x)\`\`\``;
 
-const calculatorSimboli = new Command(['pomoc', 'help', '?'], async (message, args, context) => {
+const calculatorSimboli = new Command(['simboli', 'podrzano', 'operacije'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
@@ -97,7 +97,7 @@ const calculator = new Command(['kalkulator', 'eval', 'calc', 'izracunaj', 'calc
         console.log(err);
         naslov = ":warning: Greška! :warning:";
         sadrzaj = err.message;
-        sadrzaj = `***${sadrzaj.charAt(0).toUpperCase() + sadrzaj.slice(1)}***\n\n***!calc pomoc*** - prikazuje šta je sve podržano`;
+        sadrzaj = `***${sadrzaj.charAt(0).toUpperCase() + sadrzaj.slice(1)}***\n\nPodkomanda ***__podrzano__*** - prikazuje šta je sve podržano`;
     }
 
     finalJson.title = naslov;
@@ -108,6 +108,18 @@ const calculator = new Command(['kalkulator', 'eval', 'calc', 'izracunaj', 'calc
         embed: finalJson
     });
 
-}).addSubcommand(calculatorSimboli);
+}).addSubcommand(calculatorSimboli).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Kalkulator' },
+            thumbnail: { url: 'https://i.imgur.com/J9QCQrH.png' },
+            color: 0x9DD164,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Računa zadati izraz.\n\n__***Sva imena komande:***__\n• **kalkulator**\n• **eval**\n• **calc**\n• **izracunaj**\n• **calculate**\n\n__***Podkomande:***__\n• **podrzano**, **simboli**, **operacije** - prikazuje podržane simbole i operacije\n\n__***Korišćenje:***__\n• **calc podrzano** - prikazuje podržane simbole i operacije\n• **calc __<IZRAZ>__** - prikazuje rezultat __IZRAZ-a__"
+        }
+    });
+}));
 
 module.exports = calculator;

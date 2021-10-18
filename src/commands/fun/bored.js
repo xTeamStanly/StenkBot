@@ -20,7 +20,7 @@ const prevedi = (input) => {
     return 'Zanimacija';
 };
 
-const bored = new Command(['bored', 'dosada', 'dosada'], async (message, args, context) => {
+const bored = new Command(['bored', 'dosada', 'dosadno'], async (message, args, context) => {
     var finalJson = {
         author: { name: 'Bored', url: 'https://www.boredapi.com/' },
         thumbnail: { url: 'https://i.imgur.com/krYlg16.png' },
@@ -79,6 +79,19 @@ const bored = new Command(['bored', 'dosada', 'dosada'], async (message, args, c
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Bored', url: 'https://www.boredapi.com/' },
+            url: "https://www.boredapi.com/",
+            color: 0x79A3FD,
+            thumbnail: { url: 'https://i.imgur.com/krYlg16.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje nasumičnu aktivnost na engleskom.\n\n__***Sva imena komande:***__\n• **bored**\n• **dosada**\n• **dosadno**\n\n__***Korišćenje:***__\n• **bored** - prikazuje nasumičnu aktivnost"
+        }
+    });
+}));
 
 module.exports = bored;

@@ -2,7 +2,7 @@ const { Command } = require('yuuko');
 const { randomList, getMessageReference, getFooter } = require('../../../lib/tools');
 const data = require('../../../resources/commands/fun/generators/balkanInfo');
 
-const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, context) => {
+const balkanInfo = new Command(["bi", "binfo", "tesa", "balkaninfo"], async (message, args, context) => {
     var output = randomList(data.output);
     output = output
         .replace("[grupa]", randomList(data.grupa))
@@ -45,6 +45,18 @@ const balkanInfo = new Command(["bi", "binfo", "tesa"], async (message, args, co
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Balkan Info" },
+            color: 0xB2B6C2,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše naslov koji liči na naslov emisije Balkan Info.\n\n__***Sva imena komande:***__\n• **balkaninfo**\n• **bi**\n• **binfo**\n• **tesa**\n\n__***Korišćenje:***__\n• **tesa** - generiše naslov koji liči na naslov emisije Balkan Info"
+        }
+    });
+}));
 
 module.exports = balkanInfo;

@@ -14,6 +14,18 @@ const krizniStab = new Command(['kriznistab', 'ks', 'covidmera', 'kovidmera', 'm
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Šaljiva mera kriznog štaba" },
+            color: 0x2ECC71,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše novu meru Kriznog štaba protiv koronavirusa.\n\n__***Sva imena komande:***__\n• **kriznistab**\n• **ks**\n• **covidmera**\n• **kovidmera**\n• **mera**\n\n__***Korišćenje:***__\n• **ks** - generiše novu meru Kriznog štaba protiv koronavirusa"
+        }
+    });
+}));
 
 module.exports = krizniStab;

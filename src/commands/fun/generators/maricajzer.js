@@ -29,6 +29,18 @@ const maricajzer = new Command(['maric', 'maricajzer'], async (message, args, co
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Marićajzer" },
+            color: 0xAC6533,
+            thumbnail: { url: data.image },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše tipičnu Marićevu rečenicu.\n\n__***Sva imena komande:***__\n• **maric**\n• **maricajzer**\n\n__***Korišćenje:***__\n• **maric** - generiše tipičnu Marićevu rečenicu"
+        }
+    });
+}));
 
 module.exports = maricajzer;

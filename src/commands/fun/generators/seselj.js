@@ -149,10 +149,14 @@ const seselj = new Command('seselj', async (message, args, context) => {
 
     try {
 
+        var slika = generisiSliku(naslov, boja.hex);
+
+        //#region
+        /* prvi nacin - posalji fajl i embed, za svaki slucaj edituj embed da bi se osvezila slika */
         var embed = {
             author: { name: "Шешељ - Ново Шешељево дело!" },
             title: naslov,
-            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nможе се десити да се некад слика\nне учита!***",
+            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nначина како ембед хендлује слике\nи црне магије - може се десити\nда се некад слика не учита!***",
             color: embedBoja,
             thumbnail: { url: thumbUrl },
             image: { url: `attachment://knjiga.jpeg` },
@@ -162,7 +166,31 @@ const seselj = new Command('seselj', async (message, args, context) => {
         var x = await message.channel.createMessage({
             messageReference: getMessageReference(message),
             embed: embed
-        }, { name: 'knjiga.jpeg', file: generisiSliku(naslov, boja.hex) });
+        }, { name: 'knjiga.jpeg', file: slika });
+
+        /*
+        console.log(x.embeds[0].image);
+        var y = await message.channel.createMessage({}, {name: 'fajl.jpeg', file: slika});
+        console.log(y.attachments[0]);
+        */
+
+        //ako editujemo poruku, embed se sam osvezi
+        //to radimo kod onih koji nece odmah da prepoznaju link slike
+        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
+        //trebale da rade
+        //losa stvar je to sto uvek pise edited  u poruci :/
+        //?await message.channel.editMessage(x.id, x.content);
+        /**/
+       //#endregion
+
+
+
+
+        //!STEPS
+        //1 - posalji fajl
+        //2 - edituj poruku u embed
+        //3 - slika je uvek ucitana
+
 
         //#region seselj debug
         //console.log(x);
@@ -174,12 +202,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
         //embed.image.url = x.embeds[0].image.url;
         //#endregion
 
-        //ako editujemo poruku, embed se sam osvezi
-        //to radimo kod onih koji nece odmah da prepoznaju link slike
-        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
-        //trebale da rade
-        //losa stvar je to sto uvek pise edited  u poruci :/
-        await message.channel.editMessage(x.id, x.content);
+
     } catch(err) {
         console.log(err);
         await message.channel.createMessage({
@@ -193,6 +216,19 @@ const seselj = new Command('seselj', async (message, args, context) => {
             }
         });
     }
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Шешељ - Ново Шешељево дело!" },
+            url: 'http://ispovesti.com/',
+            color: generisiBoju().integer,
+            thumbnail: { url: randomList(data.image) },
+            footer: getFooter(message),
+            title: ':book: Помоћ',
+            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**`
+        }
+    });
+}));
 
 module.exports = seselj;

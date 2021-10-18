@@ -14,6 +14,18 @@ const oldInsult = new Command(['oldinsult', 'thou'], async (message, args, conte
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Novine" },
+            thumbnail: { url: data.image },
+            color: 0xE7E7E7,
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generise uvredu na engleskom koja liči kao da je pisana Šekspirovim stilom.\n\n__***Sva imena komande:***__\n• **oldinsult**\n• **thou**\n\n__***Korišćenje:***__\n• **oldinsult** - generise uvredu na engleskom koja liči kao da je pisana Šekspirovim stilom"
+        }
+    });
+}));
 
 module.exports = oldInsult;

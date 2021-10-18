@@ -72,6 +72,19 @@ const zalgo = new Command('zalgo', async (message, args, context) => {
             footer: getFooter(message)
         }
     });
-}).addSubcommand(zalgoEncode).addSubcommand(zalgoDecode);
+}).addSubcommand(zalgoEncode).addSubcommand(zalgoDecode)
+.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Zalgo" },
+            color: 0xE3BD74,
+            thumbnail: { url: 'https://i.imgur.com/kfB5KHl.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše zalgo tekst.\n\n__***Sva imena komande:***__\n• **zalgo**\n\n__***Podkomande:***__\n• **encode**, **encoder** - generiše zalgo tekst\n• **decode**, **decoder** - dekodira zalgo tekst\n\n__***Korišćenje:***__\n• **zalgo __<UNOS>__** - pretvara __UNOS__ u zalgo tekst\n• **zalgo encode __<UNOS>__** - pretvara __UNOS__ u zalgo tekst\n• **zalgo decode __<UNOS>__** - pretvara zalgo __UNOS__ u običan tekst"
+        }
+    });
+}));
 
 module.exports = zalgo;

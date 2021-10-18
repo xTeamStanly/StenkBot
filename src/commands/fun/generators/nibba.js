@@ -13,6 +13,18 @@ const nibba = new Command('nibba', async (message, args, context) => {
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Nibba" },
+            color: 0x8B4513,
+            thumbnail: { url: 'https://i.imgur.com/y4ld1KC.png' },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Generiše nibba ime.\n\n__***Sva imena komande:***__\n• **nibba**\n\n__***Korišćenje:***__\n• **nibba** - generiše nibba ime"
+        }
+    });
+}));
 
 module.exports = nibba;

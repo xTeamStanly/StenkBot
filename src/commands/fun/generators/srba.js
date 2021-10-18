@@ -21,6 +21,18 @@ const srba = new Command(['srba', 'mudrolija', 'mudrost', 'srbapametuje', 'srbak
             footer: getFooter(message)
         }
     });
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: 'Srba' },
+            color: 0x1F8B4C,
+            thumbnail: { url: randomList(data.image) },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje neku Srbinu mudroliju.\n\n__***Sva imena komande:***__\n• **srba**\n• **mudrost**\n• **mudrolija**\n• **srbapametuje**\n• **srbakaze**\n\n__***Korišćenje:***__\n• **srba** - prikazuje neku Srbinu mudroliju"
+        }
+    });
+}));
 
 module.exports = srba;

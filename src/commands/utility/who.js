@@ -1,5 +1,5 @@
 const { Command } = require("yuuko");
-const { getMessageReference, getFooter } = require("../../lib/tools");
+const { getMessageReference, getFooter, botAvatar } = require("../../lib/tools");
 
 
 const who = new Command(['info', 'who'], async (message, args, context) => {
@@ -35,6 +35,18 @@ const who = new Command(['info', 'who'], async (message, args, context) => {
             footer: getFooter(message)
         }
     })
-});
+}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+    await message.channel.createMessage({
+        messageReference: getMessageReference(message),
+        embed: {
+            author: { name: "Informacije o korisniku" },
+            color: 0x808080,
+            thumbnail: { url: botAvatar },
+            footer: getFooter(message),
+            title: ':book: Pomoć',
+            description: "__***Opis:***__\n• Prikazuje informacije o korisniku.\n\n__***Sva imena komande:***__\n• **info**\n• **who**\n\n__***Korišćenje:***__\n• **info** - prikazuje informacije o korisniku koji je pozvao komandu\n• **info __<MENTION>__** - prikazuje informacije o __MENTION__ (@username)"
+        }
+    });
+}));
 
 module.exports = who;
