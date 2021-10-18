@@ -5,7 +5,7 @@ const { Client } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
 const { stenkLog, colors } = require('./lib/botHelper');
-const { msToTime, getMessageReference, getFooter } = require('./lib/tools');
+const { msToTime, getMessageReference, getFooter, botAvatar } = require('./lib/tools');
 
 //cron job
 const cron = require('node-cron');
