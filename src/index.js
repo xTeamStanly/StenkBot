@@ -235,7 +235,7 @@ const botStart = async () => {
 		if(bot) {
 			const botUptime = bot.uptime;
 			res.json({
-				uptime: botUptime,
+				uptime: botUptime, //? nece li ovo da bude mnogo veliko hmm??
 				uptimeFormatted: msToTime(botUptime),
 				servers: bot.guilds.size,
 				shards: bot.shards.size
