@@ -107,7 +107,7 @@ const polumenta = new Command(['polumenta', 'sako', 'dado'], async (message, arg
         }
     });
 }).addSubcommand(polumentaRado).addSubcommand(polumentaRadoDado).addSubcommand(polumentaFoloTrolo)
-.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+.addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

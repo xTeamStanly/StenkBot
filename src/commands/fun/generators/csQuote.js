@@ -20,7 +20,7 @@ const programerski = new Command(['cs', 'programmer', 'programer', 'programerski
             footer: getFooter(message)
         }
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

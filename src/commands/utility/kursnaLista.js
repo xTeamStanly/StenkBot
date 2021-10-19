@@ -150,7 +150,7 @@ const kursnaLista = new Command(['kursna', 'kursnalista'], async (message, args,
         }
     });
 }).addSubcommand(kursnaDinar).addSubcommand(kursnaDolar).addSubcommand(kurnaEuro)
-.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+.addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

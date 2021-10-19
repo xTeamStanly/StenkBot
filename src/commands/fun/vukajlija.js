@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const { Command } = require('yuuko');
 const encodeUrl = require('encodeurl');
 
-const moment = require('moment');
+//const moment = require('moment');
 
 const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
 
@@ -60,7 +60,7 @@ const vukajlija = new Command(['vukajlija', 'vuk'], async (message, args, contex
         await vukajlija2embeds2message("https://vukajlija.com/", rec, message, context);
     }
 }).addSubcommand(vukajlijaDefinisi).addSubcommand(vukajlijaPretrazi)
-.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+.addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

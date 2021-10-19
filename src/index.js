@@ -4,8 +4,8 @@ const app = express();
 const { Client } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
-const { stenkLog, colors } = require('./lib/botHelper');
-const { msToTime } = require('./lib/tools');
+const { stenkLog, colors, statusi } = require('./lib/botHelper');
+const { msToTime, getMessageReference, getFooter, botAvatar, randomList } = require('./lib/tools');
 
 //cron job
 const cron = require('node-cron');
@@ -23,98 +23,11 @@ var bot = new Client({
 	disableDefaultMessageListener: true
 });
 
-const helpText1 = `\`\`\`fun:
-- advice | savet (args: ID ili nista)
-- bored | dosada | dosadno
-- crypto | kripto
-	- search | pretrazi | pretraga (arg: ime)
-- dadjoke | dad
-- insult | uvreda
-- ispovesti | ispovest
-	- random | rand
-	- novo | new
-	- popularno | popular | pop
-	- najbolje | best | naj
-	- dana | dan | day
-	- nedelja | nedelje | week
-	- mesec | meseca | month
-- retrogradni | merkur | rm
-- quote | quotes (prazno za help)
-	- breakingbad | bb
-	- ron | ronswanson | swanson
-	- office
-	- cs | programmer | programer | programerski
-	- svetemisli | svete | holy
-- randomanimal:
-	- pas | dog
-	- macka | cat
-	- lisica | fox
-- kockica | roll | rolladie | rolladice (args: broj bacanja + d + broj strana kockice)
-- rps
-	- rock | kamen
-	- paper | papir
-	- scissors | makaze
-- trivia | question
-- urban | udefine (args: rec ili prazno (rec dana))
-- vic | vicevi (args: kategorija ili kategorije, kategorija, kat, pomoc, ?)
-- vukajlija | vuk (args: rec)
-	- pretrazi | pretraga | search
-	- definisi define | def
-- xkcd (args: ID ili nista)
-- GENERATORI:
-	- automobil | auto | kola
-	- tesa | bi | binfo | balkaninfo
-	- bg | beograd | bgprice | beogradskeprice
-	- brkic | brk | brkicajzer
-	- color | boja
-	- commit | git
-	- 8ball (args: pitanje duze od 3 karaktera + znak pitanja)
-	- eros | erosnarodna | erotska
-	- golizivot | gz
-	- kanye | kanyetweet
-	- kriznistab | ks | covidmera | kovidmera | mera
-	- maricajzer | maric
-	- mock | spongebob (args: text)
-	- nibba
-	- nis | niskeprice | naissus | niskaposla
-	- novine | naslov
-	- oldinsult | thou
-	- periodni | periodic | chem
-	- pirot | pirotskaorata
-	- yoda | pitajjodu | pitajyodu | yodo | joda | jodo | dedajoda | dedajodo (args: pitanje duze od 3 karaktera + znak pitanja)
-	- polumenta | sako | dado
-		- rado
-		- radodado
-		- folotrolo
-	- prica | story
-	- psovka | zorica | zoricapsuje
-	- seselj (args: naslov knjige ili nista)
-	- firma | socfirma | socijalistickafirma | firmasoc
-	- srba | mudrolija | mudrost | srbapametuje | srbakaze\`\`\``;
-
-const helpText2 = `\`\`\`	- synth | synthwave
-- zalgo (args: text)
-	- encode | encoder
-	- decode | decoder
-
-utility:
-- about | gazda | stenk
-- calculator | eval | calc | izracunaj | calculate (arg: izraz)
-- pomoc | help | ?
-- covid19 | covid | koronka | kovid
-- date | datediff | diff | datum (args: datum1 datum2 ili datum1)
-- kursna | kursnalista
-- rsd | dinar | din
-- euro | evro | eur
-- dollar | dolar | usd
-- sip
-- who | info (args: @mention ili nista)\`\`\``;
-
+//bot startup function
 const botStart = async () => {
 
 	//init storage
 	//await storage.init({ dir: 'storage', ttl: 0 /*, logging: true*/ });
-
 	await storage.create({ dir: 'storage', ttl: 0 /*, logging: true*/ });
 	await storage.init();
 
@@ -130,16 +43,6 @@ const botStart = async () => {
 	//https://discord.com/api/oauth2/authorize?client_id=871723684086296617&permissions=536995904&scope=bot
 
 	try {
-
-		//inicijalizacija bot klijenta
-		/*bot = new Client({
-			token: process.env.BOT_TOKEN,
-			prefix: process.env.PREFIX,
-			maxShards: 'auto',
-			ignoreBots: true,
-			defaultImageFormat: 'jpg',
-			disableDefaultMessageListener: true
-		});*/
 
 		//message parser
 		bot.on('messageCreate', (msg) => {
@@ -196,14 +99,19 @@ const botStart = async () => {
 			await stenkLog(' CMD ', 'blue', logMessage);
 		});
 
-
-		//todo help command
 		bot.on('invalidCommand', async (message, args, context) => {
-			//await message.channel.createMessage({ content: 'komanda ne postoji!!!!' });
-			await message.channel.createMessage({ content: helpText1 });
-			await message.channel.createMessage({ content: helpText2 });
+			await message.channel.createMessage({
+				messageReference: getMessageReference(message),
+				embed: {
+					author: { name: "StenkBot" },
+					title: "Nepostojeća komanda!",
+					thumbnail: { url: botAvatar },
+            		color: 0x5636a7,
+					description: 'Ova komanda ne postoji, možda vam **help komanda** može pomoći!',
+					footer: getFooter(message)
+				}
+			});
 		});
-
 
 		const sipFetcher = async () => {
 			const hooks = await storage.getItem('sipHooks');
@@ -272,9 +180,18 @@ const botStart = async () => {
 			}
 		};
 
-		//SIP FETCH CRON
+		//SIP FETCH CRON - svakih pola sata
 		const sipCronJob = cron.schedule('*/30 * * * *', sipFetcher, { scheduled: false });
 		//0 */10 * * * *
+
+
+
+		//! AUTO AZURIRANJE BOT STATUSA
+		// const botChangeStatus = async () => {
+		// 	bot.editStatus('online', randomList(statusi));
+		// }
+		// const botStatusCronJob = cron.schedule('*/15 * * * *', botChangeStatus, { scheduled: false });
+
 
 		//BOT JE SPREMAN
 		bot.on('ready', async () => {
@@ -282,15 +199,22 @@ const botStart = async () => {
 
 			await stenkLog("READY", 'cyan', 'Bot is ready!');
 
+			//! botChangeStatus();
+			//! botStatusCronJob.start();
+
+			bot.editStatus('online', { name: `${bot.prefix}help za pomoć`, type: 0 });
+
 			await sipFetcher(); //cim je ready neka proveri, a posle ide cron job
 			sipCronJob.start(); //pokreni cron job
 		});
 
 		//BOT CONNECT
+		//povezi bota na gateway
 		bot.connect();
 
 	} catch(err) {
-		stenkLog("MAJOR ERROR", 'red', err.message);
+		await stenkLog("MAJOR ERROR", 'red', err.message);
+		console.log(err);
 	}
 }
 
@@ -311,7 +235,7 @@ const botStart = async () => {
 		if(bot) {
 			const botUptime = bot.uptime;
 			res.json({
-				uptime: botUptime,
+				uptime: botUptime, //? nece li ovo da bude mnogo veliko hmm??
 				uptimeFormatted: msToTime(botUptime),
 				servers: bot.guilds.size,
 				shards: bot.shards.size
@@ -349,22 +273,10 @@ const botStart = async () => {
 
 
 
-//povezi bota na gateway
 
 
-//TODO STATUSI ZA ELFAK
-//0 is playing
-//1 is streaming (url)
-//2 is listening
-//3 is watching
-//? 4 custom??
-//5 is competing
-const statusi = [
-	{ name: "u polaganju fizike kod Ristića", type: 5 },
-	{ name: "predavanja na MS Teams", type: 2 },
-	{ name: "predavanja na MS Teams", type: 3 },
-	{ name: "predavanja na MS Teams", type: 1 },
-];
+
+
 
 
 
