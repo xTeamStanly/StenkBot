@@ -78,7 +78,6 @@ const help = new Command(['help', 'pomoc', '?'], async (message, args, context) 
     }
 
     //nije uneto nista ili komanda nije nadjena
-
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
@@ -87,7 +86,7 @@ const help = new Command(['help', 'pomoc', '?'], async (message, args, context) 
             thumbnail: { url: botAvatar },
             color: 0x5636a7,
             footer: getFooter(message),
-            description: `• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
+            description: `• Prefix: **${context.prefix}**\n• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
         }
     });
 
