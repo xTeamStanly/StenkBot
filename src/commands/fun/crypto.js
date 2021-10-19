@@ -177,7 +177,7 @@ const crypto = new Command(['crypto', 'kripto'], async (message, args, context) 
 
 
 }).addSubcommand(cryptoSearch)
-.addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+.addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

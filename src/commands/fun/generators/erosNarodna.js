@@ -24,7 +24,7 @@ const erosNarodna = new Command(['eros', 'erosnarodna', 'erotska'], async (messa
             footer: getFooter(message)
         }
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

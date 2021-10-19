@@ -214,6 +214,7 @@ const botStart = async () => {
 
 	} catch(err) {
 		stenkLog("MAJOR ERROR", 'red', err.message);
+		console.log(err);
 	}
 }
 

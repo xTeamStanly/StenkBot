@@ -32,7 +32,7 @@ const insult = new Command(['insult', 'uvreda'], async (message, args, context) 
         messageReference: getMessageReference(message),
         embed: finalJson
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

@@ -17,7 +17,7 @@ const commit = new Command(['commit', 'git'], async (message, args, context) => 
             footer: getFooter(message)
         }
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

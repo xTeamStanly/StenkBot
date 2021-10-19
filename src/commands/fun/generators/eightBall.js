@@ -33,7 +33,7 @@ const eightBall = new Command('8ball', async (message, args, context) => {
             fields: (validno) ? [{ name: ':thinking: Pitanje', value: pitanje, inline: false }] : []
         }
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

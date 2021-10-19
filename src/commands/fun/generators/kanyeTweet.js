@@ -14,7 +14,7 @@ const kanyeTweet = new Command(['kanye', 'kanyetweet'], async (message, args, co
             color: 0xC27C0E
         }
     });
-}).addSubcommand(new Command(['help', 'pomoc', '?'], async (message, args, context) => {
+}).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
