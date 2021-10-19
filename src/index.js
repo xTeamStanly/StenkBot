@@ -186,7 +186,7 @@ const botStart = async () => {
 
 
 
-		//AUTO AZURIRANJE BOT STATUSA
+		//! AUTO AZURIRANJE BOT STATUSA
 		// const botChangeStatus = async () => {
 		// 	bot.editStatus('online', randomList(statusi));
 		// }
@@ -199,13 +199,13 @@ const botStart = async () => {
 
 			await stenkLog("READY", 'cyan', 'Bot is ready!');
 
-			//botChangeStatus();
-			//botStatusCronJob.start();
+			//! botChangeStatus();
+			//! botStatusCronJob.start();
 
 			bot.editStatus('online', { name: `${bot.prefix}help za pomoć`, type: 0 });
 
-			//await sipFetcher(); //cim je ready neka proveri, a posle ide cron job
-			//sipCronJob.start(); //pokreni cron job
+			await sipFetcher(); //cim je ready neka proveri, a posle ide cron job
+			sipCronJob.start(); //pokreni cron job
 		});
 
 		//BOT CONNECT
@@ -213,7 +213,7 @@ const botStart = async () => {
 		bot.connect();
 
 	} catch(err) {
-		stenkLog("MAJOR ERROR", 'red', err.message);
+		await stenkLog("MAJOR ERROR", 'red', err.message);
 		console.log(err);
 	}
 }
