@@ -18,7 +18,7 @@ const about = new Command(['about', 'gazda', 'stenk', 'stamen'], async (message,
             fields: [
                 {
                     name: ":notepad_spiral: Verzija",
-                    value: "1.0.1",
+                    value: "1.1.0",
                     inline: true
                 },
                 {
