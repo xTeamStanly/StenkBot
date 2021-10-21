@@ -70,7 +70,7 @@ const botStart = async (bot) => {
 
 				//ako je user u cooldown-u ne odgovaraj mu na poruke
 				if(cooldownUserSet.has(msg.author.id)) {
-					console.log("COOLDOWN JE AKTIVAN".red);
+					//console.log("COOLDOWN JE AKTIVAN".red);
 					return;
 				}
 
@@ -78,12 +78,12 @@ const botStart = async (bot) => {
 				bot.processCommand(msg);
 
 				cooldownUserSet.add(msg.author.id);
-				console.log("COOLDOWN JE KRENUO".yellow);
+				//console.log("COOLDOWN JE KRENUO".yellow);
 
 				//stavi timeout da ga izbaci posle odredjenog vremena
 				setTimeout(() => {
 					cooldownUserSet.delete(msg.author.id);
-					console.log("COOLDOWN JE GOTOV".green)
+					//console.log("COOLDOWN JE GOTOV".green)
 				}, cooldownMillis);
 			}
 
