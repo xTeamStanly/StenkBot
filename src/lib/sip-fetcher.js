@@ -1,22 +1,20 @@
-/* -- sip fetcher -- */
+/* -- sip fetcher v2.1.0 -- */
 const axios = require('axios');
 const cheerio = require('cheerio'); require('colors');
 const { stenkLog } = require('../lib/botHelper');
-
-const storage = require('node-persist');
+const { sipFetcherGetData, sipFetcherSetData } = require('./storage');
 
 var stariPostoviLevi;
 var noviPostoviLevi;
 var stariPostoviDesni;
 var noviPostoviDesni;
 
+//ovo se prvo pokrece
 (async () => {
-    stariPostoviLevi = await storage.getItem('stariPostoviLevi');
-    noviPostoviLevi = await storage.getItem('noviPostoviLevi');
-    stariPostoviDesni = await storage.getItem('stariPostoviDesni');
-    noviPostoviDesni = await storage.getItem('noviPostoviDesni');
+    await stenkLog('SIP FETCHER', 'yellow', 'READING FROM DATABASE...');
+    [stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni] = sipFetcherGetData();
+    await stenkLog('SIP FETCHER', 'green', 'READ FROM DATABASE!');
 })();
-
 
 const fetchPostovi = async () => {
 
@@ -77,10 +75,9 @@ const fetchPostovi = async () => {
     await stenkLog('SIP FETCHER', 'green', `Novi postovi: ${desni.length + levi.length}`);
     await stenkLog('SIP FETCHER', 'green', 'TASK ENDED');
 
-    await storage.setItem('stariPostoviDesni', stariPostoviDesni);
-    await storage.setItem('noviPostoviDesni', noviPostoviDesni);
-    await storage.setItem('stariPostoviLevi', stariPostoviLevi);
-    await storage.setItem('noviPostoviLevi', noviPostoviLevi);
+    await stenkLog('SIP FETCHER', 'yellow', 'SAVING TO DATABASE...');
+    sipFetcherSetData(stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni);
+    await stenkLog('SIP FETCHER', 'green', 'SAVED TO DATABASE!');
 
     return [levi, desni];
 };

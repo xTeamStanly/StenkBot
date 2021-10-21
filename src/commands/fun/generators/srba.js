@@ -3,7 +3,7 @@ const { randomList, getMessageReference, getFooter } = require('../../../lib/too
 const data = require('../../../resources/commands/fun/generators/srba');
 
 const srba = new Command(['srba', 'mudrolija', 'mudrost', 'srbapametuje', 'srbakaze'], async (message, args, context) => {
-    var output = randomList(data.poslovica);
+    var output = randomList(data.poslovica).trim();
     const akcija = randomList(data.akcija);
 
     if(!output.endsWith('.') && !output.endsWith('!') && !output.endsWith('?')) {

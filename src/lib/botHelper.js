@@ -114,6 +114,7 @@ const statusi = [
     { name: 'Black Sabbath', type: 2 },
     { name: 'The Weeknd', type: 2 },
     { name: 'Joji', type: 2 },
+    { name: 'PINK GUY', type: 2 },
     { name: 'The Prodigy', type: 2 },
     { name: 'Radiohead', type: 2 },
     { name: 'Sex Bob-omb', type: 2 },
@@ -163,9 +164,19 @@ const statusi = [
 
 ];
 
+const stenkBotTitle = `
+  ____  _             _    ____        _
+ / ___|| |_ ___ _ __ | | _| __ )  ___ | |_
+ \\___ \\| __/ _ \\ '_ \\| |/ /  _ \\ / _ \\| __|
+  ___) | ||  __/ | | |   <| |_) | (_) | |_
+ |____/ \\__\\___|_| |_|_|\\_\\____/ \\___/ \\__|
+
+`.green;
+
 module.exports = {
     stenkLog,
     /*printCommandNames,*/
     colors,
-    statusi
+    statusi,
+    stenkBotTitle
 }

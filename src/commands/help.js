@@ -1,5 +1,6 @@
 const { Command } = require('yuuko');
 const { getMessageReference, getFooter, botAvatar } = require('../lib/tools');
+const { cooldownSeconds } = require('../lib/cooldown')
 
 const commandListString =
 `\`\`\`
@@ -85,7 +86,7 @@ const help = new Command(['help', 'pomoc', '?', 'info'], async (message, args, c
             thumbnail: { url: botAvatar },
             color: 0x5636a7,
             footer: getFooter(message),
-            description: `• Prefix: **${context.prefix}**\n• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
+            description: `• Prefix: **${context.prefix}**\n• Cooldown: **${cooldownSeconds}s**\n• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
         }
     });
 
@@ -98,7 +99,7 @@ const help = new Command(['help', 'pomoc', '?', 'info'], async (message, args, c
           thumbnail: { url: botAvatar },
           color: 0x5636a7,
           footer: getFooter(message),
-          description: `• Prefix: **${context.prefix}**\n• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
+          description: `• Prefix: **${context.prefix}**\n• Cooldown: **${cooldownSeconds}s**\n• Neke komande imaju više imena, dole će biti navedeno samo jedno ime po komandi.\n• Ostala imena možete nađi u samim informacijama o komandi.\n\nZa informacije o određenoj komandi možete uneti:\n• (**help** | **pomoc** | **?**) **<IME_KOMANDE>**\n• **<IME_KOMANDE>** (**help** | **pomoc** | **?**)\n\n${commandListString}`
       }
     });
 }));

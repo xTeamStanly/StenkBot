@@ -1,6 +1,8 @@
 const { Command } = require("yuuko");
 const { getMessageReference, customWebHookCheckAndCreate, errNaslov, errSadrzaj, getFooter } = require('../../lib/tools');
-const storage = require('node-persist');
+const { hookGetData, hookSetData } = require('../../lib/storage');
+
+//const storage = require('node-persist');
 
 const image = 'https://i.imgur.com/dyu12dZ.png';
 
@@ -12,7 +14,9 @@ const sipRegister = new Command('sip', async (message, args, context) => {
 
         const hook = await customWebHookCheckAndCreate(message, context);
 
-        var currentHooks = await storage.getItem('sipHooks'); //svi trenutni hook-ovi iz fajla
+        //var currentHooks = await storage.getItem('sipHooks'); //svi trenutni hook-ovi iz fajla
+        var currentHooks = hookGetData();
+        //console.log(currentHooks);
 
         //trazimo hook
         for (let i = 0; i < currentHooks.length && !postoji; i++) {
@@ -22,7 +26,9 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         //ako postoji, dodajemo ga u listu
         if(!postoji) {
             currentHooks.push(hook); //dodajemo u listu
-            await storage.setItem('sipHooks', currentHooks); //dodajemo u storage
+
+            hookSetData(currentHooks);
+            //await storage.setItem('sipHooks', currentHooks); //dodajemo u storage
 
             //obavestimo korisnika da je hook aktivan
             await message.channel.createMessage({
@@ -50,7 +56,8 @@ const sipRegister = new Command('sip', async (message, args, context) => {
             }
 
             //sacuvamo promene na storage
-            await storage.setItem('sipHooks', currentHooks);
+            //await storage.setItem('sipHooks', currentHooks);
+            hookSetData(currentHooks);
 
             //obavestimo korisnika da smo obrisali
             await message.channel.createMessage({
