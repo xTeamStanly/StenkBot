@@ -18,12 +18,12 @@ const about = new Command(['about', 'gazda', 'stenk', 'stamen'], async (message,
             fields: [
                 {
                     name: ":notepad_spiral: Verzija",
-                    value: "1.1.0",
+                    value: "1.1.1",
                     inline: true
                 },
                 {
                     name: ":zap: Powered by",
-                    value: `- Eris\n- Yuuko\n- Node.js\n- Cron\n- Axios\n- Cheerio`,
+                    value: `• Node.js\n• Eris\n• Yuuko\n• Cron\n• Axios\n• Cheerio\n• Better-sqlite3`,
                     inline: true
                 },
                 {

@@ -1,72 +1,46 @@
-const { Client } = require('yuuko');
 const path = require('path');
 const dotenv = require('dotenv').config({ path: './src/config.env' });
 const { stenkLog, colors, statusi, stenkBotTitle } = require('./botHelper');
 const { getMessageReference, getFooter, botAvatar, randomList } = require('./tools'); //! RANDOM LIST JE ZA PROMENU STATUSA???
+const { interactionLibrary } = require('./interactions');
 
 //cron job
 const cron = require('node-cron');
 
-//storage
-//const { setupStorage } = require('./storage');
-//const storage = require('node-persist');
-
-const { cooldownMillis, cooldownUserSet  } = require('./cooldown');
+const { cooldownMillis, cooldownUserSet  } = require('./cooldownConfig');
 const { hookGetData } = require('./storage');
 
 //bot startup function
 const botStart = async (bot) => {
 
-	//init storage
-	//await storage.init({ dir: 'storage', ttl: 0 /*, logging: true*/ });
-
-
-
-	// await storage.create({ dir: 'storage', ttl: 0 /*, logging: true*/ });
-	// await storage.init();
-
-	// if(!await storage.getItem('sipHooks')) { await storage.setItem('sipHooks', []); };
-	// if(!await storage.getItem('stariPostoviDesni')) { await storage.setItem('stariPostoviDesni', []); };
-	// if(!await storage.getItem('noviPostoviLevi')) { await storage.setItem('noviPostoviLevi', []); };
-	// if(!await storage.getItem('stariPostoviDesni')) { await storage.setItem('stariPostoviDesni', []); };
-	// if(!await storage.getItem('noviPostoviDesni')) { await storage.setItem('noviPostoviDesni', []); };
-
+	//sipfetcher functionality
 	const { fetchPostovi } = require('./sip-fetcher');
-
-	//!!! BOT INVITE LINK + PERMISSIONS
-	//https://discord.com/api/oauth2/authorize?client_id=871723684086296617&permissions=536995904&scope=bot
-
 	try {
 
 		//message parser + cooldown
 		bot.on('messageCreate', async (msg) => {
-			//! STENKBOT ADD
 
-    		//direktna poruka nema guildID,
-    		//bot ne gleda direktne poruke
-    		if(!msg.guildID && !msg.author.bot) {
-				//da ne trosi energiju za dzabe
-				return;
+    		//direktna poruka nema guildID, bot ne gleda direktne poruke, da ne trosi energiju za dzabe
+			//? msg.channel.createMessage({ content: "Nema DM-ova!" });
+    		if(!msg.guildID && !msg.author.bot) { return; }
 
-				//?msg.channel.createMessage({ content: "Nema DM-ova!" });
-    		}
-
-    		if (!msg.author) {
-        		return; // this is a bug and shouldn't really happen
-			}
+			//this is a bug and shouldn't really happen
+    		if (!msg.author) { return; }
 
 			//ignorise sebe i druge botove
-    		if (bot.ignoreBots && msg.author.bot) {
-        		return;
-			}
+    		if (bot.ignoreBots && msg.author.bot) { return; }
 
 			//alternative
 			// sporija - await bot.hasCommand(msg)
 			// brza (bez mention-a) - msg.content.startsWith(bot.prefix)
 			const jesteKomanda = await bot.splitPrefixFromContent(msg) != null;
 
-			//! ----- COOLDOWN ZA KOMANDE-----
-			if(jesteKomanda) { //ako jeste komanda radi cooldown logic
+			//ako jeste komanda radi cooldown logic
+			if(jesteKomanda) {
+
+				if(msg.content == '!a') {
+
+				}
 
 				//ako je user u cooldown-u ne odgovaraj mu na poruke
 				if(cooldownUserSet.has(msg.author.id)) {
@@ -76,7 +50,6 @@ const botStart = async (bot) => {
 
 				//izvrsi komandu i dodaj coveka u cooldown set
 				bot.processCommand(msg);
-
 				cooldownUserSet.add(msg.author.id);
 				//console.log("COOLDOWN JE KRENUO".yellow);
 
@@ -90,27 +63,6 @@ const botStart = async (bot) => {
 			//ostavljamo mogucnost za xp preko poruka ili tako nesto
 		});
 
-		//#region
-		//! ERIS EXPANZIJE
-		//require('eris-components').Client(bot); require('eris-additions/lib/Channel/')
-		//require('eris-additions')(Eris, { disabled: ["Channel.createCode"]/*, disabled: ["Channel.sendMessage", "Channel.sendCode", "Eris.Embed"]*/ })
-
-		//!eris-components
-		//!BETA STENKBOT
-		//ErisComponents.Client(bot); //init za komponente
-		/*bot.on('interactionCreate', (message) => {
-			if(message.data.custom_id == 'dobardan') {
-				bot.replyInteraction(message, [], { embeds: [{title: "EMBED1"}, {title: "EMBED2"}] }) // Type 5. See https://discord.com/developers/docs/interactions/slash-commands#interaction-response-object-interaction-callback-type
-
-				//bot.replyInteraction(message, [], { embed: { title: 'aa' } }, );
-			}
-			console.log(message);
-		});*/
-
-		//bot.on('messageCreate', (message) => { if(message.author.id != bot.user.id) { message.channel.createCode("console.log('hi')", "js"); }	/*console.log("OVERRIDER")*/ })
-
-		//#endregion
-
 		//dodajemo sve komande
 		bot.addDir(path.join(__dirname, '../commands'));
 
@@ -122,9 +74,10 @@ const botStart = async (bot) => {
 		bot.on('postCommand', async (cmd, msg, args, ctx) => {
 			const msgAuthor = msg.author;
 			const logMessage = `${msgAuthor.username}#${msgAuthor.discriminator} (${ctx.commandName} - ${msg.guildID})`;
-			await stenkLog(' CMD ', 'blue', logMessage);
+			await stenkLog('CMMND', 'blue', logMessage);
 		});
 
+		//nepostojeca komanda
 		bot.on('invalidCommand', async (message, args, context) => {
 			await message.channel.createMessage({
 				messageReference: getMessageReference(message),
@@ -133,12 +86,13 @@ const botStart = async (bot) => {
 					title: "Nepostojeća komanda!",
 					thumbnail: { url: botAvatar },
             		color: 0x5636a7,
-					description: 'Ova komanda ne postoji, možda vam **help komanda** može pomoći!',
+					description: `Ova komanda ne postoji, možda vam **${bot.prefix}help komanda** može pomoći!`,
 					footer: getFooter(message)
 				}
 			});
 		});
 
+		//sipfetcher
 		const sipFetcher = async () => {
 			//const hooks = await storage.getItem('sipHooks');
 			const hooks = hookGetData();
@@ -243,6 +197,7 @@ const botStart = async (bot) => {
 	} catch(err) {
 		await stenkLog("MAJOR ERROR", 'red', err.message);
 		console.log(err);
+		throw err; //rethrowing zbog signal-exit paketa
 	}
 }
 

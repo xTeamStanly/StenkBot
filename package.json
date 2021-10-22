@@ -1,6 +1,6 @@
 {
   "name": "stenkbot",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "StenkBot Discord Bot",
   "main": "./src/index.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "dotenv": "^10.0.0",
     "encodeurl": "^1.0.2",
     "eris": "^0.15.1",
-    "eris-additions": "^1.4.1",
     "eris-components": "^1.0.1",
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
@@ -39,6 +38,7 @@
     "moment": "^2.29.1",
     "node-cron": "^3.0.0",
     "pluralize": "^8.0.0",
+    "signal-exit": "^3.0.5",
     "string-progressbar": "^1.0.4",
     "table": "^6.7.1",
     "to-zalgo": "^1.0.1",

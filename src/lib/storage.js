@@ -9,8 +9,9 @@ const hookDatabasePath = path.join(storagePath, hookDatabaseName);
 
 //folder + database
 const fs = require('fs-extra'); fs.ensureDirSync(storagePath);
-const dbSip = require('better-sqlite3')(sipFetcherDatabasePath);
-const dbHooks = require('better-sqlite3')(hookDatabasePath);
+const db = require('better-sqlite3');
+const dbSip = db(sipFetcherDatabasePath);
+const dbHooks = db(hookDatabasePath);
 
 //setup za sipfetcher
 const setupSipFetcherStorage = () => {
@@ -35,25 +36,21 @@ const setupHookStorage = () => {
     }
 }
 
-
 //setup za svaki storage
 const setupStorage = () => {
     setupSipFetcherStorage();
     setupHookStorage();
 };
 
-
-
+//check if all storage is valid
 const checkStorage = () => { return fs.existsSync(storagePath) && fs.existsSync(sipFetcherDatabasePath) && fs.existsSync(hookDatabasePath); }
 
+//sipfetch get
 const sipFetcherGetData = () => {
     return dbSip.prepare("SELECT DATA FROM POSTOVI").all().map((item) => { return JSON.parse(item.DATA); });
 }
 
-const hookGetData = () => {
-    return dbHooks.prepare("SELECT DATA FROM HOOKOVI").all().map((item) => { return JSON.parse(item.DATA); })[0];;
-}
-
+//sipfetch set
 const sipFetcherSetData = (stariLevi, noviLevi, stariDesni, noviDesni) => {
     dbSip.prepare(`UPDATE POSTOVI SET DATA = '${JSON.stringify(stariLevi)}' WHERE ID = 'stariPostoviLevi'`).run();
     dbSip.prepare(`UPDATE POSTOVI SET DATA = '${JSON.stringify(noviLevi)}' WHERE ID = 'noviPostoviLevi'`).run();
@@ -61,6 +58,12 @@ const sipFetcherSetData = (stariLevi, noviLevi, stariDesni, noviDesni) => {
     dbSip.prepare(`UPDATE POSTOVI SET DATA = '${JSON.stringify(noviDesni)}' WHERE ID = 'noviPostoviDesni'`).run();
 };
 
+//hook get
+const hookGetData = () => {
+    return dbHooks.prepare("SELECT DATA FROM HOOKOVI").all().map((item) => { return JSON.parse(item.DATA); })[0];;
+}
+
+//hook set
 const hookSetData = (newHooks) => {
     dbHooks.prepare(`UPDATE HOOKOVI SET DATA = '${JSON.stringify(newHooks)}' WHERE ID = 'sipHooks'`).run();
 }

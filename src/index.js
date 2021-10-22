@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const { Client } = require('yuuko');
 const { botStart } = require('./lib/bot');
-const { stenkLog } = require('./lib/botHelper');
+const { stenkLog, stenkLogSync } = require('./lib/botHelper');
 const { msToTime } = require('./lib/tools');
 const { setupStorage, checkStorage, hookGetData } = require('./lib/storage');
-
+const onExit = require('signal-exit');
+const { saveSipFetcherSync } = require('./lib/sip-fetcher');
 
 //init bot client
 const bot = new Client({
@@ -18,6 +19,20 @@ const bot = new Client({
 });
 
 (async () => {
+
+	//save stuff on exit
+	onExit(() => {
+		saveSipFetcherSync(); //save current posts
+	});
+
+	//if fatal error happens
+	process.on('uncaughtException', (err) => {
+		stenkLogSync("MAJOR", 'red', "!FATAL ERROR!");
+		stenkLogSync("MAJOR", 'red', err.message);
+		console.log(err);
+		process.exit(1);
+	});
+
 	try {
 
 		//storage
@@ -51,17 +66,14 @@ const bot = new Client({
 		});
 
 		app.get('/sip', async (req, res) => {
-			//var hooks = await storage.getItem('sipHooks');
-			var hooks = hookGetData();
-
-			res.json(hooks);
+			res.json(hookGetData());
 		});
-
 
 	} catch (err) {
 		await stenkLog("MAJOR ERROR", 'red', err.message);
 		console.log(err);
 	}
+
 })();
 
 
