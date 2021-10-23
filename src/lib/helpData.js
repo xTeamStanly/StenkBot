@@ -60,6 +60,7 @@ const commandListString =
   • about
   • calculator
   • covid19
+  • day
   • date
   • kursnalista
   • who\`\`\``;

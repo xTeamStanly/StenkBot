@@ -26,7 +26,7 @@ const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, 
         var razlika = Math.abs(prvi.diff(drugi, "days")); //koliko se razlikuju dani
 
         //neka drugi bude uvek veci
-        if(prvi > drugi) { [prvi, drugi] = [drugi, prvi]; }
+        if(prvi.isAfter(drugi)) { [prvi, drugi] = [drugi, prvi]; }
 
         finalJson.title = `Razlikuju se za ${razlika} dan/a`;
         finalJson.description = `**${prvi.toDate().toLocaleDateString('sr')}** :arrow_right: **${drugi.toDate().toLocaleDateString('sr')}**`;

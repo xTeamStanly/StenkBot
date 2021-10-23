@@ -17,11 +17,11 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Axios](https://www.npmjs.com/package/axios)
 - [Cheerio](https://www.npmjs.com/package/cheerio)
 - [Better-sqlite3](https://www.npmjs.com/package/better-sqlite3)
+- [Moment](https://www.npmjs.com/package/moment)
 
 ### 📒 ToDo
 - l33t5p34k
 - weather
-- day
 - invite command (with permissions)
 
 ### 👋 Pozdrav
