@@ -36,6 +36,7 @@ const commandListString =
     • srba
     • svetemisli
     • synthwave
+    • workout
     • zalgo
   • advice
   • bored
@@ -44,6 +45,7 @@ const commandListString =
   • crypto
   • dadjoke
   • dog
+  • drumpf
   • fox
   • insult
   • ispovesti
