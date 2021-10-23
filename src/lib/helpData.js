@@ -18,6 +18,7 @@ const commandListString =
     • golizivot
     • kanye
     • kriznistab
+    • leet
     • maricajzer
     • mock
     • nibba
@@ -63,6 +64,7 @@ const commandListString =
   • day
   • date
   • kursnalista
+  • weather
   • who\`\`\``;
 
 //generisi embed

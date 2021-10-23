@@ -144,15 +144,12 @@ const seselj = new Command('seselj', async (message, args, context) => {
         userTitle = userTitle.replace(/(\\n)/g, '\n'); //podrzava \n u strigu :)
         console.log(userTitle)
         naslov = userTitle;
-
     }
 
     try {
 
         var slika = generisiSliku(naslov, boja.hex);
 
-        //#region
-        /* prvi nacin - posalji fajl i embed, za svaki slucaj edituj embed da bi se osvezila slika */
         var embed = {
             author: { name: "Шешељ - Ново Шешељево дело!" },
             title: naslov,
@@ -163,45 +160,12 @@ const seselj = new Command('seselj', async (message, args, context) => {
             footer: getFooter(message),
         }
 
-        var x = await message.channel.createMessage({
-            messageReference: getMessageReference(message),
-            embed: embed
-        }, { name: 'knjiga.jpeg', file: slika });
+        // await message.channel.createMessage({
+        //     messageReference: getMessageReference(message),
+        //     embed: embed
+        // }, { name: './knjiga.jpeg', file: slika });
 
-        /*
-        console.log(x.embeds[0].image);
-        var y = await message.channel.createMessage({}, {name: 'fajl.jpeg', file: slika});
-        console.log(y.attachments[0]);
-        */
-
-        //ako editujemo poruku, embed se sam osvezi
-        //to radimo kod onih koji nece odmah da prepoznaju link slike
-        //pa ih za svaki slucaj osvezimo, tako da bi sve slike
-        //trebale da rade
-        //losa stvar je to sto uvek pise edited  u poruci :/
-        //?await message.channel.editMessage(x.id, x.content);
-        /**/
-       //#endregion
-
-
-
-
-        //!STEPS
-        //1 - posalji fajl
-        //2 - edituj poruku u embed
-        //3 - slika je uvek ucitana
-
-
-        //#region seselj debug
-        //console.log(x);
-        //console.log("KANAL: " + message.channel.id);
-        //console.log(x.attachments);
-        //console.log("AUTOR SESELJ ID: " + x.author.id);
-        //console.log("SESELJ MSG ID: " + x.id);
-        //console.log("URL: "); console.log(x.embeds[0].image);
-        //embed.image.url = x.embeds[0].image.url;
-        //#endregion
-
+        await context.client.createMessage(message.channel.id, { embed: embed }, { name: './knjiga.jpeg', file: slika });
 
     } catch(err) {
         console.log(err);
@@ -226,7 +190,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
             thumbnail: { url: randomList(data.image) },
             footer: getFooter(message),
             title: ':book: Помоћ',
-            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**`
+            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**\n• Врло често се дешава да ембед не учита слику, то је последица хладног старта (кеширање на дискордовим серверима) и није нешто на шта бот има утицај. Ако се ово деси слободно покушавајте док не проради, зато постоји могућност уноса наслова! Реално гледано дискорд ембеди чудно линкују слику и онда се некад деси да се не поклопе урл линкови слике и поруке.`
         }
     });
 }));

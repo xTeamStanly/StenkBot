@@ -3,7 +3,7 @@ const { getMessageReference, getFooter } = require('../../../lib/tools');
 const elementsJson = require('../../../resources/commands/fun/generators/periodicData');
 
 const jesteValidno = (unos) => {
-    return (unos != null && unos !== "" && (/^[a-zA-Z\s]*$/).test(unos) === true); //!(/[^a-zA-Z]/.test(unos)) === true);
+    return (unos != null && unos.trim() !== "" && (/^[a-zA-Z\s]*$/).test(unos) === true); //!(/[^a-zA-Z]/.test(unos)) === true);
 }
 
 /**
@@ -99,6 +99,8 @@ const periodic = new Command(['periodni', 'periodic', 'chem'], async (message, a
     var sadrzaj;
 
     if(jesteValidno(input)) {
+        input = input.replace(/\s\s+/g, ' ').trim(); //vise razmaka u jedan + trim
+
         if(input.length > 128) {
             naslov = ":frowning2: Previše dugačak unos";
             sadrzaj = "Unos mora biti manji od 128 karaktera!"
@@ -110,8 +112,8 @@ const periodic = new Command(['periodni', 'periodic', 'chem'], async (message, a
     } else {
         output = ':frowning2: Unos nije validan';
 
-        if(input.length != 0) {
-            sadrzaj = "Podržana je abeceda sa razmacima!";
+        if(input) {
+            sadrzaj = "Podržana je engleska abeceda sa razmacima!";
         } else {
             sadrzaj = "Unesite nešto!"
         }
