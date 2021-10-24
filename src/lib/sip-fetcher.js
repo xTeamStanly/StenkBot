@@ -1,20 +1,13 @@
 /* -- sip fetcher v2.1.0 -- */
 const axios = require('axios');
 const cheerio = require('cheerio'); require('colors');
-const { stenkLog, stenkLogSync } = require('../lib/botHelper');
+const { stenkLog } = require('../lib/botHelper');
 const { sipFetcherGetData, sipFetcherSetData } = require('./storage');
 
 var stariPostoviLevi;
 var noviPostoviLevi;
 var stariPostoviDesni;
 var noviPostoviDesni;
-
-//ovo se prvo pokrece
-(async () => {
-    await stenkLog('SPFCH', 'yellow', 'READING FROM DATABASE...');
-    [stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni] = sipFetcherGetData();
-    await stenkLog('SPFCH', 'green', 'READ FROM DATABASE!');
-})();
 
 const fetchPostovi = async () => {
 
@@ -73,19 +66,22 @@ const fetchPostovi = async () => {
     });
 
     await stenkLog('SPFCH', 'green', `Novi postovi: ${desni.length + levi.length}`);
+    await saveSipFetcher();
     await stenkLog('SPFCH', 'green', 'TASK ENDED');
-
-    await stenkLog('SPFCH', 'yellow', 'SAVING TO DATABASE...');
-    sipFetcherSetData(stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni);
-    await stenkLog('SPFCH', 'green', 'SAVED TO DATABASE!');
 
     return [levi, desni];
 };
 
-const saveSipFetcherSync = () => {
-    stenkLogSync("SPFCH", 'yellow', "SAVING POSTS...");
-    sipFetcherSetData(stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni);
-    stenkLogSync("SPFCH", 'green', "POSTS SAVED!");
+const readSipFetcher = async () => {
+    await stenkLog('SPFCH', 'yellow', 'READING FROM DATABASE...');
+    [stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni] = await sipFetcherGetData();
+    await stenkLog('SPFCH', 'green', 'READ FROM DATABASE!');
 }
 
-module.exports = { fetchPostovi, saveSipFetcherSync };
+const saveSipFetcher = async () => {
+    await stenkLog("SPFCH", 'yellow', "SAVING POSTS...");
+    await sipFetcherSetData(stariPostoviLevi, noviPostoviLevi, stariPostoviDesni, noviPostoviDesni);
+    await stenkLog("SPFCH", 'green', "POSTS SAVED!");
+}
+
+module.exports = { fetchPostovi, saveSipFetcher, readSipFetcher };

@@ -23,7 +23,7 @@ const about = new Command(['about', 'gazda', 'stenk', 'stamen'], async (message,
                 },
                 {
                     name: ":zap: Powered by",
-                    value: `• Node.js\n• Eris\n• Yuuko\n• Cron\n• Axios\n• Cheerio\n• Better-sqlite3\n• Moment`,
+                    value: `• Node.js\n• Eris\n• Yuuko\n• Cron\n• Axios\n• Cheerio\n• Moment`,
                     inline: true
                 },
                 {

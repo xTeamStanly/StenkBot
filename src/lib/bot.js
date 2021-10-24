@@ -95,7 +95,7 @@ const botStart = async (bot) => {
 		//sipfetcher
 		const sipFetcher = async () => {
 			//const hooks = await storage.getItem('sipHooks');
-			const hooks = hookGetData();
+			const hooks = await hookGetData();
 
 			if(hooks.length > 0) {
 
@@ -162,7 +162,7 @@ const botStart = async (bot) => {
 		};
 
 		//SIP FETCH CRON - svakih pola sata
-		const sipCronJob = cron.schedule('*/30 * * * *', sipFetcher, { scheduled: false });
+		const sipCronJob = cron.schedule('*/10 * * * * *', sipFetcher, { scheduled: false });
 
 		//! AUTO AZURIRANJE BOT STATUSA
 		// const botChangeStatus = async () => {

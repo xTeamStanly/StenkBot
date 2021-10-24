@@ -4,9 +4,9 @@ const { Client } = require('yuuko');
 const { botStart } = require('./lib/bot');
 const { stenkLog, stenkLogSync } = require('./lib/botHelper');
 const { msToTime } = require('./lib/tools');
-const { setupStorage, checkStorage, hookGetData } = require('./lib/storage');
+const { setupStorage, hookGetData } = require('./lib/storage');
 const onExit = require('signal-exit');
-const { saveSipFetcherSync } = require('./lib/sip-fetcher');
+const { saveSipFetcher, readSipFetcher } = require('./lib/sip-fetcher');
 
 //init bot client
 const bot = new Client({
@@ -21,8 +21,8 @@ const bot = new Client({
 (async () => {
 
 	//save stuff on exit
-	onExit(() => {
-		saveSipFetcherSync(); //save current posts
+	onExit(async () => {
+		await saveSipFetcher(); //save current posts
 	});
 
 	//if fatal error happens
@@ -36,7 +36,8 @@ const bot = new Client({
 	try {
 
 		//storage
-		setupStorage(); if(!checkStorage()) { throw "Storage not valid!"; }
+		await setupStorage();
+		await readSipFetcher();
 
 		//main bot logic
 		await botStart(bot);
@@ -66,7 +67,7 @@ const bot = new Client({
 		});
 
 		app.get('/sip', async (req, res) => {
-			res.json(hookGetData());
+			res.json(await hookGetData());
 		});
 
 	} catch (err) {

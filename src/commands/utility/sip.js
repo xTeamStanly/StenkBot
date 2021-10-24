@@ -15,7 +15,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         const hook = await customWebHookCheckAndCreate(message, context);
 
         //var currentHooks = await storage.getItem('sipHooks'); //svi trenutni hook-ovi iz fajla
-        var currentHooks = hookGetData();
+        var currentHooks = await hookGetData();
         //console.log(currentHooks);
 
         //trazimo hook
@@ -27,8 +27,10 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         if(!postoji) {
             currentHooks.push(hook); //dodajemo u listu
 
-            hookSetData(currentHooks);
+            await hookSetData(currentHooks);
             //await storage.setItem('sipHooks', currentHooks); //dodajemo u storage
+
+            //console.log("DODATA NEPOSTOJECA KUKA")
 
             //obavestimo korisnika da je hook aktivan
             await message.channel.createMessage({
@@ -57,7 +59,9 @@ const sipRegister = new Command('sip', async (message, args, context) => {
 
             //sacuvamo promene na storage
             //await storage.setItem('sipHooks', currentHooks);
-            hookSetData(currentHooks);
+
+            await hookSetData(currentHooks);
+            //console.log("OBRISANA KUKA");
 
             //obavestimo korisnika da smo obrisali
             await message.channel.createMessage({
@@ -73,6 +77,7 @@ const sipRegister = new Command('sip', async (message, args, context) => {
         }
 
     } catch(err) {
+        //console.log("STA JE OVO BRE".rainbow)
         console.log(err);
         await message.channel.createMessage({
             messageReference: getMessageReference(message),

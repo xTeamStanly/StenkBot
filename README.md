@@ -16,7 +16,6 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Cron](https://www.npmjs.com/package/node-cron)
 - [Axios](https://www.npmjs.com/package/axios)
 - [Cheerio](https://www.npmjs.com/package/cheerio)
-- [Better-sqlite3](https://www.npmjs.com/package/better-sqlite3)
 - [Moment](https://www.npmjs.com/package/moment)
 
 ### 📒 ToDo
