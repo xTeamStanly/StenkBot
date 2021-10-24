@@ -162,7 +162,7 @@ const botStart = async (bot) => {
 		};
 
 		//SIP FETCH CRON - svakih pola sata
-		const sipCronJob = cron.schedule('*/10 * * * * *', sipFetcher, { scheduled: false });
+		const sipCronJob = cron.schedule('*/30 * * * *', sipFetcher, { scheduled: false });
 
 		//! AUTO AZURIRANJE BOT STATUSA
 		// const botChangeStatus = async () => {
