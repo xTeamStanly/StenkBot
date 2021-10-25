@@ -57,6 +57,7 @@ const vremenskaPrognoza = new Command(['weather', 'vremenskaprognoza', 'vremensk
                 url: linkLokacija,
                 footer: getFooter(message),
                 title: `Vremenska prognoza za ${lokacija}`,
+                description: `Ako slika ne bude vidljiva, razlog se nalazi u informacijama o samoj komandi.`,
                 image: { url: `attachment://prognoza.png` },
                 thumbnail: { url: 'https://i.imgur.com/qxpds3J.png' }
             }
@@ -114,7 +115,7 @@ const vremenskaPrognoza = new Command(['weather', 'vremenskaprognoza', 'vremensk
             color: 0x13818D,
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Prikazuje vremensku prognozu.\n\n__***Sva imena komande:***__\n• **vremenska**\n• **vremenskaprognoza**\n• **vreme**\n• **wttr**\n• **weather**\n\n__***Korišćenje:***__\n• **wttr** - prikazuje vremensku prognozu za Niš\n• **wttr __<LOKACIJA>__** - prikazuje vremensku prognozu __LOKACIJE__\n\n__***Додатно:***__\n• Kada se zahteva neka lokacija koju [wttr.in](https://wttr.in/) ne može da nađe i pritom se ona ne nalazi u kešu, onda se vraća statusni kod 404, a ta lokacija se kešira. Kada ponovo probamo tu nevažeću lokaciju, koja je sada keširana, vraća se statusni kod 200 i slika sa 404 porukom, iako ta lokacija ne postoji. Skraćeno izdanje: [wttr.in](https://wttr.in/) kešira 404, da bi posle vratio 200 umesto 404.\n• Nema svrhe ponovo tražiti keširanu nepronađenu lokaciju."
+            description: "__***Opis:***__\n• Prikazuje vremensku prognozu.\n\n__***Sva imena komande:***__\n• **vremenska**\n• **vremenskaprognoza**\n• **vreme**\n• **wttr**\n• **weather**\n\n__***Korišćenje:***__\n• **wttr** - prikazuje vremensku prognozu za Niš\n• **wttr __<LOKACIJA>__** - prikazuje vremensku prognozu __LOKACIJE__\n\n__***Додатно:***__\n• Kada se zahteva neka lokacija koju [wttr.in](https://wttr.in/) ne može da nađe i pritom se ona ne nalazi u kešu, onda se vraća statusni kod 404, a ta lokacija se kešira. Kada ponovo probamo tu nevažeću lokaciju, koja je sada keširana, vraća se statusni kod 200 i slika sa 404 porukom, iako ta lokacija ne postoji. Skraćeno izdanje: [wttr.in](https://wttr.in/) kešira 404, da bi posle vratio 200 umesto 404.\n• Nema svrhe ponovo tražiti keširanu nepronađenu lokaciju.\n• Vrlo često može da se desi da embed ne učita sliku, to je posledica hladnog starta (kešitanje na diskordovim serverima) i nije nešto na šta bot ima uticaj. Ako se ovo desi slobodno pokušavajte dok ne proradi, zato postoji mogućnost unosa lokacije! Realno gledano diskord embedi čudno linkuju sliku i onda se nekad desi da se ne poklopi url slike i url fajla u poruci.\n• __Glavni razlog jeste način na koji embed hendluje linkovanje slike i poslatog fajla. Pogrešno kešira prvi put, sve slike koje se ne vide bi trebalo da budu bidljive posle ponovnog pokretanja diskorda na računaru pošto se tad sigurno prazni keš. Na neku foru su slike uvek vidljive na telefonu, ispada da se na telefonu čeka da se pravilno učitaju.__"
         }
     });
 }));;
