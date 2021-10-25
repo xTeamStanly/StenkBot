@@ -16,7 +16,7 @@ const vremenskaPrognoza = new Command(['weather', 'vremenskaprognoza', 'vremensk
     //nije null i dobar je regex
     if(jesteValidno(lokacija)) {
         lokacija = lokacija.replace(/\s\s+/g, ' ').trim(); //vise razmaka u jedan + trim
-        linkLokacija = `https://wttr.in/${encodeUrl(lokacija)}.png?p&lang=sr-lat&M`;
+        linkLokacija = `https://wttr.in/${encodeUrl(lokacija)}.png?p&lang=sr-lat&M&m`;
         if(lokacija.length > 64) { lokacija = lokacija.substring(0, 64) + '...'; }
     } else {
         if(lokacija) { //nije validan unos
@@ -35,7 +35,7 @@ const vremenskaPrognoza = new Command(['weather', 'vremenskaprognoza', 'vremensk
             return;
         } else { //nije uneto nista, znaci prognoza za nis
             lokacija = "Niš";
-            linkLokacija = 'https://wttr.in/nis.png?p&lang=sr-lat&M';
+            linkLokacija = 'https://wttr.in/nis.png?p&lang=sr-lat&M&m';
         }
     }
 
