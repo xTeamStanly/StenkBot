@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const { Client } = require('yuuko');
 const { botStart } = require('./lib/bot');
-const { stenkLog, stenkLogSync } = require('./lib/botHelper');
+const { stenkLog, stenkLogSync, botInviteLinkWithPerms } = require('./lib/botHelper');
 const { msToTime } = require('./lib/tools');
 const { setupStorage, hookGetData } = require('./lib/storage');
 const onExit = require('signal-exit');
@@ -54,11 +54,19 @@ const bot = new Client({
 		app.get('/info', async (req, res) => {
 			if(bot) {
 				const botUptime = bot.uptime;
+				const used = process.memoryUsage();
+				const usedMB = {};
+				for (let key in used) {
+  					usedMB[key] = `${(used[key] / 1024 / 1024).toFixed(2)} MB`;
+				}
+
 				res.json({
-					uptime: botUptime, //? nece li ovo da bude mnogo veliko hmm??
-					uptimeFormatted: msToTime(botUptime),
+					//uptime: botUptime, //? nece li ovo da bude mnogo veliko hmm??
+					uptime: msToTime(botUptime),
+					memUsage: usedMB,
 					servers: bot.guilds.size,
-					shards: bot.shards.size
+					shards: bot.shards.size,
+					invite: botInviteLinkWithPerms
 				});
 
 			} else {

@@ -5,17 +5,13 @@ const data = require('../../../resources/commands/fun/generators/seselj/seselj')
 //#region
 //canvas dependencies
 const { Image, createCanvas, registerFont } = require('canvas');
-const canvasTxt = require('canvas-txt').default;
+var canvasTxt = require('canvas-txt').default;
 const color = require('color');
 
-//setup image, font, canvas style
-//registerFont('./../../../resources/commands/fun/generators/seselj/miroslav.ttf', { family: 'Miroslav' });
+//setup image, font
 registerFont('./src/resources/commands/fun/generators/seselj/miroslav.ttf', { family: 'Miroslav' });
 const templateImage = new Image();
 templateImage.src = './src/resources/commands/fun/generators/seselj/template.png';
-canvasTxt.font = 'Miroslav';
-canvasTxt.fontSize = 42; //canvasTxt.fontSize = 64;
-canvasTxt.align = 'center'; //canvasTxt.debug = true;
 
 //boje gradijenta
 const svetlija = "#E5CF56"; //#dbd5ba
@@ -102,6 +98,12 @@ const generisiBoju = () => {
 //generisanje knjige
 const generisiSliku = (naslov, bojaHex) => {
 
+    //canvas style
+    canvasTxt.font = 'Miroslav';
+    canvasTxt.fontSize = 42; //canvasTxt.fontSize = 64;
+    canvasTxt.align = 'center'; //canvasTxt.debug = true;
+    //canvasTxt.lineHeight = null;
+
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
@@ -142,7 +144,6 @@ const seselj = new Command('seselj', async (message, args, context) => {
     if(userTitle != '') {
         if(userTitle.length >= 128) { userTitle = userTitle.substring(0, 128) + '...'; }
         userTitle = userTitle.replace(/(\\n)/g, '\n'); //podrzava \n u strigu :)
-        console.log(userTitle)
         naslov = userTitle;
     }
 
@@ -153,7 +154,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
         var embed = {
             author: { name: "Шешељ - Ново Шешељево дело!" },
             title: naslov,
-            description: "*Пријатно читање!*\n\n\n***Због хладног старта код кеширања,\nначина како ембед хендлује слике\nи црне магије - може се десити\nда се некад слика не учита!***",
+            description: "> *Пријатно читање!*\n***Због хладног старта код кеширања,\nначина како ембед хендлује слике\nи црне магије - може се десити\nда се некад слика не учита!\nЗа додатне информације\nпогледајте инфо саме команде.***",
             color: embedBoja,
             thumbnail: { url: thumbUrl },
             image: { url: `attachment://knjiga.jpeg` },
@@ -173,6 +174,7 @@ const seselj = new Command('seselj', async (message, args, context) => {
                 author: { name: "Шешељ - Ново Шешељево дело!" },
                 title: errNaslov,
                 description: errSadrzaj,
+                thumbnail: { url: thumbUrl },
                 color: embedBoja,
                 footer: getFooter(message)
             }
@@ -183,12 +185,11 @@ const seselj = new Command('seselj', async (message, args, context) => {
         messageReference: getMessageReference(message),
         embed: {
             author: { name: "Шешељ - Ново Шешељево дело!" },
-            url: 'http://ispovesti.com/',
             color: generisiBoju().integer,
             thumbnail: { url: randomList(data.image) },
             footer: getFooter(message),
             title: ':book: Помоћ',
-            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**\n• Врло често се дешава да ембед не учита слику, то је последица хладног старта (кеширање на дискордовим серверима) и није нешто на шта бот има утицај. Ако се ово деси слободно покушавајте док не проради, зато постоји могућност уноса наслова! Реално гледано дискорд ембеди чудно линкују слику и онда се некад деси да се не поклопи урл слике и урл фајла у поруци.\n• __Главни разлог јесте начин на који ембед хендлује линковање слике и послатог фајла. Погрешно кешира први пут, све слике које се не виде би требало да буду видљиве после поновног покретања дискорда на рачунару пошто се тад сигурно празни кеш. На неку фору су слике увек видљиве на телефону, испада да се на телефону чека да се правилно учитају.__`
+            description: `__***Опис:***__\n• Генерише ново Шешељево дело.\n\n__***Сва имена команде:***__\n• **seselj**\n\n__***Коришћење:***__\n• **seselj** - генерише ново Шешељево дело\n• **seselj __<НАСЛОВ>__** - генерише ново Шешељево дело са __НАСЛОВ-om__\n\n__***Додатно:***__\n• Наслов подржава убацивање нових редова, где желите нови ред упишите **\\n**\n• Врло често се дешава да ембед не учита слику, то је последица хладног старта (кеширање на дискордовим серверима) и није нешто на шта бот има утицај. Ако се ово деси слободно покушавајте док не проради, зато постоји могућност уноса наслова! Реално гледано дискорд ембеди чудно линкују слику и онда се некад деси да се не поклопи урл слике и урл фајла у поруци.\n• __Главни разлог јесте начин на који ембед хендлује линковање слике и послатог фајла. Погрешно кешира први пут, све слике које се не виде би требало да буду видљиве после поновног покретања дискорда на рачунару пошто се тад сигурно празни кеш. На неку фору су у већини случајева слике видљиве на телефону, пошто испада да се на телефону чека да се правилно учитају. Ако се деси да се слика не учита на телефону, ту је макар лако да се дискорд поново покрене. Начин да послата слика увек буде видљива јесте да се шаље без ембеда, али ембед је лепши.__`
         }
     });
 }));

@@ -1,7 +1,7 @@
 # StenkBot - Diskord Bot
 
 <!-- bedzevi -->
-![Version](https://img.shields.io/badge/version-1.1.2-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?logo=javascript&logoColor=%23F7DF1E)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?logo=node.js&logoColor=white)
 
@@ -19,6 +19,5 @@ Nastao kao druga iteracija ***StenkAI***.
 - [Moment](https://www.npmjs.com/package/moment)
 
 ### 📒 ToDo
-- invite command (with permissions, express response /invite)
 
 ### 👋 Pozdrav

@@ -191,6 +191,8 @@ const stenkBotTitle = `
 
 `.green;
 
+const botInviteLinkWithPerms = `https://discord.com/api/oauth2/authorize?client_id=871723684086296617&permissions=536995904&scope=bot`;
+
 module.exports = {
     stenkLog,
     stenkLogSync,
@@ -198,5 +200,6 @@ module.exports = {
     /*printCommandNames,*/
     colors,
     statusi,
-    stenkBotTitle
+    stenkBotTitle,
+    botInviteLinkWithPerms
 }

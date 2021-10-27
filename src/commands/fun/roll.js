@@ -69,8 +69,7 @@ const roll = new Command(['kockica', 'roll', 'rolladie', 'rolladice'], async (me
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
-            author: { name: "Ispovesti", url: 'http://ispovesti.com/' },
-            url: 'http://ispovesti.com/',
+            author: { name: "Kockica" },
             color: 0xAC2727,
             thumbnail: { url: 'https://i.imgur.com/NGMrS3S.png' },
             footer: getFooter(message),
