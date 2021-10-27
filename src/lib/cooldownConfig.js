@@ -1,6 +1,6 @@
 //! COOLDOWN CONFIG
 
-const cooldownMillis = 0; //3000
+const cooldownMillis = 3000;
 const cooldownSeconds = Math.round(cooldownMillis / 1000);
 
 //cooldown se gleda po korisniku, nebitno na kojem je serveru
