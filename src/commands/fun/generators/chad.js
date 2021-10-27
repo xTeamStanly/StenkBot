@@ -4,10 +4,11 @@ const data = require('../../../resources/commands/fun/generators/chad/chad');
 
 //#region
 //canvas dependencies
-const { Image, createCanvas } = require('canvas');
+const { Image, createCanvas, registerFont } = require('canvas');
 var canvasTxt = require('canvas-txt').default;
-//canvasTxt.lineHeight
-//setup image
+
+//setup image, font
+registerFont('./src/resources/commands/fun/generators/chad/timesnewroman.ttf', { family: 'Times New Roman' });
 const templateImage = new Image();
 templateImage.src = './src/resources/commands/fun/generators/chad/template.jpg';
 
