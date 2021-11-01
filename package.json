@@ -4,7 +4,7 @@
   "description": "StenkBot Discord Bot",
   "main": "./src/index.js",
   "scripts": {
-    "test": "npx nodemon ./src/index.js"
+    "start": "npx nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
