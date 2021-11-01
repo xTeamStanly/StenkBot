@@ -1,5 +1,4 @@
 const botAvatar = "https://i.imgur.com/G04vaCt.png";
-const botAvatarHash = '39a6c1ea1936a7c8b69eed71123892ff';
 
 //bot avatar base64 za webhook
 //#region
