@@ -22,7 +22,7 @@ PREFIX = 'MOJ PREFIX'       # <--- string
 6. Pokrenuti aplikaciju preko `npm run start` ili `node .`.
 7. Za više informacija pogledati `help` komandu u samom botu.
 
----
+## 🧰 Dodatno
 
 ### ⚡ Powered by
 - [Node.js](https://nodejs.org/)
