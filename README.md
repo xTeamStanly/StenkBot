@@ -10,15 +10,15 @@ Nastao kao druga "_poboljšana_" iteracija ***StenkAI***.
 ## 🤔 Kako da pokrenem?
 Prvenstveno morate da imate instaliran [Node.js](https://nodejs.org/) i [Discord Aplikaciju](https://discord.com/developers/applications) u [Discord Developer Portal-u](https://discord.com/developers).
 
-1. U `src` folderu potrebno je kreirati `config.env` fajl.
+1. U [`src`](https://github.com/xTeamStanly/StenkBot/tree/main/src) folderu potrebno je kreirati `config.env` fajl.
 2. Dodati `BOT_TOKEN` i `PREFIX` u `config.env` fajl, primer:
 ```
 BOT_TOKEN = 'MOJ BOT TOKEN' # <--- string
 PREFIX = 'MOJ PREFIX'       # <--- string
 ```
 3. Instalirati sve node module komandom `npm install`.
-4. Poželjno je personalizujete `src/lib/botHelper.js` (`botAvatar`, `botAvatarBase64`).
-5. Cooldown možete da podesite u `src/lib/cooldownConfig.js` (nula znači da cooldown ne postoji).
+4. Poželjno je personalizujete [`src/lib/botHelper.js`](https://github.com/xTeamStanly/StenkBot/blob/main/src/lib/botHelper.js) (`botAvatar`, `botAvatarBase64`).
+5. Cooldown možete da podesite u [`src/lib/cooldownConfig.js`](https://github.com/xTeamStanly/StenkBot/blob/main/src/lib/cooldownConfig.js) (nula znači da cooldown ne postoji).
 6. Pokrenuti aplikaciju preko `npm run start` ili `node .`.
 7. Za više informacija pogledati `help` komandu u samom botu.
 
