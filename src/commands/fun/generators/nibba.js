@@ -12,7 +12,7 @@ const nibba = new Command('nibba', async (message, args, context) => {
             thumbnail: { url: 'https://i.imgur.com/y4ld1KC.png' },
             footer: getFooter(message)
         }
-    })
+    });
 }).addSubcommand(new Command(['help', 'pomoc', '?', 'info'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),

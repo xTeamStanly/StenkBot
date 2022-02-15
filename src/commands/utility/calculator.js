@@ -74,7 +74,7 @@ const calculatorSimboli = new Command(['simboli', 'podrzano', 'operacije'], asyn
     });
 });
 
-const calculator = new Command(['kalkulator', 'eval', 'calc', 'izracunaj', 'calculate'], async (message, args, context) => {
+const calculator = new Command(['calculator', 'kalkulator', 'eval', 'calc', 'izracunaj', 'calculate'], async (message, args, context) => {
     var naslov; var sadrzaj;
 
     var finalJson = {
@@ -117,7 +117,7 @@ const calculator = new Command(['kalkulator', 'eval', 'calc', 'izracunaj', 'calc
             color: 0x9DD164,
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Računa zadati izraz.\n\n__***Sva imena komande:***__\n• **kalkulator**\n• **eval**\n• **calc**\n• **izracunaj**\n• **calculate**\n\n__***Podkomande:***__\n• **podrzano**, **simboli**, **operacije** - prikazuje podržane simbole i operacije\n\n__***Korišćenje:***__\n• **calc podrzano** - prikazuje podržane simbole i operacije\n• **calc __<IZRAZ>__** - prikazuje rezultat __IZRAZ-a__"
+            description: "__***Opis:***__\n• Računa zadati izraz.\n\n__***Sva imena komande:***__\n• **kalkulator**\n• **calculator**\n• **eval**\n• **calc**\n• **izracunaj**\n• **calculate**\n\n__***Podkomande:***__\n• **podrzano**, **simboli**, **operacije** - prikazuje podržane simbole i operacije\n\n__***Korišćenje:***__\n• **calc podrzano** - prikazuje podržane simbole i operacije\n• **calc __<IZRAZ>__** - prikazuje rezultat __IZRAZ-a__"
         }
     });
 }));

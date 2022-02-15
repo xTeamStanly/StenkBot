@@ -139,7 +139,7 @@ const botStart = async (bot) => {
 							author: { name: 'Најновије вести' },
 							title: post.naslov,
 							description: post.sadrzaj,
-							color: 0x65BD36,
+							color: 0xA3D433,
 							url: post.link,
 							thumbnail: { url: 'https://i.imgur.com/dyu12dZ.png' }
 							// footer: { text: post.link }

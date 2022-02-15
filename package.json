@@ -1,6 +1,6 @@
 {
   "name": "stenkbot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "StenkBot Discord Bot",
   "main": "./src/index.js",
   "scripts": {

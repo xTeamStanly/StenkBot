@@ -10,7 +10,7 @@ const about = new Command(['about', 'gazda', 'stenk', 'stamen'], async (message,
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {
-            author: { name: "About" },
+            author: { name: "About", url: 'https://github.com/xTeamStanly/StenkBot' },
             title: "StenkBot",
             thumbnail: { url: botAvatar },
             color: 0x5636a7,
@@ -18,7 +18,7 @@ const about = new Command(['about', 'gazda', 'stenk', 'stamen'], async (message,
             fields: [
                 {
                     name: ":notepad_spiral: Verzija",
-                    value: "v1.2.0",
+                    value: "v1.2.1",
                     inline: true
                 },
                 {

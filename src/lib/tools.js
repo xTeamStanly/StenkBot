@@ -34,10 +34,11 @@ const emptyEmbedField = () => {
     }
 };
 
+const timeZonePodesavanja = { timeZone: 'Europe/Belgrade' };
 const getFooter = (message) => {
     const trenutnoVreme = new Date();
     return {
-        text: `Zahtevao ${message.author.username}#${message.author.discriminator} u ${trenutnoVreme.toLocaleTimeString('sr-RS')} dana ${trenutnoVreme.toLocaleDateString('sr-RS')}`,
+        text: `Zahtevao ${message.author.username}#${message.author.discriminator} u ${trenutnoVreme.toLocaleTimeString('sr-RS', timeZonePodesavanja)} dana ${trenutnoVreme.toLocaleDateString('sr-RS', timeZonePodesavanja)}`,
         icon_url: message.author.avatarURL
     }
 }
