@@ -18,7 +18,7 @@ const nadjiKategoriju = (kategorija) => {
     }
 }
 
-const viceviKategorije = new Command(['kategorije', 'kategorija', 'kat'], async (message, args, context) => {
+const viceviKategorije = new Command(['kategorije', 'kategorija', 'kat', 'cat'], async (message, args, context) => {
     await message.channel.createMessage({
         messageReference: getMessageReference(message),
         embed: {

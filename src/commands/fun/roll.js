@@ -58,7 +58,7 @@ const roll = new Command(['kockica', 'roll', 'rolladie', 'rolladice'], async (me
             fields: [
                 {
                     name: ":abacus: Prosek",
-                    value: `***${Math.round(sumaSvih / brojRolanja)}***`,
+                    value: `***${(sumaSvih / brojRolanja).toFixed(2)}***`,
                     inline: true
                 }
             ],

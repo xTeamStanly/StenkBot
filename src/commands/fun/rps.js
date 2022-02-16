@@ -79,7 +79,7 @@ const rps = new Command('rps', async (message, args, context) => {
             thumbnail: { url: randomList(items).link },
             footer: getFooter(message),
             title: ':book: Pomoć',
-            description: "__***Opis:***__\n• Igrica papir kamen makaze.\n\n__***Sva imena komande:***__\n• **rps**\n\n__***Podkomande:***__\n• **rock**, **kamen** - prikazuje 5 nasumičnih ispovesti\n• **paper**, **papir** - prikazuje 5 nasumičnih ispovesti\n• **scissors**, **makaze** - prikazuje 5 nasumičnih ispovesti\n\n__***Korišćenje:***__\n• **rps** - računar vs računar\n• **rps kamen** - čovek (kamen) vs računar\n• **rps papir** - čovek (papir) vs računar\n• **rps makaze** - čovek (makaze) vs računar"
+            description: "__***Opis:***__\n• Igrica papir kamen makaze.\n\n__***Sva imena komande:***__\n• **rps**\n\n__***Podkomande:***__\n• **rock**, **kamen** - čovek igra kamen\n• **paper**, **papir** - čovek igra papir\n• **scissors**, **makaze** - čovek igra makaze\n\n__***Korišćenje:***__\n• **rps** - računar vs računar\n• **rps kamen** - čovek (kamen) vs računar\n• **rps papir** - čovek (papir) vs računar\n• **rps makaze** - čovek (makaze) vs računar"
         }
     })
 }));
