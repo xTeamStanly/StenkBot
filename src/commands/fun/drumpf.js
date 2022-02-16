@@ -1,5 +1,5 @@
 const { Command } = require("yuuko");
-const { getMessageReference, errNaslov, errSadrzaj, getFooter } = require("../../lib/tools");
+const { getMessageReference, errNaslov, errSadrzaj, getFooter, timeZonePodesavanja } = require("../../lib/tools");
 const axios = require("axios");
 
 const drumpf = new Command(['drumpf', 'trump', 'tramp'], async (message, args, context) => {
@@ -23,7 +23,7 @@ const drumpf = new Command(['drumpf', 'trump', 'tramp'], async (message, args, c
             const date = new Date(jsonDrumpf.appeared_at);
             if(info && isNaN(date.getDate())) { throw "Nije validno idemo dalje"; }
 
-            sadrzaj = `${jsonDrumpf.value}\n\n- ${info.author[0].name}\n${date.toLocaleDateString('sr-RS')} ${date.toLocaleTimeString('sr-RS')}`;
+            sadrzaj = `${jsonDrumpf.value}\n\n- ${info.author[0].name}\n${date.toLocaleDateString('sr-RS', timeZonePodesavanja)} ${date.toLocaleTimeString('sr-RS', timeZonePodesavanja)}`;
             finalJson.url = info.source[0].url;
         } catch(errJson) {
             naslov = errNaslov;

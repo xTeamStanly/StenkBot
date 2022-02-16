@@ -5,7 +5,7 @@ const encodeUrl = require('encodeurl');
 
 //const moment = require('moment');
 
-const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate } = require('../../lib/tools');
+const { getFooter, errNaslov, errSadrzaj, getMessageReference, customWebHookCheckAndCreate, timeZonePodesavanja } = require('../../lib/tools');
 
 const image = "https://i.imgur.com/YAOcXt2.png";
 
@@ -106,7 +106,7 @@ const vukajlija2embeds2message = async (link, rec, message, context) => {
                 const defkaAutor = `[${autor.text()}](https://vukajlija.com${autor.prop('href')})`;
 
                 const datumParsed = new Date(info.children('li').children('abbr').prop('title'));
-                const defkaDatum = `${datumParsed.toLocaleDateString('sr')} ${datumParsed.toLocaleTimeString('sr')}`;
+                const defkaDatum = `${datumParsed.toLocaleDateString('sr-RS', timeZonePodesavanja)} ${datumParsed.toLocaleTimeString('sr-RS', timeZonePodesavanja)}`;
 
                 const jsonDefka = {
                     author: { name: "Vukajlija" },

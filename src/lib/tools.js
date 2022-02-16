@@ -20,10 +20,10 @@ const countOccurrences = (input, value) => {
 const randomBetweenIncluding = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
+const timeZonePodesavanja = { timeZone: 'Europe/Belgrade' };
 const getTodaysDate = () => {
     const trenutnoVreme = new Date();
-    return `${trenutnoVreme.toLocaleDateString('sr-RS')} ${trenutnoVreme.toLocaleTimeString('sr-RS')}`;
+    return `${trenutnoVreme.toLocaleDateString('sr-RS', timeZonePodesavanja)} ${trenutnoVreme.toLocaleTimeString('sr-RS', timeZonePodesavanja)}`;
 };
 
 const emptyEmbedField = () => {
@@ -34,7 +34,7 @@ const emptyEmbedField = () => {
     }
 };
 
-const timeZonePodesavanja = { timeZone: 'Europe/Belgrade' };
+
 const getFooter = (message) => {
     const trenutnoVreme = new Date();
     return {
@@ -99,6 +99,7 @@ module.exports = {
 
     msToTime,
 
+    timeZonePodesavanja,
     botAvatar,
     botID,
     errNaslov,

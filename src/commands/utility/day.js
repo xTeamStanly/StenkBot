@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { getMessageReference, getFooter, errSadrzaj, errNaslov } = require('../../lib/tools');
+const { getMessageReference, getFooter, errSadrzaj, errNaslov, timeZonePodesavanja } = require('../../lib/tools');
 const { Command } = require("yuuko");
 const { filledBar } = require('string-progressbar');
 const { getSign, getZodiac } = require('horoscope');
@@ -76,7 +76,7 @@ const day = new Command(['day', 'dan'], async (message, args, context) => {
     }
 
     try {
-new Date()
+
         //args - datum
         var datum = moment(args[0], datumFormati);
         if(!datum.isValid()) { datum = moment(new Date()); } //ako nije validan uzmi danas
@@ -92,7 +92,7 @@ new Date()
 
         var weekday = (datum.isBefore(datumGranica)) ? 'Davno...' : calculateWeekday(datum);
 
-        finalJson.title = `${datum.toDate().toLocaleDateString('sr')} (${(100 * trenutniDanUGodini/brojDanaUGodini).toFixed(2)}%) :arrow_right: ${datum.endOf('year').toDate().toLocaleDateString('sr')}`;
+        finalJson.title = `${datum.toDate().toLocaleDateString('sr-RS', timeZonePodesavanja)} (${(100 * trenutniDanUGodini/brojDanaUGodini).toFixed(2)}%) :arrow_right: ${datum.endOf('year').toDate().toLocaleDateString('sr-RS', timeZonePodesavanja)}`;
         finalJson.description = filledBar(brojDanaUGodini, trenutniDanUGodini, brojDanaUGodini)[0];
         finalJson.fields = [
             {

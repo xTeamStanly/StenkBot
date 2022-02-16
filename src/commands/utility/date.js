@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { getMessageReference, getFooter, errSadrzaj, errNaslov } = require('../../lib/tools');
+const { getMessageReference, getFooter, errSadrzaj, errNaslov, timeZonePodesavanja } = require('../../lib/tools');
 const { Command } = require("yuuko");
 
 const datumFormati = ["DD/MM/YYYY", "DD.MM.YYYY."];
@@ -29,7 +29,7 @@ const date = new Command(['date', 'datediff', 'diff', 'datum'], async (message, 
         if(prvi.isAfter(drugi)) { [prvi, drugi] = [drugi, prvi]; }
 
         finalJson.title = `Razlikuju se za ${razlika} dan/a`;
-        finalJson.description = `**${prvi.toDate().toLocaleDateString('sr')}** :arrow_right: **${drugi.toDate().toLocaleDateString('sr')}**`;
+        finalJson.description = `**${prvi.toDate().toLocaleDateString('sr-RS', timeZonePodesavanja)}** :arrow_right: **${drugi.toDate().toLocaleDateString('sr-RS', timeZonePodesavanja)}**`;
 
     } catch(err) {
         //ne verujem da ce ovo da se desi nekad, mozda ako parsuje date, ali ne verujem

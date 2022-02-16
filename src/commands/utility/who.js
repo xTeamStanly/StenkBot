@@ -1,5 +1,5 @@
 const { Command } = require("yuuko");
-const { getMessageReference, getFooter, botAvatar } = require("../../lib/tools");
+const { getMessageReference, getFooter, botAvatar, timeZonePodesavanja } = require("../../lib/tools");
 
 
 const who = new Command(['who'], async (message, args, context) => {
@@ -23,12 +23,12 @@ const who = new Command(['who'], async (message, args, context) => {
                 },
                 {
                     name: ":date: Nalog kreiran",
-                    value: new Date(user.createdAt).toLocaleString('sr-RS'),
+                    value: new Date(user.createdAt).toLocaleString('sr-RS', timeZonePodesavanja),
                     inline: false
                 },
                 {
                     name: ":clock1: Nalog se pridružio serveru",
-                    value: new Date(user.joinedAt).toLocaleString('sr-RS'),
+                    value: new Date(user.joinedAt).toLocaleString('sr-RS', timeZonePodesavanja),
                     inline: false
                 }
             ],
