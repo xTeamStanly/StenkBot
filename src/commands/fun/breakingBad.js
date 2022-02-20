@@ -2,7 +2,7 @@ const { Command } = require("yuuko");
 const axios = require('axios');
 const { getFooter, errNaslov, errSadrzaj, getMessageReference } = require("../../lib/tools");
 
-const breakingBad = new Command(['brekingbad', 'bb'], async (message, args, context) => {
+const breakingBad = new Command(['breakingbad', 'bb'], async (message, args, context) => {
     var finalJson = {
         author: { name: "Breaking Bad", url: "https://github.com/shevabam/breaking-bad-quotes" },
         color: 0x337840,

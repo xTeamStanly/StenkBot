@@ -38,10 +38,6 @@ const botStart = async (bot) => {
 			//ako jeste komanda radi cooldown logic
 			if(jesteKomanda) {
 
-				if(msg.content == '!a') {
-
-				}
-
 				//ako je user u cooldown-u ne odgovaraj mu na poruke
 				if(cooldownUserSet.has(msg.author.id)) {
 					//console.log("COOLDOWN JE AKTIVAN".red);
@@ -109,7 +105,7 @@ const botStart = async (bot) => {
 					postoviDesni.forEach(post => {
 						embedsDesni.push({
 							author: { name: 'Важна обавештења' },
-							color: 0x65BD36,
+							color: 0x66F442,
 							title: post.naslov,
 							description: post.sadrzaj,
 							url: post.link,
@@ -139,7 +135,7 @@ const botStart = async (bot) => {
 							author: { name: 'Најновије вести' },
 							title: post.naslov,
 							description: post.sadrzaj,
-							color: 0xA3D433,
+							color: 0x41662D,
 							url: post.link,
 							thumbnail: { url: 'https://i.imgur.com/dyu12dZ.png' }
 							// footer: { text: post.link }
